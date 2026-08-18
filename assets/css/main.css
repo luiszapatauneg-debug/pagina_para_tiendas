@@ -3096,3 +3096,40 @@ section {
 section header.major {
     margin-bottom: 15px !important;
 }
+
+/* --- ESTILOS PERSONALIZADOS PARA EL MODAL --- */
+
+/* Botón de cerrar (la X) */
+.btn-cerrar {
+    background: #ff4d4d !important; /* Color de fondo rojo (cámbialo si quieres) */
+    color: #ffffff !important;      /* Color de la "X" */
+    border: none !important;
+    border-radius: 50% !important;  /* Hace que el botón sea redondo */
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-cerrar:hover {
+    background: #ff1a1a !important; /* Color más oscuro cuando pasas el mouse por encima */
+}
+
+/* Botón de Agregar al carrito dentro del modal */
+#modal-btn-comprar {
+    background-color: #28a745 !important; /* Color verde tipo tienda */
+    color: #ffffff !important;
+    padding: 12px 25px !important;
+    font-weight: bold;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#modal-btn-comprar:hover {
+    background-color: #218838 !important; /* Verde más oscuro al pasar el mouse */
+}
