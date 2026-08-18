@@ -1,0 +1,236 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const billboard = document.getElementById('billboard-principal');
+    const tituloSeccion = document.querySelector('section > header.major > h2');
+
+    // 1. Leer qué categoría viene en la URL
+    const params = new URLSearchParams(window.location.search);
+    const categoriaFiltro = params.get('cat');
+
+    // --- MOSTRAR U OCULTAR EL BILLBOARD SEGÚN LA PÁGINA ---
+    if (billboard) {
+        if (!categoriaFiltro || categoriaFiltro === "todos") {
+            billboard.style.display = 'block';
+            document.body.classList.add('pagina-inicio');
+        } else {
+            billboard.style.display = 'none';
+            document.body.classList.remove('pagina-inicio');
+        }
+    }
+
+    // Diccionario de títulos para la tienda
+    const nombresCategorias = {
+        "rones": "🍾 Rones y Bebidas",
+        "cervezas": "🍻 Cervezas",
+        "vinos": "🍷 Vinos",
+        "whiskeys": "🥃 Whiskeys",
+        "camisas": "👕 Camisas y Ropa",
+        "ofertas": "🔥 Ofertas Destacadas y Combos",
+        "todos": "📦 Catálogo Completo"
+    };
+
+    // 2. Poner el título principal según la categoría
+    if (tituloSeccion) {
+        const catBusqueda = categoriaFiltro ? categoriaFiltro.toLowerCase() : "";
+        
+        if (catBusqueda && nombresCategorias[catBusqueda]) {
+            tituloSeccion.textContent = nombresCategorias[catBusqueda];
+        } else if (!catBusqueda || catBusqueda === "todos") {
+            tituloSeccion.textContent = "🔥 Ofertas Destacadas y Disponibles";
+        } else {
+            tituloSeccion.textContent = "Catálogo de " + categoriaFiltro.charAt(0).toUpperCase() + categoriaFiltro.slice(1);
+        }
+    }
+
+    // 3. Función global y reutilizable para pintar productos
+    window.renderizarProductosEnContenedor = function(idContenedor, lista) {
+        const contenedor = document.getElementById(idContenedor);
+        if (!contenedor) return;
+
+        contenedor.innerHTML = "";
+        
+        if (lista.length === 0) {
+            contenedor.innerHTML = "<p>No hay productos disponibles por el momento.</p>";
+            return;
+        }
+
+        lista.forEach(prod => {
+            let htmlPrecio = prod.precioTachado
+                ? `Precio normal: <span class="precio-tachado">$${prod.precioTachado}</span> <span class="precio-oferta">¡Oferta: $${prod.precio}!</span>`
+                : `Precio: $${prod.precio}`;
+
+            let article = document.createElement('article');
+            article.innerHTML = `
+                <a href="javascript:void(0)" class="image" onclick="abrirModal('${prod.id}')"><img src="${prod.imagen}" alt="${prod.nombre}" /></a>
+                <h3><a href="javascript:void(0)" onclick="abrirModal('${prod.id}')" style="text-decoration:none; color:inherit;">${prod.nombre}</a></h3>
+                <p class="precio-producto">${htmlPrecio}</p>
+                <ul class="actions" style="margin-top: 10px; padding: 0; list-style: none; width: 100%;">
+                    <li style="width: 100%;">
+                        <button onclick="agregarAlCarritoPorId('${prod.id}')" class="btn-comprar">Agregar 🛒</button>
+                    </li>
+                </ul>
+            `;
+            contenedor.appendChild(article);
+        });
+    };
+
+    // 4. Capturar elementos de la Interfaz
+    const contenedorOfertas = document.getElementById('contenedor-ofertas');
+    const contenedorCamisas = document.getElementById('contenedor-camisas');
+    
+    // Contenedores envolventes <section> completos para ocultarlos o mostrarlos fácilmente
+    const seccionOfertasHtml = contenedorOfertas ? contenedorOfertas.closest('section') : null;
+    const seccionCamisasHtml = contenedorCamisas ? contenedorCamisas.closest('section') : null;
+
+    const btnVerMasOfertas = document.getElementById('seccion-ver-mas');
+    const btnVerMasCamisas = document.getElementById('seccion-ver-mas-camisas');
+
+    if (categoriaFiltro) {
+        // --- VISTA DE CATEGORÍA ESPECÍFICA ---
+        const catLimpia = categoriaFiltro.toLowerCase().trim();
+        let productosAMostrar = productosData;
+
+        if (catLimpia === "ofertas") {
+            productosAMostrar = productosData.filter(p => p.precioTachado || p.categoria === "ofertas");
+        } else if (catLimpia === "todo" || catLimpia === "todos") {
+            productosAMostrar = productosData;
+        } else {
+            productosAMostrar = productosData.filter(p => p.categoria && p.categoria.toLowerCase() === catLimpia);
+        }
+
+        // Usamos la sección de ofertas para mostrar el resultado del filtro y ocultamos la de camisas
+        if (contenedorOfertas) {
+            window.renderizarProductosEnContenedor('contenedor-ofertas', productosAMostrar);
+        }
+        if (seccionCamisasHtml) {
+            seccionCamisasHtml.style.display = 'none'; // Se esconde la sección de camisas en modo categoría
+        }
+
+        // Ocultar botones de "Ver más" cuando ya estás dentro de una categoría
+        if (btnVerMasOfertas) btnVerMasOfertas.style.display = 'none';
+        if (btnVerMasCamisas) btnVerMasCamisas.style.display = 'none';
+
+    } else {
+        // --- VISTA DE LA PÁGINA PRINCIPAL (HOME) ---
+        if (seccionOfertasHtml) seccionOfertasHtml.style.display = 'block';
+        if (seccionCamisasHtml) seccionCamisasHtml.style.display = 'block';
+
+        // Llenar Carrusel 1: Ofertas (primeros 4)
+        if (contenedorOfertas) {
+            let ofertasInicio = productosData.filter(p => p.precioTachado || p.categoria === "ofertas");
+            window.renderizarProductosEnContenedor('contenedor-ofertas', ofertasInicio.slice(0, 4));
+        }
+
+        // Llenar Carrusel 2: Camisas
+        if (contenedorCamisas) {
+            let camisasInicio = productosData.filter(p => p.categoria && p.categoria.toLowerCase() === "camisas");
+            window.renderizarProductosEnContenedor('contenedor-camisas', camisasInicio);
+        }
+
+        // Mostrar botones de "Ver más" únicamente en el Home
+        if (btnVerMasOfertas) btnVerMasOfertas.style.display = 'block';
+        if (btnVerMasCamisas) btnVerMasCamisas.style.display = 'block';
+    }
+}); // <--- Fin del DOMContentLoaded
+
+
+// --- LÓGICA DEL MODAL DE DETALLES Y MINIATURAS ---
+function abrirModal(id) {
+    const producto = productosData.find(p => p.id === id);
+    if (!producto) return;
+
+    document.getElementById('modal-img').src = producto.imagen;
+    document.getElementById('modal-titulo').textContent = producto.nombre;
+    document.getElementById('modal-descripcion').textContent = producto.descripcion;
+   
+    let htmlDetalles = producto.detalles ? producto.detalles.map(det => `<li>${det}</li>`).join('') : '';
+    document.getElementById('modal-detalles').innerHTML = htmlDetalles;
+   
+    let htmlPrecio = producto.precioTachado
+        ? `Precio normal: <span class="precio-tachado">$${producto.precioTachado}</span> <span class="precio-oferta">¡Oferta: $${producto.precio}!</span>`
+        : `Precio: $${producto.precio}`;
+    document.getElementById('modal-precio').innerHTML = htmlPrecio;
+
+    const existingSelectors = document.getElementById('selector-opciones-dinamico');
+    if (existingSelectors) existingSelectors.remove();
+
+    let opcionesHTML = `<div id="selector-opciones-dinamico" style="margin: 15px 0;">`;
+
+    if (producto.tallas && producto.tallas.length > 0) {
+        opcionesHTML += `
+            <div style="margin-bottom:10px;">
+                <label><strong>Talla:</strong></label>
+                <select id="modal-select-talla" style="width:100%; padding:8px; margin-top:5px;">
+                    ${producto.tallas.map(t => `<option value="${t}">${t}</option>`).join('')}
+                </select>
+            </div>`;
+    }
+
+   if (producto.colores && producto.colores.length > 0) {
+        opcionesHTML += `
+            <div style="margin-bottom:10px;">
+                <label><strong>Color:</strong></label>
+                <div id="modal-select-color" style="display:flex; gap:10px; margin-top:5px;">
+                    ${producto.colores.map(c => `
+                        <div class="color-circle" data-color="${c.nombre}" 
+                             style="width:30px; height:30px; border-radius:50%; background-color:${c.hex}; border:2px solid #ccc; cursor:pointer;"
+                             onclick="marcarColor(this, '${c.nombre}', '${c.foto}')"
+                             title="${c.nombre}">
+                        </div>
+                    `).join('')}
+                </div>
+            </div>`;
+    }
+    opcionesHTML += `</div>`;
+    document.getElementById('modal-descripcion').insertAdjacentHTML('afterend', opcionesHTML);
+
+    const contenedorMiniaturas = document.getElementById('modal-miniaturas');
+    if (contenedorMiniaturas) {
+        contenedorMiniaturas.innerHTML = '';
+        if (producto.fotosExtras && producto.fotosExtras.length > 0) {
+            producto.fotosExtras.forEach(foto => {
+                const imgMini = document.createElement('img');
+                imgMini.src = foto;
+                imgMini.style.width = '60px';
+                imgMini.style.height = '60px';
+                imgMini.style.objectFit = 'cover';
+                imgMini.style.borderRadius = '6px';
+                imgMini.style.cursor = 'pointer';
+                imgMini.onclick = () => { document.getElementById('modal-img').src = foto; };
+                contenedorMiniaturas.appendChild(imgMini);
+            });
+        }
+    }
+
+    const btnComprar = document.getElementById('modal-btn-comprar');
+    btnComprar.onclick = () => {
+        const talla = document.getElementById('modal-select-talla') ? document.getElementById('modal-select-talla').value : null;
+        const color = window.colorSeleccionado || null;
+        
+        agregarAlCarritoPorId(producto.id, talla, color); 
+        cerrarModal();
+    };
+
+    document.getElementById('modal-producto').style.display = 'flex';
+}
+
+window.marcarColor = function(elemento, nombreColor, fotoColor) {
+    window.colorSeleccionado = nombreColor;
+    document.querySelectorAll('.color-circle').forEach(el => el.style.borderColor = '#ccc');
+    elemento.style.borderColor = '#000'; 
+
+    if (fotoColor) {
+        document.getElementById('modal-img').src = fotoColor;
+    }
+};
+
+function cerrarModal() {
+    document.getElementById('modal-producto').style.display = 'none';
+}
+
+document.addEventListener('click', (e) => {
+    const modal = document.getElementById('modal-producto');
+    const btnCerrar = document.getElementById('cerrar-modal');
+    if (modal && (e.target === modal || e.target === btnCerrar)) {
+        cerrarModal();
+    }
+});
