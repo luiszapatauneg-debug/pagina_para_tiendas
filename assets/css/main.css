@@ -3118,18 +3118,29 @@ section header.major {
     background: #ff1a1a !important; /* Color más oscuro cuando pasas el mouse por encima */
 }
 
-/* Botón de Agregar al carrito dentro del modal */
-#modal-btn-comprar {
-    background-color: #28a745 !important; /* Color verde tipo tienda */
-    color: #ffffff !important;
-    padding: 12px 25px !important;
-    font-weight: bold;
-    border-radius: 6px;
-    border: none;
+/* --- ESTILOS DEFINITIVOS PARA BOTONES DEL MODAL --- */
+
+/* 1. Botón de cerrar la "X" */
+.modal-contenido .btn-cerrar {
+    background-color: #333 !important; /* Cambia a tu gusto */
+    color: white !important;
+    border: 1px solid #555 !important;
+    padding: 5px 10px !important;
     cursor: pointer;
-    transition: background 0.3s ease;
 }
 
-#modal-btn-comprar:hover {
-    background-color: #218838 !important; /* Verde más oscuro al pasar el mouse */
+/* 2. Botón de agregar al carrito dentro del modal */
+#modal-btn-comprar.btn-comprar {
+    background-color: #007bff !important; /* Azul o el color que quieras para tu tienda */
+    color: #ffffff !important;
+    border: none !important;
+    padding: 15px 30px !important;
+    font-size: 1rem !important;
+    width: 100% !important; /* Para que sea grande y llamativo */
+    display: block !important;
+}
+
+/* Efecto al pasar el mouse */
+#modal-btn-comprar.btn-comprar:hover {
+    background-color: #0056b3 !important;
 }
