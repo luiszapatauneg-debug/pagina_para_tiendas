@@ -2745,7 +2745,7 @@ html, body {
     max-width: 100% !important;
     position: relative !important;
     /* Usamos aspect-ratio basado en tus medidas reales (701x254) para que nunca se deforme */
-    aspect-ratio: 701 / 254 !important; 
+    aspect-ratio: 800 / 240 !important; 
     max-height: 380px !important; /* Tope máximo para que en PC gigantes no sea un monstruo */
     scroll-snap-align: start !important;
 }
@@ -2825,6 +2825,19 @@ section > header.major::after {
     background: transparent !important;
     box-shadow: none !important;
     height: 0 !important;
+}
+
+/* --- CORRECCIÓN PARA EL MENÚ DESPLEGABLE EN PC --- */
+#sidebar #menu ul ul {
+    display: none; /* El script de HTML5 UP lo maneja dinámicamente */
+}
+
+#sidebar #menu li.active > ul {
+    display: block !important;
+}
+
+#sidebar .opener {
+    cursor: pointer !important;
 }
 
 /* Forzar que el contenedor principal de la tienda no tenga bordes extraños arriba */
