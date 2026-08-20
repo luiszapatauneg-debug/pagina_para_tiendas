@@ -2744,7 +2744,7 @@ html, body {
     min-width: 100% !important;
     max-width: 100% !important;
     position: relative !important;
-    height: 270px !important; /* <--- Aumentamos esto para hacerlo más alto */
+    height: 300px !important; /* <--- Aumentamos esto para hacerlo más alto */
     scroll-snap-align: start !important;
 }
 
