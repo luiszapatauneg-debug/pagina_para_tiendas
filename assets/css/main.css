@@ -2969,7 +2969,7 @@ button,
 }
 
 .billboard-content .button {
-    background-color: #2a4c74 !important;
+    background-color: #0f0f0f !important;
     color: #ffffff !important;
     padding: 6px 12px !important;
     border-radius: 4px;
@@ -3005,6 +3005,13 @@ button,
         padding: 10px 18px !important;
         font-size: 0.85rem;
     }
+}
+
+.billboard-slide img {
+    width: 100% !important;
+    height: 400px !important; /* Puedes ajustar esta altura según prefieras */
+    object-fit: cover !important; /* Mantiene la proporción, pero llena el espacio */
+    object-position: center !important; /* Centra la imagen para que se vea lo más importante */
 }
 
 .billboard-container, 
@@ -3174,4 +3181,49 @@ section header.major {
 /* Efecto al pasar el mouse */
 #modal-btn-comprar.btn-comprar:hover {
     background-color: #0056b3 !important;
+}
+
+/* Estilos modernos para los productos del carrito */
+.carrito-item-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.carrito-item-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.carrito-info-controls {
+    flex-grow: 1;
+}
+
+.carrito-botones-cantidad {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.btn-cantidad {
+    background: #f4f4f4;
+    border: none;
+    padding: 5px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.btn-eliminar {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #000000;
+    font-size: 1.2em;
 }

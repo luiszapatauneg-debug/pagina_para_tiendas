@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 3. Función global y reutilizable para pintar productos
+    // 3. Función global para pintar productos en un contenedor específico
     window.renderizarProductosEnContenedor = function(idContenedor, lista) {
         const contenedor = document.getElementById(idContenedor);
         if (!contenedor) return;
@@ -73,11 +73,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // 4. Capturar elementos de la Interfaz
+    // 4. FUNCIÓN PUENTE: Para que el buscador y los filtros usen el contenedor principal sin romper nada
+    window.mostrarProductos = function(lista) {
+        window.renderizarProductosEnContenedor('contenedor-ofertas', lista);
+    };
+
+    // 5. Capturar elementos de la Interfaz
     const contenedorOfertas = document.getElementById('contenedor-ofertas');
     const contenedorCamisas = document.getElementById('contenedor-camisas');
     
-    // Contenedores envolventes <section> completos para ocultarlos o mostrarlos fácilmente
     const seccionOfertasHtml = contenedorOfertas ? contenedorOfertas.closest('section') : null;
     const seccionCamisasHtml = contenedorCamisas ? contenedorCamisas.closest('section') : null;
 
@@ -97,15 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
             productosAMostrar = productosData.filter(p => p.categoria && p.categoria.toLowerCase() === catLimpia);
         }
 
-        // Usamos la sección de ofertas para mostrar el resultado del filtro y ocultamos la de camisas
         if (contenedorOfertas) {
             window.renderizarProductosEnContenedor('contenedor-ofertas', productosAMostrar);
         }
         if (seccionCamisasHtml) {
-            seccionCamisasHtml.style.display = 'none'; // Se esconde la sección de camisas en modo categoría
+            seccionCamisasHtml.style.display = 'none';
         }
 
-        // Ocultar botones de "Ver más" cuando ya estás dentro de una categoría
         if (btnVerMasOfertas) btnVerMasOfertas.style.display = 'none';
         if (btnVerMasCamisas) btnVerMasCamisas.style.display = 'none';
 
@@ -114,23 +116,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (seccionOfertasHtml) seccionOfertasHtml.style.display = 'block';
         if (seccionCamisasHtml) seccionCamisasHtml.style.display = 'block';
 
-        // Llenar Carrusel 1: Ofertas (primeros 4)
         if (contenedorOfertas) {
             let ofertasInicio = productosData.filter(p => p.precioTachado || p.categoria === "ofertas");
             window.renderizarProductosEnContenedor('contenedor-ofertas', ofertasInicio.slice(0, 4));
         }
 
-        // Llenar Carrusel 2: Camisas
         if (contenedorCamisas) {
             let camisasInicio = productosData.filter(p => p.categoria && p.categoria.toLowerCase() === "camisas");
             window.renderizarProductosEnContenedor('contenedor-camisas', camisasInicio);
         }
 
-        // Mostrar botones de "Ver más" únicamente en el Home
         if (btnVerMasOfertas) btnVerMasOfertas.style.display = 'block';
         if (btnVerMasCamisas) btnVerMasCamisas.style.display = 'block';
     }
-}); // <--- Fin del DOMContentLoaded
+});
 
 
 // --- LÓGICA DEL MODAL DE DETALLES Y MINIATURAS ---

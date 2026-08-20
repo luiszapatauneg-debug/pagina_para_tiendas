@@ -4,7 +4,7 @@ const productosData = [
     {
        id: "ron-cacique-500ml",
         nombre: "Ron Cacique 500 años 500ml",
-        precio: 14.50,
+        precio: 10.50,
         precioTachado: 15,
         categoria: "rones" ,
         imagen: "images/casique_500años.jpg", // Asegúrate de guardar la imagen en esa carpeta
@@ -70,35 +70,37 @@ const productosData = [
         ]
     },
 
-    {
+{
     id: "camisa-urbana-01",
-    nombre: "Camisa Oversize Premium",
-    precio: 25.00,
+    nombre: "Camisa  ",
+    precio: 2.00,
     categoria: "camisas",
+    marca: "zara", // <--- 1. Agrega la marca en minúsculas para que el filtro la detecte
     imagen: "images/ropa_uno.jpg",
     fotosExtras: ["images/ropa_dos.jpg", "images/ropa_tres.jpg", "images/ropa_uno.jpg"],
     tallas: ["S", "M", "L", "XL"],
     colores: [
-       { nombre: "Negro", hex: "#000000", foto: "images/ropa_uno.jpg" },
-        { nombre: "Blanco", hex: "#FFFFFF", foto: "images/ropa_dos.jpg" },
-        { nombre: "Gris", hex: "#808080", foto: "images/ropa_tres.jpg" }
+        { nombre: "negro", hex: "#000000", foto: "images/ropa_uno.jpg" },  // <--- 2. Pon los nombres de los colores en minúsculas (ej: "negro", "blanco")
+        { nombre: "blanco", hex: "#FFFFFF", foto: "images/ropa_dos.jpg" },
+        { nombre: "gris", hex: "#808080", foto: "images/ropa_tres.jpg" }
     ],
     descripcion: "Algodón de alta densidad, corte boxy fit.",
     detalles: ["Material: 100% Algodón", "Peso: 250gsm"]
 },
 
  {
-    id: "camisa-urbana-01",
-    nombre: "Camisa Oversize Premium",
-    precio: 25.00,
+    id: "camisa-prada-01",
+    nombre: "camisa Oversize prada",
+    precio: 28.00,
     categoria: "camisas",
+    marca: "nike", // <--- 1. Agrega la marca en minúsculas para que el filtro la detecte
     imagen: "images/ropa_uno.jpg",
     fotosExtras: ["images/ropa_dos.jpg", "images/ropa_tres.jpg", "images/ropa_uno.jpg"],
     tallas: ["S", "M", "L", "XL"],
     colores: [
-       { nombre: "Negro", hex: "#000000", foto: "images/ropa_uno.jpg" },
-        { nombre: "Blanco", hex: "#FFFFFF", foto: "images/ropa_dos.jpg" },
-        { nombre: "Gris", hex: "#808080", foto: "images/ropa_tres.jpg" }
+        { nombre: "negro", hex: "#000000", foto: "images/ropa_uno.jpg" },  // <--- 2. Pon los nombres de los colores en minúsculas (ej: "negro", "blanco")
+        { nombre: "blanco", hex: "#FFFFFF", foto: "images/ropa_dos.jpg" },
+        { nombre: "gris", hex: "#808080", foto: "images/ropa_tres.jpg" }
     ],
     descripcion: "Algodón de alta densidad, corte boxy fit.",
     detalles: ["Material: 100% Algodón", "Peso: 250gsm"]

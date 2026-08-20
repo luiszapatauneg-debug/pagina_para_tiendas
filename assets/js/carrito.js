@@ -5,87 +5,46 @@
 // 1. Sincronizar todos los precios del carrito con la lista maestra (PRODUCTOS.JS)
 
 function sincronizarPreciosCarrito() {
-
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-
     let carritoModificado = false;
 
-
-
+    // --- SEGURIDAD: Si no existen datos, no hagas nada y sal de la función ---
     let listaProductos = typeof productosData !== 'undefined' ? productosData : (typeof productos !== 'undefined' ? productos : []);
-
-
-
-    if (listaProductos.length > 0) {
-
-        carrito.forEach(item => {
-
-            let productoOficial = null;
-
-
-
-            // 1. Primero intentamos buscar por ID (si el producto lo tiene guardado)
-
-            if (item.id) {
-
-                productoOficial = listaProductos.find(p => p.id === item.id);
-
-            }
-
-
-
-            // 2. Si no tiene ID o no se encontró, buscamos por nombre normalizando espacios/minúsculas
-
-            if (!productoOficial && item.nombre) {
-
-                let nombreItem = item.nombre.toLowerCase().trim();
-
-                productoOficial = listaProductos.find(p => p.nombre.toLowerCase().trim() === nombreItem);
-
-            }
-
-           
-
-            if (productoOficial) {
-
-                let precioOficial = parseFloat(productoOficial.precio);
-
-               
-
-                // Si el precio o el nombre oficial cambiaron en la lista maestra, los actualizamos
-
-                if (parseFloat(item.precio) !== precioOficial || item.nombre !== productoOficial.nombre) {
-
-                    console.log(`Actualizando ${productoOficial.nombre}: precio viejo ${item.precio} -> nuevo ${precioOficial}`);
-
-                    item.precio = precioOficial;
-
-                    item.nombre = productoOficial.nombre; // Sincroniza el nombre automáticamente
-
-                    item.id = productoOficial.id;         // Asegura que guarde el ID
-
-                    carritoModificado = true;
-
-                }
-
-            } else {
-
-                console.warn(`No se encontró el producto "${item.nombre}" en la lista maestra.`);
-
-            }
-
-        });
-
+    
+    // Si listaProductos está vacío, detenemos la ejecución aquí mismo sin errores
+    if (!listaProductos || listaProductos.length === 0) {
+        console.warn("La lista de productos aún no está disponible para sincronizar.");
+        return; 
     }
 
+    carrito.forEach(item => {
+        let productoOficial = null;
 
+        if (item.id) {
+            productoOficial = listaProductos.find(p => p.id === item.id);
+        }
+
+        if (!productoOficial && item.nombre) {
+            let nombreItem = item.nombre.toLowerCase().trim();
+            productoOficial = listaProductos.find(p => p.nombre && p.nombre.toLowerCase().trim() === nombreItem);
+        }
+        
+        if (productoOficial) {
+            let precioOficial = parseFloat(productoOficial.precio);
+            
+            if (parseFloat(item.precio) !== precioOficial || item.nombre !== productoOficial.nombre) {
+                console.log(`Actualizando ${productoOficial.nombre}: precio viejo ${item.precio} -> nuevo ${precioOficial}`);
+                item.precio = precioOficial;
+                item.nombre = productoOficial.nombre;
+                item.id = productoOficial.id;
+                carritoModificado = true;
+            }
+        }
+    });
 
     if (carritoModificado) {
-
         localStorage.setItem('carrito', JSON.stringify(carrito));
-
     }
-
 }
 
 // 2. Función unificada para agregar al carrito
@@ -170,36 +129,48 @@ function agregarAlCarrito(nombre, precio) {
 
 
 
-// 3. Función por ID
-
-function agregarAlCarritoPorId(idProducto) {
-
+// 3. Función unificada (Soporta ID, talla y color)
+window.agregarAlCarritoPorId = function(idProducto, talla = null, color = null) {
     let listaProductos = typeof productosData !== 'undefined' ? productosData : (typeof productos !== 'undefined' ? productos : null);
-
-   
-
+    
     if (!listaProductos) {
-
         console.error("No se encuentra la lista de productos.");
-
         return;
-
     }
-
+    
     let productoOficial = listaProductos.find(p => p.id === idProducto);
-
+    
     if (productoOficial) {
-
-        agregarAlCarrito(productoOficial.nombre, productoOficial.precio);
-
+        // Obtenemos los datos base
+        let nombre = productoOficial.nombre;
+        let precio = parseFloat(productoOficial.precio);
+        
+        // --- LÓGICA DE AGREGAR AL CARRITO CON EXTRAS ---
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        
+        // Creamos un identificador único que incluya talla y color para no mezclar productos
+        let idUnico = idProducto + (talla ? `-${talla}` : '') + (color ? `-${color}` : '');
+        
+        let productoExistente = carrito.find(item => item.idUnico === idUnico);
+        
+        if (productoExistente) {
+            productoExistente.cantidad += 1;
+        } else {
+            carrito.push({
+                idUnico: idUnico, // Identificador único
+                id: idProducto,
+                nombre: nombre + (talla ? ` (${talla})` : '') + (color ? ` [${color}]` : ''),
+                precio: precio,
+                cantidad: 1
+            });
+        }
+        
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        alert(`¡"${nombre}" fue agregado al carrito! 🛒`);
     } else {
-
         alert("Producto no encontrado en la base de datos.");
-
     }
-
-}
-
+};
 
 
 // 4. Disminuir cantidad
@@ -261,139 +232,56 @@ function eliminarDelCarrito(index) {
 // 7. Renderizar carrito visualmente
 
 function renderizarCarritoVisual() {
-
     let contenedor = document.getElementById('tabla-carrito-container');
-
     if (!contenedor) return;
 
-
-
-    // Sincronizamos precios ANTES de pintar cualquier cosa
-
     sincronizarPreciosCarrito();
-
-
-
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-
-
+    let listaProductos = typeof productosData !== 'undefined' ? productosData : [];
 
     if (carrito.length === 0) {
-
-        contenedor.innerHTML = `<p style="text-align: center; color: #888;">Tu carrito está vacío actualmente. 🛒</p>`;
-
+        contenedor.innerHTML = `<p style="text-align:center; padding: 20px;">Tu carrito está vacío.</p>`;
         return;
-
     }
 
-
-
-    let html = `
-
-        <div class="table-wrapper">
-
-            <table class="alt">
-
-                <thead>
-
-                    <tr>
-
-                        <th>Producto</th>
-
-                        <th>Precio Unit.</th>
-
-                        <th>Cantidad</th>
-
-                        <th>Subtotal</th>
-
-                        <th>Acciones</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-    `;
-
-
-
+    let html = `<div class="carrito-items-list">`;
     let totalGeneral = 0;
 
-
-
     carrito.forEach((item, index) => {
-
-        let subtotal = item.precio * item.cantidad;
-
-        totalGeneral += subtotal;
-
-
+        totalGeneral += (item.precio * item.cantidad);
+        let productoOficial = listaProductos.find(p => p.id === item.id);
+        let imagen = productoOficial ? productoOficial.imagen : 'images/default.jpg';
 
         html += `
-
-            <tr>
-
-                <td>${item.nombre}</td>
-
-                <td>$${item.precio}</td>
-
-                <td>
-
-                    <div class="control-cantidad">
-
-                        <button onclick="disminuirCantidad(${index})" class="btn-restar">-</button>
-
-                        <span class="numero-cantidad">${item.cantidad}</span>
-
-                        <button onclick="aumentarCantidad(${index})" class="btn-sumar">+</button>
-
+            <div class="carrito-item-card">
+                <img src="${imagen}" alt="${item.nombre}">
+                <div class="carrito-info-controls">
+                    <h4 style="margin:0;">${item.nombre}</h4>
+                    <p style="margin:0; color: #666;">$${item.precio} USD</p>
+                    <div class="carrito-botones-cantidad">
+                        <button class="btn-cantidad" onclick="disminuirCantidad(${index})">-</button>
+                        <span>${item.cantidad}</span>
+                        <button class="btn-cantidad" onclick="aumentarCantidad(${index})">+</button>
                     </div>
-
-                </td>
-
-                <td>$${subtotal}</td>
-
-                <td>
-
-                    <button onclick="eliminarDelCarrito(${index})" class="btn-eliminar" title="Eliminar producto">🗑️</button>
-
-                </td>
-
-            </tr>
-
+                </div>
+                <div style="text-align: right;">
+                    <button class="btn-eliminar" onclick="eliminarDelCarrito(${index})">🗑️</button>
+                    <p style="font-weight:bold; margin:0;">$${(item.precio * item.cantidad).toFixed(2)}</p>
+                </div>
+            </div>
         `;
-
     });
-
-
-
+    
+    html += `</div>`;
+    
+    // Si estás en la página del carrito, podrías querer mostrar el total abajo
     html += `
-
-                </tbody>
-
-                <tfoot>
-
-                    <tr>
-
-                        <td colspan="3" style="text-align: right; font-weight: bold;">Total a Pagar:</td>
-
-                        <td colspan="2" style="font-weight: bold; color: #f56a6a; font-size: 1.2em;">$${totalGeneral} USD</td>
-
-                    </tr>
-
-                </tfoot>
-
-            </table>
-
+        <div style="margin-top: 20px; text-align: right;">
+            <h3>Total: $${totalGeneral.toFixed(2)} USD</h3>
         </div>
-
     `;
 
-
-
     contenedor.innerHTML = html;
-
 }
 
 

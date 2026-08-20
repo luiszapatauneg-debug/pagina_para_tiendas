@@ -5,84 +5,75 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!inputBusqueda) return;
 
-    // Función auxiliar para cerrar cualquier panel o menú flotante de búsqueda abierto
+    // Función auxiliar para cerrar el menú visual
     function cerrarMenuBusqueda() {
         inputBusqueda.blur();
-        
-        // Intentamos cerrar contenedores comunes de plantillas móviles
-        // (Busca elementos que controlen la visibilidad del buscador o menús flotantes)
         const panelBusqueda = inputBusqueda.closest('.search-panel, #searchPanel, .search-modal, form');
         if (panelBusqueda) {
             panelBusqueda.classList.remove('active', 'visible', 'open');
         }
-
-        // Por si la plantilla usa un botón de cierre general o clases en el body/header
         document.body.classList.remove('search-visible', 'is-search-visible');
-        
-        // Disparar un clic simulado en el fondo o body para quitar el foco de la interfaz móvil
-        document.body.click();
     }
 
-    // --- SOLUCIÓN AL ENTER Y AL PANEL FLOTANTE ---
     if (formulario) {
         formulario.addEventListener('submit', (e) => {
-            e.preventDefault(); // Evita que recargue la página
-            cerrarMenuBusqueda(); // Cierra teclado y oculta el panel flotante
+            e.preventDefault();
+            cerrarMenuBusqueda();
         });
     }
 
-    // Por si acaso presionan Enter directamente en el input
     inputBusqueda.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            cerrarMenuBusqueda(); // Cierra teclado y oculta el panel flotante
+            cerrarMenuBusqueda();
         }
     });
-    
+
+    // --- LÓGICA DE BÚSQUEDA ---
     inputBusqueda.addEventListener('input', (e) => {
         const termino = e.target.value.toLowerCase().trim();
         
-        // Si borra la búsqueda, recargamos la página o restauramos el estado inicial de la categoría
+        // Elementos a controlar para evitar el "bug" visual
+        const billboard = document.getElementById('billboard-principal');
+        const contenedorCamisas = document.getElementById('contenedor-camisas');
+        const seccionCamisas = contenedorCamisas ? contenedorCamisas.closest('section') : null;
+        const btnVerMasOfertas = document.getElementById('seccion-ver-mas');
+        const btnVerMasCamisas = document.getElementById('seccion-ver-mas-camisas');
+
+        // 1. SI ESTÁ VACÍO: Restaurar vista original
         if (termino === "") {
-            const params = new URLSearchParams(window.location.search);
-            const categoriaFiltro = params.get('cat');
+            if (billboard) billboard.style.display = 'block';
+            if (seccionCamisas) seccionCamisas.style.display = 'block';
+            if (btnVerMasOfertas) btnVerMasOfertas.style.display = 'block';
+            if (btnVerMasCamisas) btnVerMasCamisas.style.display = 'block';
             
-            // Recargamos los productos de la categoría actual o todos
-            let productosAMostrar = categoriaFiltro ? productosData.filter(p => p.categoria === categoriaFiltro) : productosData;
-            
-            // Restaurar título original
-            if (tituloSeccion) {
-                const nombresCategorias = {
-                    "cpus": "🖥️ CPUs y Computadoras de Escritorio",
-                    "laptops": "💻 Laptops Disponibles",
-                    "procesadores": "⚙️ Procesadores",
-                    "rones": "🍾 Rones y Bebidas",
-                    "combos": "🔥 Combos Especiales"
-                };
-                tituloSeccion.textContent = (categoriaFiltro && nombresCategorias[categoriaFiltro]) ? nombresCategorias[categoriaFiltro] : "🔥 Ofertas Destacadas y Disponibles";
-            }
-            
-            if (typeof mostrarProductos === 'function') {
-                mostrarProductos(productosAMostrar);
-            }
+            // Recargar para limpiar cualquier residuo de CSS o estado
+            location.reload(); 
             return;
         }
 
-        // --- BÚSQUEDA INTELIGENTE Y GLOBAL ---
-        // Ahora busca en nombre, descripción, tags Y en la lista de detalles del producto
+        // 2. SI HAY TÉRMINO: Ocultar todo lo innecesario
+        if (billboard) billboard.style.display = 'none';
+        if (seccionCamisas) seccionCamisas.style.display = 'none';
+        if (btnVerMasOfertas) btnVerMasOfertas.style.display = 'none';
+        if (btnVerMasCamisas) btnVerMasCamisas.style.display = 'none';
+
+        // 3. Filtrar productos
         const filtrados = productosData.filter(prod => {
             let textoDetalles = prod.detalles ? prod.detalles.join(' ') : '';
-            const textoCompleto = `${prod.nombre} ${prod.descripcion} ${prod.tags} ${textoDetalles}`.toLowerCase();
+            let textoTags = prod.tags ? prod.tags : '';
+            let textoMarca = prod.marca ? prod.marca : '';
+            const textoCompleto = `${prod.nombre} ${prod.descripcion} ${textoTags} ${textoMarca} ${textoDetalles}`.toLowerCase();
             
             return textoCompleto.includes(termino);
         });
 
-        // Cambiar el título dinámicamente al buscar
+        // 4. Actualizar título
         if (tituloSeccion) {
             tituloSeccion.textContent = `🔍 Resultados para: "${termino}"`;
         }
 
-        // Mostrar resultados usando la función global
+        // 5. Renderizar
         if (typeof mostrarProductos === 'function') {
             mostrarProductos(filtrados);
         }

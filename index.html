@@ -43,10 +43,10 @@
     <div class="billboard-track">
         <!-- Banner 1 -->
         <div class="billboard-slide">
-            <img src="images/pic03.jpg" alt="Lo mejor para el hogar">
+            <img src="images/banner_camisa_uno.png" alt="Lo mejor para el hogar">
             <div class="billboard-content">
-                <h2>LO MEJOR PARA EL HOGAR</h2>
-                <a href="#catalogo" class="button">EXPLORA</a>
+                <h2>LO MEJOR EN ROPA</h2>
+                <a href="index.html?cat=camisas" class="button">EXPLORA</a>
             </div>
         </div>
         <!-- Banner 2 (Puedes agregar más duplicando este bloque) -->
@@ -59,6 +59,50 @@
         </div>
     </div>
 </section>
+
+<!-- ========================================== -->
+<!-- PANEL DE FILTROS (Aparece solo en categorías) -->
+<!-- ========================================== -->
+<section id="panel-filtros-categoria" style="display: none; margin: 30px 0; background: #1e1e1e; padding: 20px; border-radius: 8px; border: 1px solid #333;">
+    <h3 id="titulo-categoria-activa" style="color: #fff; margin-bottom: 15px; font-size: 1.1rem; text-transform: uppercase;">👕 Filtrando categoría</h3>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+        
+        <!-- Filtro por Precio -->
+        <div style="flex: 1; min-width: 140px;">
+            <label style="color: #ccc; font-size: 0.85rem; display: block; margin-bottom: 5px;">Precio:</label>
+            <select id="filtro-precio" style="width: 100%; background: #2a2a2a; color: #fff; border: 1px solid #444; padding: 8px; border-radius: 4px;">
+                <option value="todos">Todos los precios</option>
+                <option value="bajo">Menos de $20</option>
+                <option value="medio">$20 - $50</option>
+                <option value="alto">Más de $50</option>
+            </select>
+        </div>
+
+        <!-- Filtro por Marca -->
+        <div style="flex: 1; min-width: 140px;">
+            <label style="color: #ccc; font-size: 0.85rem; display: block; margin-bottom: 5px;">Marca:</label>
+            <select id="filtro-marca" style="width: 100%; background: #2a2a2a; color: #fff; border: 1px solid #444; padding: 8px; border-radius: 4px;">
+                <option value="todas">Todas las marcas</option>
+                <option value="zara">Zara</option>
+                <option value="nike">Nike</option>
+                <option value="levis">Levi's</option>
+            </select>
+        </div>
+
+        <!-- Filtro por Color -->
+        <div style="flex: 1; min-width: 140px;">
+            <label style="color: #ccc; font-size: 0.85rem; display: block; margin-bottom: 5px;">Color:</label>
+            <select id="filtro-color" style="width: 100%; background: #2a2a2a; color: #fff; border: 1px solid #444; padding: 8px; border-radius: 4px;">
+                <option value="todos">Todos los colores</option>
+                <option value="blanco">Blanco</option>
+                <option value="negro">Negro</option>
+                <option value="azul">Azul</option>
+            </select>
+        </div>
+
+    </div>
+</section>
+
                         
                             <!-- SECCIÓN PRINCIPAL: CATÁLOGO DE OFERTAS (Directo al grano) -->
                            <section>
@@ -172,8 +216,9 @@
             <script src="assets/js/util.js"></script>
             <script src="assets/js/main.js"></script>
             <script src="assets/js/productos.js"></script>
-               <script src="assets/js/carrusel_pc.js"></script>
+            <script src="assets/js/carrusel_pc.js"></script>
             <script src="assets/js/render.js"></script>
+            <script src="assets/js/filtros.js"></script>
 			<script src="assets/js/buscador.js"></script>
             <script src="assets/js/carrito.js"></script>
 
