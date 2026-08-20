@@ -2745,7 +2745,7 @@ html, body {
     max-width: 100% !important;
     position: relative !important;
     /* Usamos aspect-ratio basado en tus medidas reales (701x254) para que nunca se deforme */
-    aspect-ratio: 800 / 300 !important; 
+    aspect-ratio: 800 / 400 !important; 
     max-height: 380px !important; /* Tope máximo para que en PC gigantes no sea un monstruo */
     scroll-snap-align: start !important;
 }
@@ -2786,6 +2786,7 @@ html, body {
     border: 1px solid #444 !important;
     padding: 8px 16px !important;
     font-size: 0.8rem !important;
+    box-shadow: none !important;
     border-radius: 4px !important;
     text-decoration: none !important;
 }
