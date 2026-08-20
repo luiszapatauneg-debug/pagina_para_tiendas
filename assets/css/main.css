@@ -2716,7 +2716,7 @@ button,
    ========================================== */
 
 html, body {
-    overflow-x: hidden !important; /* Evita que cualquier cosa rompa la pantalla a los lados */
+    overflow-x: hidden !important;
 }
 
 .billboard-container {
@@ -2744,9 +2744,9 @@ html, body {
     min-width: 100% !important;
     max-width: 100% !important;
     position: relative !important;
-    /* Usamos aspect-ratio basado en tus medidas reales (701x254) para que nunca se deforme */
-    aspect-ratio: 800 / 240 !important; 
-    max-height: 380px !important; /* Tope máximo para que en PC gigantes no sea un monstruo */
+    /* Usamos una proporción más ancha para que se vea estilizado */
+    aspect-ratio: 850 / 240 !important; 
+    max-height: 400px !important;
     scroll-snap-align: start !important;
 }
 
@@ -2796,16 +2796,8 @@ html, body {
     border-color: #666 !important;
 }
 
-#billboard-principal.oculto {
-    display: none !important;
-}
-
-/* Ajuste para pantallas grandes (PC / Tablet) */
+/* Ajuste de texto para pantallas grandes (PC / Tablet) sin bloquear alturas */
 @media screen and (min-width: 768px) {
-    .billboard-slide {
-        height: 320px !important; /* Un poco más alto en PC para que luzca mejor */
-    }
-    
     .billboard-content h2 {
         font-size: 1.2rem !important;
     }
