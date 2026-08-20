@@ -2711,126 +2711,83 @@ button,
     overflow: hidden !important;
 }
 
-/* --- ESTILOS PARA EL BILLBOARD DESPLAZABLE --- */
-/* --- BILLBOARD COMPACTO Y RESPONSIVO --- */
-.billboard-container {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto 20px auto;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-}
+/* ==========================================
+   BILLBOARD / CARRUSEL PRINCIPAL (Definitivo)
+   ========================================== */
 
-.billboard-container::-webkit-scrollbar {
-    display: none;
+.billboard-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    display: block !important;
+    background: #111;
 }
 
 .billboard-track {
-    display: flex;
-    gap: 10px;
-    padding: 0 10px;
+    display: flex !important;
+    width: 100% !important;
+    flex-wrap: nowrap !important;
 }
 
 .billboard-slide {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
     position: relative;
-    min-width: 100%;
-    height: 180px; /* <--- ALTURA COMPACTA EN MÓVIL (Antes era 320px) */
-    border-radius: 8px;
-    overflow: hidden;
-    scroll-snap-align: center;
-    flex-shrink: 0;
+    height: 230px !important; /* Altura ideal para celulares */
+    scroll-snap-align: start;
 }
 
 .billboard-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    border-radius: 8px !important;
+    display: block !important;
 }
 
 .billboard-content {
     position: absolute;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
-    background: rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(4px);
-    padding: 8px 12px;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 15px;
     border-radius: 6px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .billboard-content h2 {
-    color: #ffffff !important;
-    font-size: 0.8rem !important; /* Texto más sutil en pantalla pequeña */
-    margin: 0 !important;
-    max-width: 65%;
-    line-height: 1.2;
+    color: #fff !important;
+    font-size: 0.95rem !important;
+    margin: 0 0 5px 0 !important;
 }
 
 .billboard-content .button {
-    background-color: #0f0f0f !important;
-    color: #ffffff !important;
     padding: 6px 12px !important;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 0.7rem;
-    white-space: nowrap;
+    font-size: 0.75rem !important;
 }
 
-/* --- AJUSTE PARA PANTALLAS MÁS GRANDES (PC / TABLET) --- */
+/* Ajuste para pantallas grandes (PC / Tablet) */
 @media screen and (min-width: 768px) {
-    .billboard-container {
-        max-width: 800px; /* Limitamos el ancho general en PC para que no ocupe toda la pantalla a lo bruto */
-    }
-
     .billboard-slide {
-        min-width: 100%;
-    box-sizing: border-box;
-    position: relative;
-    height: 250px; /* Altura perfecta y cómoda para celulares y PC */ 
+        height: 320px !important; /* Un poco más alto en PC para que luzca mejor */
     }
-
-    .billboard-content {
-        padding: 15px 20px;
-        bottom: 15px;
-        left: 15px;
-        right: 15px;
-    }
-
+    
     .billboard-content h2 {
-        font-size: 1.1rem !important;
-        max-width: 75%; /* Dejamos más espacio para que el texto luzca bien en PC */
-    }
-
-    .billboard-content .button {
-        padding: 10px 18px !important;
-        font-size: 0.85rem;
+        font-size: 1.2rem !important;
     }
 }
 
-.billboard-slide img {
-   width: 100% !important;
-    height: 100% !important; 
-    object-fit: cover !important; 
-    object-position: center !important; 
-    border-radius: 8px !important;
-}
-
-.billboard-container, 
-.carrusel-productos-container {
-    overflow-x: auto !important;
-    scroll-behavior: smooth; /* Hace que el desplazamiento se sienta suave */
-}
-/* Ocultar en PC o Móvil si estás en categorías (respaldado por JS) */
 #billboard-principal.oculto {
     display: none !important;
 }
-
 /* --- ELIMINAR CUALQUIER LÍNEA DEBAJO O ARRIBA DEL BILLBOARD --- */
 /* --- MATAR CUALQUIER LÍNEA DIVISORIA O <HR> --- */
 hr, 
