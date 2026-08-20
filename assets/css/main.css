@@ -2745,7 +2745,7 @@ html, body {
     max-width: 100% !important;
     position: relative !important;
     /* Usamos una proporción más ancha para que se vea estilizado */
-    aspect-ratio: 850 / 240 !important; 
+    aspect-ratio: 850 / 350 !important; 
     max-height: 400px !important;
     scroll-snap-align: start !important;
 }
