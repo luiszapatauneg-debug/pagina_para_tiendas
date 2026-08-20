@@ -1192,135 +1192,7 @@ hr {
     font-weight: bold;
 }
 
-/* Estilos para la ventana modal */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-.modal-contenido {
-    background: #1a1818;
-    padding: 30px 20px 20px 20px; /* Un poco más de espacio arriba */
-    border-radius: 8px;
-    width: 92%;
-    max-width: 700px;
-    max-height: 85vh; /* Evita que sea más alta que la pantalla del teléfono */
-    overflow-y: auto; /* Permite hacer scroll si el contenido es largo */
-    position: relative;
-    box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
-}
 
-.btn-cerrar {
-    position: absolute;
-    top: 12px;
-    right: 15px;
-    background: #1a1818; /* Un fondito suave para que resalte */
-    border: none;
-    width: 32px;
-    height: 32px;
-    border-radius: 50px; /* La hace redonda y fácil de tocar en móvil */
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    color: #333;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-}
-
-.btn-cerrar:hover {
-    color: #000; /* Se oscurece un poco al pasar el mouse */
-}
-
-.modal-body-grid {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    align-items: center;
-}
-.modal-imagen img {
-    max-width: 250px;
-    border-radius: 5px;
-}
-.modal-info {
-    flex: 1;
-}
-
-
-/* Estilos para la ventana modal para preguntar cuando va a pedir por ws*/
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.85); /* Un poco más oscuro */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    
-}
-
-.modal-contenido {
-    background: #1a1818;
-    padding: 30px 20px 20px 20px; /* Un poco más de espacio arriba */
-    border-radius: 8px;
-    width: 92%;
-    max-width: 700px;
-    max-height: 85vh; /* Evita que sea más alta que la pantalla del teléfono */
-    overflow-y: auto; /* Permite hacer scroll si el contenido es largo */
-    position: relative;
-    box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
-}
-
-.btn-cerrar {
-   position: absolute;
-    top: 12px;
-    right: 15px;
-    background: #1a1818; /* Un fondito suave para que resalte */
-    border: none;
-    width: 32px;
-    height: 32px;
-    border-radius: 50px; /* La hace redonda y fácil de tocar en móvil */
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    color: #333;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-}
-
-.btn-cerrar:hover {
-    background: #555;
-}
-
-/* Ajustes para inputs y select dentro del modal oscuro */
-.modal-contenido input, .modal-contenido select {
-    background: #2a2a2a;
-    border: 1px solid #444;
-    color: #fff;
-    padding: 12px;
-    border-radius: 6px;
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-.modal-contenido label {
-    color: #ccc;
-    font-size: 0.9rem;
-    margin-bottom: 5px;
-}
 
 /* Estilo profesional para el botón de envío */
 .btn-enviar-wsp {
@@ -1348,15 +1220,6 @@ hr {
     background-color: #ffffff; /* Verde más oscuro al pasar el cursor */
 }
 
-/* --- TAMAÑO Y AJUSTE DE LA FOTO DENTRO DEL MODAL --- */
-#modal-img {
-    width: 100% !important;
-    height: 280px !important;     /* Altura fija ideal para que se vea bien en celulares */
-    object-fit: contain !important; /* Muestra la foto entera sin recortarla ni deformarla */
-    background-color: #111 !important; /* Fondo oscuro por si la foto es cuadrada o muy ancha */
-    border-radius: 6px !important;
-    margin-bottom: 15px !important;
-}
 
 /* Estilo base y animación de "respiración" para el botón Ver Más ofertas */
 .btn-respirar-fuerte {
@@ -2727,67 +2590,7 @@ button,
     /*border-radius: 8px; */   /* Opcional: le da un toque más moderno con bordes redondeados */
 /*}*/
 
-/* --- ESTILOS PARA EL MODAL DE VERIFICACIÓN DE EDAD --- */
 
-#modal-edad-inicio {
-    display: flex !important;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    background: rgba(10, 10, 10, 0.9) !important;
-    backdrop-filter: blur(5px);
-    z-index: 99999 !important;
-    justify-content: center !important;
-    align-items: center !important;
-    padding: 20px !important;
-}
-
-#modal-edad-inicio .modal-contenido {
-    background: #1a1a1a !important;
-    padding: 35px 30px !important;
-    border-radius: 12px !important;
-    text-align: center !important;
-    max-width: 420px !important;
-    width: 100% !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
-    border: 1px solid #333 !important;
-}
-
-#modal-edad-inicio h3 {
-    color: #ffffff !important;
-    font-size: 1.5rem !important;
-    margin-bottom: 15px !important;
-    font-weight: 600 !important;
-}
-
-#modal-edad-inicio p {
-    color: #b0b0b0 !important;
-    font-size: 0.95rem !important;
-    line-height: 1.5 !important;
-    margin-bottom: 25px !important;
-}
-
-/* Estilo para el botón de confirmación */
-#modal-edad-inicio button {
-    background: linear-gradient(135deg, #ff4747, #e60000) !important;
-    color: #ffffff !important;
-    border: none !important;
-    padding: 12px 20px !important;
-    font-size: 1rem !important;
-    font-weight: bold !important;
-    border-radius: 8px !important;
-    cursor: pointer !important;
-    width: 100% !important;
-    transition: all 0.3s ease !important;
-    box-shadow: 0 4px 12px rgba(245, 106, 106, 0.3) !important;
-}
-
-#modal-edad-inicio button:hover {
-    background: linear-gradient(135deg, #e05353, #c94444) !important;
-    transform: translateY(-2px) !important;
-}
 
 /* --- AJUSTES PARA LOS ICONOS DEL HEADER --- */
 
@@ -3104,85 +2907,6 @@ section header.major {
     margin-bottom: 15px !important;
 }
 
-/* --- ESTILOS PERSONALIZADOS PARA EL MODAL --- */
-
-/* Botón de cerrar (la X) */
-.btn-cerrar {
-    background: #ff4d4d !important; /* Color de fondo rojo (cámbialo si quieres) */
-    color: #ffffff !important;      /* Color de la "X" */
-    border: none !important;
-    border-radius: 50% !important;  /* Hace que el botón sea redondo */
-    width: 35px;
-    height: 35px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.btn-cerrar:hover {
-    background: #ff1a1a !important; /* Color más oscuro cuando pasas el mouse por encima */
-}
-
-/* --- ESTILOS DEFINITIVOS PARA BOTONES DEL MODAL --- */
-
-/* 1. Botón de cerrar la "X" */
-/* --- CONTENEDOR DEL MODAL (Asegura que el botón sepa dónde ubicarse) --- */
-.modal-contenido {
-    position: relative !important; /* Esto es vital para que la "X" se encierre en la caja */
-    padding-top: 40px !important;  /* Deja espacio arriba para que el texto no toque la X */
-}
-
-/* --- BOTÓN DE CERRAR EN LA ESQUINA LIMPIA --- */
-.modal-contenido .btn-cerrar {
-    position: absolute !important;
-    top: 12px !important;           /* Distancia desde el borde superior */
-    right: 12px !important;          /* Distancia desde el borde derecho */
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: #ffffff !important;
-    border: none !important;
-    border-radius: 50% !important;
-    width: 35px !important;
-    height: 35px !important;
-    font-size: 1.1rem !important;
-    cursor: pointer !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    z-index: 10 !important;
-    transition: background 0.2s ease !important;
-}
-
-.modal-contenido .btn-cerrar:hover {
-    background: #ff4d4d !important; /* Se pone rojito al pasar el mouse */
-    color: #ffffff !important;
-}
-
-/* 2. Botón de agregar al carrito dentro del modal */
-#modal-btn-comprar.btn-comprar {
-    background-color: #007bff !important; /* Azul o el color que quieras para tu tienda */
-    color: #ffffff !important;
-     display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-    max-width: 100% !important; /* IMPORTANTE: Esto evita que se salga */
-    padding: 15px 30px !important;
-    margin: 0 !important;
-    box-sizing: border-box !important;
-    font-size: 0.7rem !important;
-    text-align: center !important;
-    line-height: 1 !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-}
-
-/* Efecto al pasar el mouse */
-#modal-btn-comprar.btn-comprar:hover {
-    background-color: #0056b3 !important;
-}
-
 /* Estilos modernos para los productos del carrito */
 .carrito-item-card {
     display: flex;
@@ -3226,4 +2950,134 @@ section header.major {
     cursor: pointer;
     color: #000000;
     font-size: 1.2em;
+}
+
+/* ==========================================
+   ESTRUCTURA GENERAL DE MODALES (Unificado)
+   ========================================== */
+
+/* 1. Fondo oscuro traslúcido */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+/* 2. Caja contenedora principal del modal */
+.modal-contenido {
+    background: #1a1818;
+    padding: 40px 20px 20px 20px; /* Espacio arriba para que la X no pise el contenido */
+    border-radius: 12px;
+    width: 92%;
+    max-width: 700px;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid #333;
+}
+
+/* 3. Botón de cerrar (La "X") en la esquina limpia */
+.modal-contenido .btn-cerrar,
+.modal-overlay .btn-cerrar {
+    position: absolute !important;
+    top: 12px !important;
+    right: 12px !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 50% !important;
+    width: 35px !important;
+    height: 35px !important;
+    font-size: 1.1rem !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 10 !important;
+    transition: background 0.2s ease, color 0.2s ease !important;
+}
+
+.modal-contenido .btn-cerrar:hover,
+.modal-overlay .btn-cerrar:hover {
+    background: #ff4d4d !important;
+    color: #ffffff !important;
+}
+
+/* ==========================================
+   ELEMENTOS INTERNOS DE LOS MODALES
+   ========================================== */
+
+/* Inputs y selects dentro del modal */
+.modal-contenido input, 
+.modal-contenido select {
+    background: #2a2a2a;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 12px;
+    border-radius: 6px;
+    width: 100%;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.modal-contenido label {
+    color: #ccc;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Estructura de cuadrícula para modales de productos (ej. vista rápida) */
+.modal-body-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* --- TAMAÑO FIJO Y SEGURO PARA LA IMAGEN DEL MODAL DE PRODUCTO --- */
+#modal-img, 
+#modal-img-producto {
+    width: 100% !important;
+    max-width: 250px !important;
+    height: 280px !important;
+    object-fit: contain !important;
+    background-color: #111 !important;
+    border-radius: 6px !important;
+    display: block !important;
+    margin: 0 auto 15px auto !important; /* Centrada y con espacio abajo */
+}
+
+.modal-info {
+    flex: 1;
+}
+
+/* Botón principal de acción dentro del modal (ej. Comprar) */
+#modal-btn-comprar.btn-comprar {
+    background-color: #007bff !important;
+    color: #ffffff !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    padding: 15px 30px !important;
+    margin-top: 15px !important;
+    border-radius: 6px !important;
+    box-sizing: border-box !important;
+    font-size: 0.9rem !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    border: none !important;
+}
+
+#modal-btn-comprar.btn-comprar:hover {
+    background-color: #0056b3 !important;
 }
