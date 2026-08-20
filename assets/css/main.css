@@ -2789,7 +2789,10 @@ button,
     }
 
     .billboard-slide {
-        height: 280px; 
+        min-width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    height: 250px; /* Altura perfecta y cómoda para celulares y PC */ 
     }
 
     .billboard-content {
@@ -2811,10 +2814,11 @@ button,
 }
 
 .billboard-slide img {
-    width: 100% !important;
-    height: 400px !important; /* Puedes ajustar esta altura según prefieras */
-    object-fit: cover !important; /* Mantiene la proporción, pero llena el espacio */
-    object-position: center !important; /* Centra la imagen para que se vea lo más importante */
+   width: 100% !important;
+    height: 100% !important; 
+    object-fit: cover !important; 
+    object-position: center !important; 
+    border-radius: 8px !important;
 }
 
 .billboard-container, 
