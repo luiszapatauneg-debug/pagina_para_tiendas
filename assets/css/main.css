@@ -3044,8 +3044,7 @@ section header.major {
 }
 
 /* --- TAMAÑO FIJO Y SEGURO PARA LA IMAGEN DEL MODAL DE PRODUCTO --- */
-#modal-img, 
-#modal-img-producto {
+img.img-modal-detalle {
     width: 100% !important;
     max-width: 250px !important;
     height: 280px !important;
