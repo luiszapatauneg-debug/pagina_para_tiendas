@@ -2759,31 +2759,35 @@ html, body {
 
 .billboard-content {
     position: absolute !important;
-    bottom: 10px !important;
-    left: 10px !important;
-    right: 10px !important;
-    background: rgba(0, 0, 0, 0.8) !important;
+    bottom: 15px !important;
+    /* Reducimos el ancho con left y right */
+    left: 20% !important; 
+    right: 20% !important;
+    /* Hacemos el fondo un poco más transparente */
+    background: rgba(0, 0, 0, 0.6) !important;
     padding: 8px 12px !important;
-    border-radius: 6px !important;
+    border-radius: 8px !important;
     display: flex !important;
-    justify-content: space-between !important;
+    justify-content: center !important; /* Centramos el contenido */
     align-items: center !important;
+    gap: 10px !important;
 }
 
 .billboard-content h2 {
     color: #ffffff !important;
-    font-size: 0.75rem !important; /* <--- Texto más pequeño para que no estorbe */
+    font-size: 0.7rem !important;
     margin: 0 !important;
     font-weight: bold !important;
     text-transform: uppercase;
+    text-align: center;
 }
 
 .billboard-content .button {
-    background-color: #000 !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
     color: #fff !important;
-    border: 1px solid #444 !important;
-    padding: 5px 10px !important;
-    font-size: 0.75rem !important; /* Botón más compacto */
+    border: 1px solid #fff !important;
+    padding: 4px 8px !important;
+    font-size: 0.7rem !important;
     border-radius: 4px !important;
     text-decoration: none !important;
 }
