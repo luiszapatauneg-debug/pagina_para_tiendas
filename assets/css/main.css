@@ -2765,14 +2765,16 @@ html, body {
 .billboard-content {
     position: absolute !important;
     bottom: 10px !important;
-    left: 10px !important;
-    right: 10px !important;
-    background: rgba(0, 0, 0, 0.8) !important;
-    padding: 8px 12px !important;
+    left: 6px !important;
+    right: 6px !important;
+    background: rgba(0, 0, 0, 0.4) !important; /* Un poco más transparente */
+     padding: 4px 8px !important;               /* Menos relleno para que sea más delgada */
+      bottom: 6px !important;                      /* Más pegada abajo */
     border-radius: 6px !important;
     display: flex !important;
     justify-content: space-between !important;
-    align-items: center !important;
+    align-items: center !important;    /* Definimos una altura fija pequeña para que no tape */
+    
 }
 
 .billboard-content h2 {
@@ -2813,24 +2815,20 @@ html, body {
    OPTIMIZACIÓN DE TEXTO Y BOTÓN DEL BILLBOARD
    ========================================== */
 
-.billboard-content {
-    background: rgba(0, 0, 0, 0.6) !important; /* Un poco más transparente */
-    padding: 4px 8px !important;               /* Menos relleno para que sea más delgada */
-    bottom: 6px !important;                      /* Más pegada abajo */
-    left: 6px !important;
-    right: 6px !important;
-}
-
 .billboard-titulo-personalizado {
     font-size: 0.55rem !important;  /* Letra bien pequeña y elegante para móvil */
     margin: 0 !important;
     color: #ffffff !important;
 }
 
+/* El botón ahora con centrado perfecto */
 .billboard-btn-personalizado {
-    font-size: 0.55rem !important;  /* Botón miniatura compacto */
-    padding: 3px 6px !important;    /* Márgenes internos reducidos */
-    line-height: 1 !important;
+    font-size: 0.55rem !important;
+    padding: 4px 8px !important;
+    margin: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 /* --- ELIMINAR CUALQUIER LÍNEA DEBAJO O ARRIBA DEL BILLBOARD --- */
