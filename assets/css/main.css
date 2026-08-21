@@ -2748,7 +2748,7 @@ html, body {
     /* AJUSTE PARA MÓVIL: Más largo y menos alto */
     aspect-ratio: 16 / 7 !important; 
     height: auto !important;         /* Permitimos que el ratio controle la altura */
-    max-height: 240px !important;    /* Lo hacemos un poco más bajito para que se vea elegante */
+    max-height: 200px !important;    /* Lo hacemos un poco más bajito para que se vea elegante */
     
     scroll-snap-align: start !important;
 }
@@ -2807,6 +2807,30 @@ html, body {
 
 #billboard-principal.oculto {
     display: none !important;
+}
+
+/* ==========================================
+   OPTIMIZACIÓN DE TEXTO Y BOTÓN DEL BILLBOARD
+   ========================================== */
+
+.billboard-content {
+    background: rgba(0, 0, 0, 0.6) !important; /* Un poco más transparente */
+    padding: 4px 8px !important;               /* Menos relleno para que sea más delgada */
+    bottom: 6px !important;                      /* Más pegada abajo */
+    left: 6px !important;
+    right: 6px !important;
+}
+
+.billboard-titulo-personalizado {
+    font-size: 0.55rem !important;  /* Letra bien pequeña y elegante para móvil */
+    margin: 0 !important;
+    color: #ffffff !important;
+}
+
+.billboard-btn-personalizado {
+    font-size: 0.55rem !important;  /* Botón miniatura compacto */
+    padding: 3px 6px !important;    /* Márgenes internos reducidos */
+    line-height: 1 !important;
 }
 
 /* --- ELIMINAR CUALQUIER LÍNEA DEBAJO O ARRIBA DEL BILLBOARD --- */
