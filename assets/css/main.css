@@ -2748,7 +2748,7 @@ html, body {
     /* AJUSTE PARA MÓVIL: Más largo y menos alto */
     aspect-ratio: 16 / 7 !important; 
     height: auto !important;         /* Permitimos que el ratio controle la altura */
-    max-height: 200px !important;    /* Lo hacemos un poco más bajito para que se vea elegante */
+    max-height: 240px !important;    /* Lo hacemos un poco más bajito para que se vea elegante */
     
     scroll-snap-align: start !important;
 }
