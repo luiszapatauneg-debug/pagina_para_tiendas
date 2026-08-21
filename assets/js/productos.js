@@ -82,7 +82,7 @@ const productosData = [
     colores: [
         { nombre: "negro", hex: "#000000", foto: "images/ropa_uno.jpg" },  // <--- 2. Pon los nombres de los colores en minúsculas (ej: "negro", "blanco")
         { nombre: "blanco", hex: "#FFFFFF", foto: "images/ropa_dos.jpg" },
-        { nombre: "gris", hex: "#808080", foto: "images/ropa_tres.jpg" }
+        { nombre: "azul", hex: "#132783", foto: "images/ropa_tres.jpg" }
     ],
     descripcion: "Algodón de alta densidad, corte boxy fit.",
     detalles: ["Material: 100% Algodón", "Peso: 250gsm"]

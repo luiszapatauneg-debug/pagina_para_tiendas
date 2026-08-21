@@ -1,0 +1,96 @@
+/* ========================================== */
+/* ESTILOS PARA EL PANEL Y BOTÓN DE FILTROS   */
+/* ========================================== */
+
+#panel-filtros-categoria {
+    margin: 20px 0;
+}
+
+/* Botón desplegable de filtros personalizado */
+#btn-toggle-filtros {
+    background: #ffffff;
+    color: #050505 ; /* Asegura que el texto general sea blanco */
+    border: 1px solid #444444;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    
+    /* MODIFICACIÓN DE ANCHO: Ya no ocupa el 100%, se adapta al contenido */
+    width: auto; 
+    min-width: 220px; /* Un ancho mínimo prudente para que se vea bien */
+    max-width: 100%;
+    
+    text-align: left;
+    font-weight: bold;
+    display: inline-flex; /* Cambiado a inline-flex para que no se estire de más */
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px; /* Espacio entre el texto y la flecha */
+    font-size: 0.95rem;
+    transition: background 0.3s ease, border-color 0.3s ease;
+
+   box-shadow: none !important;
+}
+
+#btn-toggle-filtros:hover {
+    background: #3a3a3a;
+    border-color: #666666;
+}
+
+/* Forzar que cualquier texto o span dentro del botón sea blanco y sin tonos azules */
+#btn-toggle-filtros span {
+    color: #000000 !important;
+}
+
+/* Contenedor interno de los selects */
+#caja-selects-filtros {
+    display: none; /* Inicialmente oculto por JS */
+    margin-top: 10px;
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #333333;
+}
+
+/* Título dentro de la caja */
+#titulo-categoria-activa {
+    color: #ffffff;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+}
+
+/* Fila que contiene los selects */
+.filtros-grid {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* Grupo individual de cada select (Precio, Marca, Color) */
+.filtro-grupo {
+    flex: 1;
+    min-width: 140px;
+}
+
+.filtro-grupo label {
+    color: #cccccc;
+    font-size: 0.85rem;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.filtro-grupo select {
+    width: 100%;
+    background: #2a2a2a;
+    color: #ffffff;
+    border: 1px solid #444444;
+    padding: 8px;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+}
+
+.filtro-grupo select:focus {
+    border-color: #888888;
+}

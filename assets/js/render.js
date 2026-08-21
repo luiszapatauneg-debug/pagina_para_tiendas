@@ -233,3 +233,4 @@ document.addEventListener('click', (e) => {
         cerrarModal();
     }
 });
+

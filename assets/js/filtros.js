@@ -67,3 +67,22 @@ document.addEventListener("DOMContentLoaded", () => {
         selectColor.addEventListener("change", ejecutarFiltros);
     }
 });
+
+// --- LÓGICA DEL PANEL DESPLEGABLE DE FILTROS ---
+document.addEventListener("DOMContentLoaded", function() {
+    const btnToggle = document.getElementById("btn-toggle-filtros");
+    const cajaSelects = document.getElementById("caja-selects-filtros");
+    const iconoFlecha = document.getElementById("icono-flecha");
+
+    if (btnToggle && cajaSelects) {
+        btnToggle.addEventListener("click", function() {
+            if (cajaSelects.style.display === "none" || cajaSelects.style.display === "") {
+                cajaSelects.style.display = "block";
+                if (iconoFlecha) iconoFlecha.textContent = "▲";
+            } else {
+                cajaSelects.style.display = "none";
+                if (iconoFlecha) iconoFlecha.textContent = "▼";
+            }
+        });
+    }
+});
