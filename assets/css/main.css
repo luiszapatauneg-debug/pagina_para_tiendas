@@ -2817,28 +2817,10 @@ section > header.major::after {
     height: 0 !important;
 }
 
-/* --- CORRECCIÓN PARA EL MENÚ DESPLEGABLE EN PC --- */
-#sidebar #menu ul ul {
-    display: none; /* El script de HTML5 UP lo maneja dinámicamente */
-}
-
-#sidebar #menu li.active > ul {
-    display: block !important;
-}
-
-#sidebar .opener {
-    cursor: pointer !important;
-}
-
-/* Forzar que el contenedor principal de la tienda no tenga bordes extraños arriba */
-#contenedor-ofertas {
+/* Limpieza de bordes */
+#contenedor-ofertas, section {
     border-top: none !important;
 }
-
-section {
-    border-top: none !important;
-}
-
 /* --- CARRUSEL HORIZONTAL SOLAMENTE PARA LA PÁGINA DE INICIO --- */
 
 /* Solo si el body tiene la clase 'pagina-inicio' se activa el carrusel */
@@ -3070,3 +3052,4 @@ img.img-modal-detalle {
 #modal-btn-comprar.btn-comprar:hover {
     background-color: #0056b3 !important;
 }
+
