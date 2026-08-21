@@ -124,7 +124,7 @@ a {
 #main > div > header:first-child,
 #main > .inner > header:first-child,
 .box header {
-    border-bottom: solid 3px #2a6f97 !important; /* O usa border-top si está arriba del todo */
+    border-bottom: solid 3px #cfd8dd !important; /* O usa border-top si está arriba del todo */
 }
 
 strong, b {
@@ -1091,8 +1091,8 @@ hr {
     border: 2px solid #ffffff !important;
     cursor: pointer;
 }
-
-.btn-comprar-wa { background-color: #2a4c74 !important; color: #ffffff !important; }
+/* --- botones de html de carrito para pedir por ws o seguir comprando --- */
+.btn-comprar-wa { background-color: #050404 !important; color: #ffffff !important; box-shadow: none !important; }
 .btn-seguir { background-color: #6c757d !important; color: #050505 !important; }
 
 .btn-comprar-wa:hover, .btn-seguir:hover {
@@ -1100,7 +1100,7 @@ hr {
     opacity: 0.9;
 }
 
-/* --- CONTROL DE CANTIDAD EN LÍNEA --- */
+/* --- CONTROL DE CANTIDAD EN LÍNEA para el html de carrito  --- */
 .control-cantidad {
     display: flex !important;
     flex-direction: row !important;
@@ -1141,7 +1141,7 @@ hr {
 
 /* --- BOTÓN ELIMINAR (PAPELERA) --- */
 .btn-eliminar {
-    background-color: #ff5c5c !important;
+    background-color: #000000 !important;
     color: #ffffff !important;
     border: none !important;
     padding: 8px 12px !important;
@@ -1154,7 +1154,7 @@ hr {
 }
 
 .btn-eliminar:hover {
-    background-color: #e03b3b !important;
+    background-color: #c4c1c1 !important;
     transform: scale(1.05);
 }
 
@@ -1194,7 +1194,7 @@ hr {
 
 
 
-/* Estilo profesional para el botón de envío */
+/* Estilo profesional para el botón de envío de ws cuando va a mandar el mensaje */
 .btn-enviar-wsp {
     width: 100% !important;            /* Ocupa todo el ancho */
     margin-top: 20px !important;       /* Espacio superior */
@@ -1292,7 +1292,7 @@ header p {
   text-transform: uppercase; }
 
 header.major > :last-child {
-  border-bottom: solid 3px #2a6f97;
+  border-bottom: solid 3px #ffffff;
   display: inline-block;
   margin: 0 0 2em 0;
   padding: 0 0.75em 0.5em 0; }
@@ -1670,7 +1670,7 @@ ul.contact {
       font-family: 'Font Awesome 5 Free';
       font-weight: 400; }
     ul.contact li:before {
-      color: #2a6f97;
+      color: #5e5e5e;
       display: inline-block;
       font-size: 1.5em;
       height: 1.125em;
@@ -2793,6 +2793,7 @@ html, body {
     font-size: 0.75rem !important; /* Botón más compacto */
     border-radius: 4px !important;
     text-decoration: none !important;
+    box-shadow: none !important;
 }
 
 .billboard-content .button:hover {
@@ -2932,6 +2933,7 @@ section header.major {
     align-items: center;
     gap: 10px;
     margin-top: 8px;
+    box-shadow: none !important;
 }
 
 .btn-cantidad {
@@ -2941,6 +2943,7 @@ section header.major {
     cursor: pointer;
     border-radius: 4px;
     font-weight: bold;
+    box-shadow: none !important;
 }
 
 .btn-eliminar {
@@ -2949,6 +2952,7 @@ section header.major {
     cursor: pointer;
     color: #000000;
     font-size: 1.2em;
+    box-shadow: none !important;
 }
 
 /* ==========================================
@@ -3060,8 +3064,8 @@ img.img-modal-detalle {
 
 /* Botón principal de acción dentro del modal (ej. Comprar) */
 #modal-btn-comprar.btn-comprar {
-    background-color: #007bff !important;
-    color: #ffffff !important;
+    background-color: #eeeeee !important;
+    color: #111111 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -3074,9 +3078,11 @@ img.img-modal-detalle {
     font-weight: bold !important;
     cursor: pointer !important;
     border: none !important;
+    box-shadow: none !important;
 }
 
 #modal-btn-comprar.btn-comprar:hover {
-    background-color: #0056b3 !important;
+    background-color: #4d4d4d !important;
 }
 
+S
