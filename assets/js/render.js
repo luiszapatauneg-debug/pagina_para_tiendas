@@ -165,6 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- LÓGICA DEL MODAL DE DETALLES Y MINIATURAS ---
 function abrirModal(id) {
+    window.colorSeleccionado = null; // <-- Resetea el color al abrir el modal
     const producto = productosData.find(p => p.id === id);
     if (!producto) return;
 

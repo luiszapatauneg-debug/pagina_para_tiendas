@@ -141,14 +141,12 @@ window.agregarAlCarritoPorId = function(idProducto, talla = null, color = null) 
     let productoOficial = listaProductos.find(p => p.id === idProducto);
     
     if (productoOficial) {
-        // Obtenemos los datos base
         let nombre = productoOficial.nombre;
         let precio = parseFloat(productoOficial.precio);
         
-        // --- LÓGICA DE AGREGAR AL CARRITO CON EXTRAS ---
         let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
         
-        // Creamos un identificador único que incluya talla y color para no mezclar productos
+        // Creamos un identificador único que incluya la talla y el color seleccionados
         let idUnico = idProducto + (talla ? `-${talla}` : '') + (color ? `-${color}` : '');
         
         let productoExistente = carrito.find(item => item.idUnico === idUnico);
@@ -157,10 +155,12 @@ window.agregarAlCarritoPorId = function(idProducto, talla = null, color = null) 
             productoExistente.cantidad += 1;
         } else {
             carrito.push({
-                idUnico: idUnico, // Identificador único
+                idUnico: idUnico,
                 id: idProducto,
-                nombre: nombre + (talla ? ` (${talla})` : '') + (color ? ` [${color}]` : ''),
+                nombre: nombre,
                 precio: precio,
+                talla: talla || 'N/A',   // <-- Guardamos la talla limpia
+                color: color || 'N/A',   // <-- Guardamos el color limpio
                 cantidad: 1
             });
         }
@@ -230,7 +230,6 @@ function eliminarDelCarrito(index) {
 
 
 // 7. Renderizar carrito visualmente
-
 function renderizarCarritoVisual() {
     let contenedor = document.getElementById('tabla-carrito-container');
     if (!contenedor) return;
@@ -248,25 +247,66 @@ function renderizarCarritoVisual() {
     let totalGeneral = 0;
 
     carrito.forEach((item, index) => {
-        totalGeneral += (item.precio * item.cantidad);
+        let subtotal = item.precio * item.cantidad;
+        totalGeneral += subtotal;
+
         let productoOficial = listaProductos.find(p => p.id === item.id);
         let imagen = productoOficial ? productoOficial.imagen : 'images/default.jpg';
+        let descripcion = productoOficial && productoOficial.descripcion ? productoOficial.descripcion : '';
+
+        // Preparamos el texto de las variantes (talla y color)
+        let variacionesHtml = '';
+        if (item.talla && item.talla !== 'N/A') {
+            variacionesHtml += `Talla: <strong>${item.talla}</strong> `;
+        }
+        if (item.color && item.color !== 'N/A') {
+            let colorLower = item.color.toLowerCase().trim();
+            
+            // Diccionario para traducir nombres comunes de colores a códigos CSS válidos
+            let mapaColores = {
+                'blanco': '#ffffff',
+                'negro': '#000000',
+                'rojo': '#ff0000',
+                'azul': '#0000ff',
+                'verde': '#008000',
+                'amarillo': '#ffff00',
+                'gris': '#808080',
+                'morado': '#800080',
+                'naranja': '#ffa500',
+                'rosado': '#ffc0cb',
+                'celeste': '#87ceeb'
+            };
+
+            // Si está en el diccionario usamos el código CSS, si no, usamos el valor que tenga (por si es un HEX ej: #333333)
+            let colorCss = mapaColores[colorLower] || item.color;
+
+            // Verificamos si es blanco o un color muy claro para ponerle un borde visible
+            let esBlanco = colorLower === 'blanco' || colorCss === '#ffffff' || colorCss === '#fff';
+            let estiloBorde = esBlanco ? 'border: 1px solid #777;' : 'border: 1px solid transparent;';
+            
+            variacionesHtml += `Color: <span style="display:inline-block; width:12px; height:12px; background:${colorCss}; border-radius:50%; vertical-align:middle; ${estiloBorde} margin-right: 3px;"></span> ${item.color}`;
+        }
 
         html += `
-            <div class="carrito-item-card">
-                <img src="${imagen}" alt="${item.nombre}">
-                <div class="carrito-info-controls">
-                    <h4 style="margin:0;">${item.nombre}</h4>
-                    <p style="margin:0; color: #666;">$${item.precio} USD</p>
-                    <div class="carrito-botones-cantidad">
+            <div class="carrito-item-card" style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #ddd; padding: 15px 0; gap: 15px;">
+                <img src="${imagen}" alt="${item.nombre}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;">
+                
+                <div class="carrito-info-controls" style="flex-grow: 1;">
+                    <h4 style="margin: 0 0 5px 0;">${item.nombre}</h4>
+                    ${descripcion ? `<p style="margin: 0 0 5px 0; font-size: 0.85rem; color: #666;">${descripcion}</p>` : ''}
+                    ${variacionesHtml ? `<p style="margin: 0 0 5px 0; font-size: 0.85rem; color: #444;">${variacionesHtml}</p>` : ''}
+                    <p style="margin: 0 0 10px 0; color: #333; font-weight: bold;">$${item.precio} USD</p>
+                    
+                    <div class="carrito-botones-cantidad" style="display: flex; align-items: center; gap: 10px;">
                         <button class="btn-cantidad" onclick="disminuirCantidad(${index})">-</button>
                         <span>${item.cantidad}</span>
                         <button class="btn-cantidad" onclick="aumentarCantidad(${index})">+</button>
                     </div>
                 </div>
+
                 <div style="text-align: right;">
-                    <button class="btn-eliminar" onclick="eliminarDelCarrito(${index})">🗑️</button>
-                    <p style="font-weight:bold; margin:0;">$${(item.precio * item.cantidad).toFixed(2)}</p>
+                    <button class="btn-eliminar" onclick="eliminarDelCarrito(${index})" style="background: none; border: none; cursor: pointer; font-size: 1.1rem; margin-bottom: 5px;">🗑️</button>
+                    <p style="font-weight: bold; margin: 0; color: #222;">$${subtotal.toFixed(2)}</p>
                 </div>
             </div>
         `;
@@ -274,7 +314,6 @@ function renderizarCarritoVisual() {
     
     html += `</div>`;
     
-    // Si estás en la página del carrito, podrías querer mostrar el total abajo
     html += `
         <div style="margin-top: 20px; text-align: right;">
             <h3>Total: $${totalGeneral.toFixed(2)} USD</h3>
@@ -283,8 +322,6 @@ function renderizarCarritoVisual() {
 
     contenedor.innerHTML = html;
 }
-
-
 
 // 8. Finalizar compra por WhatsApp (Modificado para abrir el formulario modal)
 
@@ -487,6 +524,12 @@ document.addEventListener("DOMContentLoaded", () => {
             carrito.forEach((item, index) => {
                 let subtotal = item.precio * item.cantidad;
                 totalGeneral += subtotal;
+
+                // Agregamos la talla y color si existen
+                let detallesExtra = "";
+                if (item.talla && item.talla !== 'N/A') detallesExtra += ` (Talla: ${item.talla})`;
+                if (item.color && item.color !== 'N/A') detallesExtra += ` (Color: ${item.color})`;
+
                 mensaje += `${index + 1}. *${item.nombre}* x${item.cantidad} - $${subtotal}\n`;
             });
 
