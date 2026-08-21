@@ -1024,59 +1024,7 @@ hr {
     margin-bottom: 0.8em;
 }
 
-/* --- CORRECCIÓN SUPREMA PARA EL BOTÓN DEL CARRITO --- */
-/* --- ESTILO DEFINITIVO PARA EL BOTÓN DE COMPRA EN CSS --- */
-#contenedor-ofertas article .btn-comprar,
-#contenedor-camisas article .btn-comprar {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-    background-color: #ffffff !important; 
-    color: #000000 !important;            
-    font-size: 0.7rem !important; 
-    padding: 6px 2px !important;  
-    border-radius: 4px !important; 
-    border: none !important; 
-    cursor: pointer !important;
-    white-space: normal !important;
-    text-align: center !important;
-    line-height: 1.1 !important;
-    gap: 4px !important;
-    margin-top: 8px !important;
-    /* Neutraliza cualquier sombra o anillo exterior de la plantilla */
-    box-shadow: none !important;
-    -webkit-appearance: none !important;
-    appearance: none !important;
-}
 
-#contenedor-ofertas article .btn-comprar:hover,
-#contenedor-ofertas article .btn-comprar:focus,
-#contenedor-ofertas article .btn-comprar:active,
-#contenedor-camisas article .btn-comprar:hover,
-#contenedor-camisas article .btn-comprar:focus,
-#contenedor-camisas article .btn-comprar:active {
-    background-color: #fa4545 !important;
-    color: #ffffff !important;
-    border: 1px solid #fa4545 !important;
-    box-shadow: none !important;
-    outline: none !important;
-}
-
-#contenedor-ofertas article .btn-comprar:hover,
-#contenedor-camisas article .btn-comprar:hover {
-    background-color: #fa4545 !important;
-    color: #ffffff !important;
-    border: 1px solid #ffffff !important;
-}
-
-/* Efecto cuando pasan el mouse por encima */
-.btn-comprar:hover {
-    background-color: #fa4545 !important;
-    transform: translateY(-2px); /* Pequeño efecto de elevación */
-}
 
 /* --- BOTONES DE ACCIÓN PRINCIPALES (WhatsApp / Seguir comprando) --- */
 .btn-comprar-wa, .btn-seguir {
@@ -2606,110 +2554,6 @@ button,
     transform: scale(1.2); /* Se agrandan un poquito al pasar el mouse */
 }
 
-/* --- CORRECCIÓN DEFINITIVA DE COLUMNAS Y ESPACIADO COMPACTO --- */
-#contenedor-ofertas,
-#contenedor-camisas {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 10px !important;
-    justify-content: space-between !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    padding: 0 8px !important;
-    margin: 0 !important;
-}
-
-#contenedor-ofertas.posts article,
-#contenedor-ofertas article,
-#contenedor-camisas.posts article,
-#contenedor-camisas article {
-    width: calc(50% - 5px) !important;
-    margin: 0 0 12px 0 !important;
-    padding: 10px !important;
-    background: #141414 !important;
-    border: 1px solid #2a2a2a !important;
-    border-radius: 8px !important;
-    box-sizing: border-box !important;
-}
-
-/* Ocultar elementos sobrantes de la plantilla que ensucian */
-#contenedor-ofertas article:before,
-#contenedor-ofertas article:after,
-#contenedor-camisas article:before,
-#contenedor-camisas article:after {
-    display: none !important;
-}
-
-/* Ajuste de la caja de imagen dentro de la tarjeta compacta */
-#contenedor-ofertas article .image,
-#contenedor-camisas article .image {
-    height: 140px !important;
-    margin-bottom: 8px !important;
-    overflow: hidden !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background-color: #1a1a1a !important;
-    border-radius: 6px !important;
-}
-
-#contenedor-ofertas article .image img,
-#contenedor-camisas article .image img {
-    height: 100% !important;
-    width: 100% !important;
-    object-fit: contain !important;
-}
-
-/* Reducir títulos, precios y botones para que respiren bien en 2 columnas */
-#contenedor-ofertas article h3,
-#contenedor-ofertas article h2,
-#contenedor-ofertas article .titulo-producto,
-#contenedor-camisas article h3,
-#contenedor-camisas article h2,
-#contenedor-camisas article .titulo-producto {
-    font-size: 0.85rem !important;
-    line-height: 1.2 !important;
-    margin-bottom: 6px !important;
-}
-
-#contenedor-ofertas article p,
-#contenedor-ofertas article .precio-container,
-#contenedor-camisas article p,
-#contenedor-camisas article .precio-container {
-    font-size: 0.75rem !important;
-    margin-bottom: 8px !important;
-}
-
-#contenedor-ofertas article button,
-#contenedor-ofertas article .button,
-#contenedor-camisas article button,
-#contenedor-camisas article .button {
-    font-size: 0.75rem !important;
-    padding: 6px 8px !important;
-    width: 100% !important;
-    min-height: 32px !important;
-    border-radius: 4px !important;
-}
-
-/* --- AJUSTE EXCLUSIVO PARA EL BOTÓN DENTRO DE LAS TARJETAS --- */
-#contenedor-ofertas .btn-comprar, 
-#contenedor-ofertas button,
-#contenedor-camisas .btn-comprar, 
-#contenedor-camisas button {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-    max-width: 100% !important; /* IMPORTANTE: Esto evita que se salga */
-    padding: 6px 4px !important;
-    margin: 0 !important;
-    box-sizing: border-box !important;
-    font-size: 0.7rem !important;
-    text-align: center !important;
-    line-height: 1 !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-}
 
 /* ==========================================
    BILLBOARD / CARRUSEL PRINCIPAL (Definitivo)
@@ -2865,27 +2709,7 @@ section > header.major::after {
     display: none;
 }
 
-/* Fila horizontal solo en inicio */
-.pagina-inicio .carrusel-productos-container #contenedor-ofertas,
-.pagina-inicio .carrusel-productos-container #contenedor-camisas {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    gap: 15px !important;
-    padding: 0 5px !important;
-    justify-content: flex-start !important; /* ESTO QUITA EL ESPACIO DEL MEDIO */
-    width: max-content !important; /* Asegura que el contenedor no se estire */
-}
 
-/* Tarjetas como slides solo en inicio */
-.pagina-inicio .carrusel-productos-container #contenedor-ofertas article,
-.pagina-inicio .carrusel-productos-container #contenedor-camisas article {
-    min-width: 230px !important;
-    max-width: 230px !important;
-    flex-shrink: 0 !important;
-    scroll-snap-align: start !important;
-    margin-bottom: 0 !important;
-    margin-right: 0 !important; /* Asegura que el gap sea el único espacio */
-}
 
 /* --- COMPACTAR ESPACIO VERTICAL ENTRE SECCIONES --- */
 

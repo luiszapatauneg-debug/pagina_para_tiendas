@@ -94,3 +94,133 @@
 .filtro-grupo select:focus {
     border-color: #888888;
 }
+
+/* ========================================================================== */
+/* 1. ESTILOS GENERALES PARA LAS TARJETAS DE PRODUCTOS (TODOS LOS CONTENEDORES) */
+/* ========================================================================== */
+
+/* Aplica a cualquier contenedor de productos que empiece por id="contenedor-" */
+[id^="contenedor-"] {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 0 8px !important;
+    margin: 0 !important;
+}
+
+[id^="contenedor-"] article {
+    width: calc(50% - 5px) !important;
+    margin: 0 0 12px 0 !important;
+    padding: 10px !important;
+    background: #141414 !important;
+    border: 1px solid #2a2a2a !important;
+    border-radius: 8px !important;
+    box-sizing: border-box !important;
+}
+
+/* Ocultar elementos sobrantes de la plantilla */
+[id^="contenedor-"] article:before,
+[id^="contenedor-"] article:after {
+    display: none !important;
+}
+
+/* Imagen dentro de la tarjeta */
+[id^="contenedor-"] article .image {
+    height: 140px !important;
+    margin-bottom: 8px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: #1a1a1a !important;
+    border-radius: 6px !important;
+}
+
+[id^="contenedor-"] article .image img {
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: contain !important;
+}
+
+/* Textos de la tarjeta */
+[id^="contenedor-"] article h3,
+[id^="contenedor-"] article h2,
+[id^="contenedor-"] article .titulo-producto {
+    font-size: 0.85rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 6px !important;
+}
+
+[id^="contenedor-"] article p,
+[id^="contenedor-"] article .precio-container {
+    font-size: 0.75rem !important;
+    margin-bottom: 8px !important;
+}
+
+
+/* ========================================================================== */
+/* 2. ESTILO DEFINITIVO PARA EL BOTÓN DE COMPRA (AGREGAR AL CARRITO) */
+/* ========================================================================== */
+
+[id^="contenedor-"] article .btn-comprar,
+[id^="contenedor-"] article button {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    background-color: #ffffff !important; 
+    color: #000000 !important;            
+    font-size: 0.7rem !important; 
+    padding: 6px 4px !important;  
+    border-radius: 4px !important; 
+    border: none !important; 
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-align: center !important;
+    line-height: 1.1 !important;
+    gap: 4px !important;
+    margin-top: 8px !important;
+    box-shadow: none !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+[id^="contenedor-"] article .btn-comprar:hover,
+[id^="contenedor-"] article button:hover {
+    background-color: #fa4545 !important;
+    color: #ffffff !important;
+    border: 1px solid #fa4545 !important;
+    box-shadow: none !important;
+    outline: none !important;
+    transform: translateY(-2px);
+}
+
+
+/* ========================================================================== */
+/* 3. COMPORTAMIENTO DE CARRUSEL HORIZONTAL (SOLO EN EL INICIO) */
+/* ========================================================================== */
+
+.pagina-inicio .carrusel-productos-container [id^="contenedor-"] {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 15px !important;
+    padding: 0 5px !important;
+    justify-content: flex-start !important;
+    width: max-content !important;
+}
+
+.pagina-inicio .carrusel-productos-container [id^="contenedor-"] article {
+    min-width: 230px !important;
+    max-width: 230px !important;
+    flex-shrink: 0 !important;
+    scroll-snap-align: start !important;
+    margin-bottom: 0 !important;
+    margin-right: 0 !important;
+}

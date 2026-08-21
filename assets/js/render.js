@@ -6,14 +6,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
     const categoriaFiltro = params.get('cat');
 
-    // --- MOSTRAR U OCULTAR EL BILLBOARD SEGÚN LA PÁGINA ---
+    // Capturar elementos de la Interfaz
+    const seccionesHome = document.querySelectorAll('.seccion-carrusel-home');
+    const contenedorOfertas = document.getElementById('contenedor-ofertas');
+    const contCaballero = document.getElementById('contenedor-caballero-camisas');
+    const contDama = document.getElementById('contenedor-dama-camisas');
+    const btnVerMasOfertas = document.getElementById('seccion-ver-mas');
+
+    // --- MOSTRAR U OCULTAR SEGÚN LA PÁGINA ---
     if (billboard) {
         if (!categoriaFiltro || categoriaFiltro === "todos" || categoriaFiltro === "todo") {
             billboard.style.display = 'block';
             document.body.classList.add('pagina-inicio');
+            
+            // Mostrar todas las secciones del Home
+            seccionesHome.forEach(sec => sec.style.display = 'block');
+            if (btnVerMasOfertas) btnVerMasOfertas.style.display = 'block';
         } else {
             billboard.style.display = 'none';
             document.body.classList.remove('pagina-inicio');
+
+            // Ocultar los carruseles múltiples del Home para que no estorben en categorías
+            seccionesHome.forEach(sec => sec.style.display = 'none');
+            if (btnVerMasOfertas) btnVerMasOfertas.style.display = 'none';
         }
     }
 
@@ -84,20 +99,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // 4. FUNCIÓN PUENTE: Para que el buscador y los filtros usen el contenedor principal sin romper nada
+    // 4. FUNCIÓN PUENTE: Para que el buscador y los filtros usen el contenedor principal
     window.mostrarProductos = function(lista) {
         window.renderizarProductosEnContenedor('contenedor-ofertas', lista);
     };
-
-    // 5. Capturar elementos de la Interfaz
-    const contenedorOfertas = document.getElementById('contenedor-ofertas');
-    const contenedorCamisas = document.getElementById('contenedor-camisas');
-    
-    const seccionOfertasHtml = contenedorOfertas ? contenedorOfertas.closest('section') : null;
-    const seccionCamisasHtml = contenedorCamisas ? contenedorCamisas.closest('section') : null;
-
-    const btnVerMasOfertas = document.getElementById('seccion-ver-mas');
-    const btnVerMasCamisas = document.getElementById('seccion-ver-mas-camisas');
 
     if (categoriaFiltro) {
         // --- VISTA DE CATEGORÍA ESPECÍFICA ---
@@ -119,35 +124,41 @@ document.addEventListener('DOMContentLoaded', () => {
             productosAMostrar = productosData.filter(p => p.categoria && p.categoria.toLowerCase() === catLimpia);
         }
 
+        // Forzamos que la sección de ofertas aparezca SOLO para mostrar los resultados de la categoría
+        const seccionContenedorOfertas = contenedorOfertas ? contenedorOfertas.closest('section') : null;
+        if (seccionContenedorOfertas) {
+            seccionContenedorOfertas.style.display = 'block';
+        }
+
         if (contenedorOfertas) {
             window.renderizarProductosEnContenedor('contenedor-ofertas', productosAMostrar);
         }
-        
-        // Ocultamos la sección secundaria de camisas en modo categoría para que no duplique
-        if (seccionCamisasHtml) {
-            seccionCamisasHtml.style.display = 'none';
-        }
-
-        if (btnVerMasOfertas) btnVerMasOfertas.style.display = 'none';
-        if (btnVerMasCamisas) btnVerMasCamisas.style.display = 'none';
 
     } else {
-        // --- VISTA DE LA PÁGINA PRINCIPAL (HOME) ---
-        if (seccionOfertasHtml) seccionOfertasHtml.style.display = 'block';
-        if (seccionCamisasHtml) seccionCamisasHtml.style.display = 'block';
+        // --- VISTA DE LA PÁGINA PRINCIPAL (HOME CON MÚLTIPLES CARRUSELES) ---
+        
+        // Asegurar que las secciones del Home estén visibles
+        seccionesHome.forEach(sec => sec.style.display = 'block');
 
+        // 1. Carrusel de Ofertas (Inicio)
         if (contenedorOfertas) {
             let ofertasInicio = productosData.filter(p => p.precioTachado || p.categoria === "ofertas");
             window.renderizarProductosEnContenedor('contenedor-ofertas', ofertasInicio.slice(0, 4));
         }
 
-        if (contenedorCamisas) {
-            let camisasInicio = productosData.filter(p => p.categoria && p.categoria.toLowerCase() === "camisas");
-            window.renderizarProductosEnContenedor('contenedor-camisas', camisasInicio);
+        // 2. Carrusel exclusivo para Caballero
+        if (contCaballero) {
+            let prodsCaballero = productosData.filter(p => p.categoria && p.categoria.toLowerCase().includes("caballero"));
+            window.renderizarProductosEnContenedor('contenedor-caballero-camisas', prodsCaballero);
+        }
+
+        // 3. Carrusel exclusivo para Dama
+        if (contDama) {
+            let prodsDama = productosData.filter(p => p.categoria && p.categoria.toLowerCase().includes("dama"));
+            window.renderizarProductosEnContenedor('contenedor-dama-camisas', prodsDama);
         }
 
         if (btnVerMasOfertas) btnVerMasOfertas.style.display = 'block';
-        if (btnVerMasCamisas) btnVerMasCamisas.style.display = 'block';
     }
 });
 

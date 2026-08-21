@@ -73,7 +73,7 @@ const productosData = [
 {
     id: "camisa-urbana-01",
     nombre: "Camisa  ",
-    precio: 2.00,
+    precio: 5.00,
     categoria: "caballero-camisas",
     marca: "zara", // <--- 1. Agrega la marca en minúsculas para que el filtro la detecte
     imagen: "images/ropa_uno.jpg",
