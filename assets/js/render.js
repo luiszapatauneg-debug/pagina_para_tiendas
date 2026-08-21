@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- MOSTRAR U OCULTAR EL BILLBOARD SEGÚN LA PÁGINA ---
     if (billboard) {
-        if (!categoriaFiltro || categoriaFiltro === "todos") {
+        if (!categoriaFiltro || categoriaFiltro === "todos" || categoriaFiltro === "todo") {
             billboard.style.display = 'block';
             document.body.classList.add('pagina-inicio');
         } else {
@@ -24,6 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
         "vinos": "🍷 Vinos",
         "whiskeys": "🥃 Whiskeys",
         "camisas": "👕 Camisas y Ropa",
+        "licores": "📦 Catálogo de Licores",
+        "caballero": "👔 Catálogo para Caballero",
+        "caballero-camisas": "👔 Camisas de Caballero",
+        "caballero-zapatos": "👞 Zapatos de Caballero",
+        "caballero-sueteres": "🧥 Suéteres de Caballero",
+        "caballero-accesorios": "🕶️ Accesorios de Caballero",
+        "dama": "👗 Catálogo para Dama",
+        "dama-camisas": "👚 Blusas y Camisas de Dama",
+        "dama-zapatos": "👠 Zapatos de Dama",
+        "dama-sueteres": "🧥 Suéteres de Dama",
+        "dama-accesorios": "👜 Accesorios de Dama",
         "ofertas": "🔥 Ofertas Destacadas y Combos",
         "todos": "📦 Catálogo Completo"
     };
@@ -97,6 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
             productosAMostrar = productosData.filter(p => p.precioTachado || p.categoria === "ofertas");
         } else if (catLimpia === "todo" || catLimpia === "todos") {
             productosAMostrar = productosData;
+        } else if (catLimpia === "caballero") {
+            productosAMostrar = productosData.filter(p => p.categoria && p.categoria.toLowerCase().startsWith("caballero"));
+        } else if (catLimpia === "dama") {
+            productosAMostrar = productosData.filter(p => p.categoria && p.categoria.toLowerCase().startsWith("dama"));
+        } else if (catLimpia === "licores") {
+            const licoresValidos = ["rones", "whiskeys", "cervezas", "vinos"];
+            productosAMostrar = productosData.filter(p => p.categoria && licoresValidos.includes(p.categoria.toLowerCase()));
         } else {
             productosAMostrar = productosData.filter(p => p.categoria && p.categoria.toLowerCase() === catLimpia);
         }
@@ -104,6 +122,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (contenedorOfertas) {
             window.renderizarProductosEnContenedor('contenedor-ofertas', productosAMostrar);
         }
+        
+        // Ocultamos la sección secundaria de camisas en modo categoría para que no duplique
         if (seccionCamisasHtml) {
             seccionCamisasHtml.style.display = 'none';
         }
@@ -178,7 +198,7 @@ function abrirModal(id) {
                     `).join('')}
                 </div>
             </div>`;
-    }
+   }
     opcionesHTML += `</div>`;
     document.getElementById('modal-descripcion').insertAdjacentHTML('afterend', opcionesHTML);
 
@@ -233,4 +253,3 @@ document.addEventListener('click', (e) => {
         cerrarModal();
     }
 });
-

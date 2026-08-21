@@ -74,7 +74,7 @@ const productosData = [
     id: "camisa-urbana-01",
     nombre: "Camisa  ",
     precio: 2.00,
-    categoria: "camisas",
+    categoria: "caballero-camisas",
     marca: "zara", // <--- 1. Agrega la marca en minúsculas para que el filtro la detecte
     imagen: "images/ropa_uno.jpg",
     fotosExtras: ["images/ropa_dos.jpg", "images/ropa_tres.jpg", "images/ropa_uno.jpg"],
@@ -92,7 +92,7 @@ const productosData = [
     id: "camisa-prada-01",
     nombre: "camisa Oversize prada",
     precio: 28.00,
-    categoria: "camisas",
+    categoria: "caballero-camisas",
     marca: "nike", // <--- 1. Agrega la marca en minúsculas para que el filtro la detecte
     imagen: "images/ropa_uno.jpg",
     fotosExtras: ["images/ropa_dos.jpg", "images/ropa_tres.jpg", "images/ropa_uno.jpg"],
