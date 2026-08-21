@@ -1125,10 +1125,10 @@ hr {
     color: white !important;
 }
 
-.btn-restar { background-color: #d9534f !important; }
+.btn-restar { background-color: #686868 !important; }
 .btn-restar:hover { background-color: #c9302c !important; }
 
-.btn-sumar { background-color: #2a4c74!important; }
+.btn-sumar { background-color: #080808!important; }
 .btn-sumar:hover { background-color: #449d44 !important; }
 
 .numero-cantidad {
@@ -1141,7 +1141,7 @@ hr {
 
 /* --- BOTÓN ELIMINAR (PAPELERA) --- */
 .btn-eliminar {
-    background-color: #000000 !important;
+    background-color: #c4c0c0 !important;
     color: #ffffff !important;
     border: none !important;
     padding: 8px 12px !important;
@@ -2950,7 +2950,7 @@ section header.major {
     background: none;
     border: none;
     cursor: pointer;
-    color: #000000;
+    color: #474747;
     font-size: 1.2em;
     box-shadow: none !important;
 }
