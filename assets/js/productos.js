@@ -72,7 +72,7 @@ const productosData = [
 
 {
     id: "camisa-urbana-01",
-    nombre: "Camisa  ",
+    nombre: "Camisa ",
     precio: 5.00,
     categoria: "caballero-camisas",
     marca: "zara", // <--- 1. Agrega la marca en minúsculas para que el filtro la detecte

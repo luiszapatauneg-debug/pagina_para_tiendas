@@ -304,8 +304,11 @@ function renderizarCarritoVisual() {
                     </div>
                 </div>
 
-                <div style="text-align: right;">
-                    <button class="btn-eliminar" onclick="eliminarDelCarrito(${index})" style="background: none; border: none; cursor: pointer; font-size: 1.1rem; margin-bottom: 5px;">🗑️</button>
+               <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
+                    <div>
+                        <button class="btn-editar" onclick="abrirModalEdicion(${index})" title="Editar opciones" style="background: none; border: none; cursor: pointer; font-size: 1.1rem; margin-right: 5px;">✏️</button>
+                        <button class="btn-eliminar" onclick="eliminarDelCarrito(${index})" title="Eliminar producto" style="background: none; border: none; cursor: pointer; font-size: 1.1rem;">🗑️</button>
+                    </div>
                     <p style="font-weight: bold; margin: 0; color: #222;">$${subtotal.toFixed(2)}</p>
                 </div>
             </div>
@@ -574,3 +577,68 @@ document.addEventListener("DOMContentLoaded", () => {
         modalEdad.style.setProperty('display', 'none', 'important');
     }
 });
+
+// 10. Abrir el modal en modo edición desde el carrito
+function abrirModalEdicion(index) {
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    let item = carrito[index];
+    
+    if (!item) return;
+
+    // Guardamos el índice actual en una variable global para que el render.js sepa qué elemento estamos editando
+    window.indiceItemEnEdicion = index;
+
+    // Llamamos a la función abrirModal que ya vive en el render.js usando el ID del producto
+    if (typeof abrirModal === 'function') {
+        abrirModal(item.id);
+        
+        // Opcional: Si el modal tiene un selector de talla o color, intentamos preseleccionar los que ya tenía el usuario
+        setTimeout(() => {
+            let selectTalla = document.getElementById('modal-select-talla');
+            if (selectTalla && item.talla && item.talla !== 'N/A') {
+                selectTalla.value = item.talla;
+            }
+            // Aquí puedes dejar que el usuario elija de nuevo o dejar el estado inicial
+        }, 100);
+    } else {
+        console.error("No se encontró la función abrirModal");
+    }
+}
+
+// 11. Guardar los cambios hechos en el modal al editar el carrito
+function guardarEdicionCarrito(index) {
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    let item = carrito[index];
+    
+    if (!item) return;
+
+    // Capturar la nueva talla seleccionada
+    const selectTalla = document.getElementById('modal-select-talla');
+    let nuevaTalla = selectTalla ? selectTalla.value : (item.talla || 'N/A');
+
+    // Capturar el nuevo color seleccionado
+    let nuevoColor = window.colorSeleccionado || item.color || 'N/A';
+
+    // Actualizamos las propiedades del item
+    item.talla = nuevaTalla;
+    item.color = nuevoColor;
+
+    // Actualizamos el identificador único para que el carrito sepa que esta combinación es distinta si cambia
+    if (item.id) {
+        let sufijoTalla = (item.talla && item.talla !== 'N/A') ? `-${item.talla}` : '';
+        let sufijoColor = (item.color && item.color !== 'N/A') ? `-${item.color}` : '';
+        item.idUnico = item.id + sufijoTalla + sufijoColor;
+    }
+
+    // Guardamos en el localStorage
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+
+    // Limpiamos la variable de edición global
+    window.indiceItemEnEdicion = null;
+
+    // Cerramos el modal y refrescamos la vista del carrito
+    if (typeof cerrarModal === 'function') {
+        cerrarModal();
+    }
+    renderizarCarritoVisual();
+}

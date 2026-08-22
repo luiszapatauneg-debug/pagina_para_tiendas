@@ -58,17 +58,43 @@
                                 </header>
                                 <ul>
         <li><a href="index.html">Inicio / Todo</a></li>
+         <!-- Categoría CABALLERO -->
         <li>
-            <span class="opener">Categorías</span>
+            <span class="opener">Caballero 👔</span>
             <ul>
-				<li><a href="index.html?cat=ofertas">🔥 Ofertas Destacadas y combos</a></li>
-                <li><a href="index.html?cat=rones">Rones</a></li>
-                <li><a href="index.html?cat=whiskeys">whiskeys</a></li>
-                <li><a href="index.html?cat=cervezas">Cervezas</a></li>
-                <li><a href="index.html?cat=vinos">Vinos</a></li>
-                <li><a href="index.html?cat=todo">Todo</a></li>
+                <li><a href="index.html?cat=caballero-camisas">Camisas</a></li>
+                <li><a href="index.html?cat=caballero-zapatos">Zapatos</a></li>
+                <li><a href="index.html?cat=caballero-sueteres">Suéteres</a></li>
+                <li><a href="index.html?cat=caballero-accesorios">Accesorios</a></li>
+                <li><a href="index.html?cat=caballero">Ver todo Caballero</a></li>
             </ul>
         </li>
+
+        <!-- Categoría DAMA -->
+        <li>
+            <span class="opener">Dama 👗</span>
+            <ul>
+                <li><a href="index.html?cat=dama-camisas">Camisas / Blusas</a></li>
+                <li><a href="index.html?cat=dama-zapatos">Zapatos</a></li>
+                <li><a href="index.html?cat=dama-sueteres">Suéteres</a></li>
+                <li><a href="index.html?cat=dama-accesorios">Accesorios</a></li>
+                <li><a href="index.html?cat=dama">Ver todo Dama</a></li>
+            </ul>
+        </li>
+
+        <!-- Otras Categorías -->
+        <li>
+            <span class="opener">Licores y Bebidas</span>
+            <ul>
+                <li><a href="index.html?cat=ofertas">🔥 Ofertas y Combos</a></li>
+                <li><a href="index.html?cat=rones">Rones</a></li>
+                <li><a href="index.html?cat=whiskeys">Whiskeys</a></li>
+                <li><a href="index.html?cat=cervezas">Cervezas</a></li>
+                <li><a href="index.html?cat=vinos">Vinos</a></li>
+                <li><a href="index.html?cat=licores">📦 Ver todo Licores</a></li>
+            </ul>
+        </li>
+
         <li><a href="carrito.html">Ver Carrito 🛒</a></li>
     </ul>
                                                         <!-- Section: Contacto Rápido -->
@@ -112,6 +138,7 @@
             <script src="assets/js/util.js"></script>
             <script src="assets/js/main.js"></script>
             <script src="assets/js/productos.js"></script>
+            <script src="assets/js/render.js"></script>
             <script src="assets/js/carrito.js"></script>
             
             <!-- Script específico para pintar el carrito en esta página -->
@@ -183,5 +210,37 @@
             </div>
 
         </div> <!-- Fin del Wrapper -->
+
+     <!-- VENTANA MODAL DE DETALLES -->
+<div id="modal-producto" class="modal-overlay" style="display: none;">
+    <div class="modal-contenido">
+        <button id="cerrar-modal" class="btn-cerrar">&times;</button>
+        <div class="modal-body-grid">
+            <!-- Sección de Galería de Imágenes -->
+            <div class="modal-galeria">
+                <div class="modal-imagen-principal">
+                   <img id="modal-img" class="img-modal-detalle" src="" alt="Producto" />
+                </div>
+                <!-- Contenedor para las miniaturas de otras fotos -->
+                <div id="modal-miniaturas" class="modal-miniaturas-container" style="display: flex; gap: 8px; margin-top: 10px; overflow-x: auto;">
+                    <!-- Las miniaturas adicionales se inyectarán aquí por JavaScript -->
+                </div>
+            </div>
+            <!-- Sección de Información -->
+            <div class="modal-info">
+                <h2 id="modal-titulo"></h2>
+                <p id="modal-descripcion"></p>
+                <ul id="modal-detalles"></ul>
+                <p id="modal-precio" class="precio-producto"></p>
+                
+                <!-- Aquí es donde el render.js inyectará dinámicamente los selectores de Talla y Color -->
+                
+                <ul class="actions">
+                    <li><button id="modal-btn-comprar" class="btn-comprar">Agregar 🛒</button></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
     </body>
 </html>

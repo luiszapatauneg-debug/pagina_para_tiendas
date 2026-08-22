@@ -54,8 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
         "todos": "📦 Catálogo Completo"
     };
 
-    // 2. Poner el título principal según la categoría
-    if (tituloSeccion) {
+    /// 2. Poner el título principal según la categoría (Solo si NO estamos en el carrito)
+    if (tituloSeccion && !window.location.pathname.includes('carrito.html')) {
         const catBusqueda = categoriaFiltro ? categoriaFiltro.toLowerCase() : "";
         
         if (catBusqueda && nombresCategorias[catBusqueda]) {
@@ -232,14 +232,39 @@ function abrirModal(id) {
         }
     }
 
-    const btnComprar = document.getElementById('modal-btn-comprar');
-    btnComprar.onclick = () => {
-        const talla = document.getElementById('modal-select-talla') ? document.getElementById('modal-select-talla').value : null;
-        const color = window.colorSeleccionado || null;
-        
-        agregarAlCarritoPorId(producto.id, talla, color); 
-        cerrarModal();
-    };
+  const btnComprar = document.getElementById('modal-btn-comprar');
+    // Limpiamos eventos anteriores para evitar duplicados
+    const nuevoBtnComprar = btnComprar.cloneNode(true);
+    btnComprar.parentNode.replaceChild(nuevoBtnComprar, btnComprar);
+
+    // 🟢 AQUí VALIDAMOS SI VENIMOS A EDITAR DESDE EL CARRITO
+    if (window.indiceItemEnEdicion !== null && window.indiceItemEnEdicion !== undefined) {
+        let indiceActual = window.indiceItemEnEdicion;
+        nuevoBtnComprar.textContent = "Guardar Cambios 💾";
+        nuevoBtnComprar.onclick = (e) => {
+            e.preventDefault();
+            if (typeof guardarEdicionCarrito === 'function') {
+                guardarEdicionCarrito(indiceActual);
+            } else {
+                console.error("Falta la función guardarEdicionCarrito");
+            }
+        };
+    } else {
+        // Comportamiento normal de compra desde el catálogo
+        nuevoBtnComprar.textContent = "Agregar 🛒";
+        nuevoBtnComprar.onclick = () => {
+            const talla = document.getElementById('modal-select-talla') ? document.getElementById('modal-select-talla').value : null;
+            
+            let colorElegido = window.colorSeleccionado;
+            if (!colorElegido && producto.colores && producto.colores.length > 0) {
+                const circuloMarcado = document.querySelector('.color-circle[style*="border-color: rgb(0, 0, 0)"]') || document.querySelector('.color-circle[style*="border-color: #000"]');
+                colorElegido = circuloMarcado ? circuloMarcado.getAttribute('data-color') : producto.colores[0].nombre;
+            }
+
+            agregarAlCarritoPorId(producto.id, talla, colorElegido); 
+            cerrarModal();
+        };
+    }
 
     document.getElementById('modal-producto').style.display = 'flex';
 }
@@ -256,6 +281,7 @@ window.marcarColor = function(elemento, nombreColor, fotoColor) {
 
 function cerrarModal() {
     document.getElementById('modal-producto').style.display = 'none';
+    window.indiceItemEnEdicion = null; // 👈 Importante para limpiar el estado de edición
 }
 
 document.addEventListener('click', (e) => {
