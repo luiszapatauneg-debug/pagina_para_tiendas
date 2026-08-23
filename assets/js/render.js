@@ -84,16 +84,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? `Precio normal: <span class="precio-tachado">$${prod.precioTachado}</span> <span class="precio-oferta">¡Oferta: $${prod.precio}!</span>`
                 : `Precio: $${prod.precio}`;
 
-            let article = document.createElement('article');
+           let article = document.createElement('article');
             article.innerHTML = `
                 <a href="javascript:void(0)" class="image" onclick="abrirModal('${prod.id}')"><img src="${prod.imagen}" alt="${prod.nombre}" /></a>
                 <h3><a href="javascript:void(0)" onclick="abrirModal('${prod.id}')" style="text-decoration:none; color:inherit;">${prod.nombre}</a></h3>
                 <p class="precio-producto">${htmlPrecio}</p>
-                <ul class="actions" style="margin-top: 10px; padding: 0; list-style: none; width: 100%;">
-                    <li style="width: 100%;">
-                        <button onclick="agregarAlCarritoPorId('${prod.id}')" class="btn-comprar">Agregar 🛒</button>
-                    </li>
-                </ul>
             `;
             contenedor.appendChild(article);
         });
