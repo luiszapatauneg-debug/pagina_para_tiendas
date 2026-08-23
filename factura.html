@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Factura Visual del Pedido - Tienda</title>
-    <!-- Tus estilos generales o variables si los tienes -->
     <style>
         body {
             background-color: #121212;
@@ -76,6 +75,13 @@
             border-radius: 8px;
             border: 1px solid #444;
             background-color: #111;
+            cursor: pointer; /* Indica que se puede hacer clic para ampliar */
+            transition: transform 0.2s;
+        }
+
+        .factura-item-card img:hover {
+            transform: scale(1.05);
+            border-color: #ffc107;
         }
 
         .factura-item-info {
@@ -121,21 +127,58 @@
             color: #ff6b6b;
             font-size: 1.2rem;
         }
+
+        /* --- MODAL PARA AMPLIAR IMAGEN --- */
+        #modal-zoom {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #modal-zoom img {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 8px;
+            border: 2px solid #444;
+            object-fit: contain;
+        }
+
+        #modal-zoom span {
+            color: #fff;
+            margin-top: 15px;
+            font-size: 1rem;
+            cursor: pointer;
+            background: #333;
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: 1px solid #555;
+        }
     </style>
 </head>
 <body>
 
     <div class="factura-container" id="factura-contenedor">
-        <!-- El contenido se cargará dinámicamente con JavaScript -->
         <p style="text-align: center; color: #aaa;">Cargando detalles del pedido...</p>
     </div>
 
-    <!-- Necesitamos la lista maestra de productos para poder buscar las imágenes oficiales -->
+    <!-- Modal para ver la foto en grande -->
+    <div id="modal-zoom" onclick="cerrarZoom()">
+        <img id="img-ampliada" src="" alt="Vista ampliada">
+        <span>Cerrar ✕</span>
+    </div>
+
     <script src="productos.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // 1. Capturar el ID que viene en la URL (ej: ?id=pedido_1756041234567)
             const params = new URLSearchParams(window.location.search);
             const idPedido = params.get('id');
 
@@ -146,7 +189,6 @@
                 return;
             }
 
-            // 2. Buscar el pedido en el localStorage usando el ID
             const datosPedidoString = localStorage.getItem(idPedido);
 
             if (!datosPedidoString) {
@@ -157,7 +199,6 @@
             const pedido = JSON.parse(datosPedidoString);
             const listaProductos = typeof productosData !== 'undefined' ? productosData : (typeof productos !== 'undefined' ? productos : []);
 
-            // 3. Construir la estructura visual de la factura
             let html = `
                 <div class="factura-header">
                     <h2>📋 Factura de Despacho</h2>
@@ -183,12 +224,20 @@
                 let subtotal = item.precio * item.cantidad;
                 totalGeneral += subtotal;
 
-                // Buscamos la imagen oficial del producto en la lista maestra
                 let productoOficial = listaProductos.find(p => p.id === item.id || (p.nombre && p.nombre.toLowerCase() === item.nombre.toLowerCase()));
-                let imagen = productoOficial ? productoOficial.imagen : 'images/default.jpg';
+                
+                // Corrección de la ruta de la imagen para GitHub Pages
+                let imagen = 'images/default.jpg';
+                if (productoOficial && productoOficial.imagen) {
+                    imagen = productoOficial.imagen;
+                    // Si la ruta empieza con './', se lo quitamos para evitar conflictos de ruta relativa
+                    if (imagen.startsWith('./')) {
+                        imagen = imagen.substring(2);
+                    }
+                }
+
                 let descripcion = productoOficial && productoOficial.descripcion ? productoOficial.descripcion : '';
 
-                // Preparamos variantes visuales (talla y color)
                 let variacionesHtml = '';
                 if (item.talla && item.talla !== 'N/A') {
                     variacionesHtml += `Talla: <strong>${item.talla}</strong> | `;
@@ -210,7 +259,7 @@
 
                 html += `
                     <div class="factura-item-card">
-                        <img src="${imagen}" alt="${item.nombre}">
+                        <img src="${imagen}" alt="${item.nombre}" onclick="ampliarImagen('${imagen}')" title="Haz clic para ver en grande">
                         
                         <div class="factura-item-info">
                             <h4>${index + 1}. ${item.nombre}</h4>
@@ -235,6 +284,19 @@
 
             contenedor.innerHTML = html;
         });
+
+        // Funciones para abrir y cerrar el zoom de la imagen
+        function ampliarImagen(urlImagen) {
+            const modalZoom = document.getElementById('modal-zoom');
+            const imgAmpliada = document.getElementById('img-ampliada');
+            imgAmpliada.src = urlImagen;
+            modalZoom.style.display = 'flex';
+        }
+
+        function cerrarZoom() {
+            const modalZoom = document.getElementById('modal-zoom');
+            modalZoom.style.display = 'none';
+        }
     </script>
 </body>
 </html>
