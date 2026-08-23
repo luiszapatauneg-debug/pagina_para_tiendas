@@ -234,21 +234,18 @@
                 let subtotal = item.precio * item.cantidad;
                 totalGeneral += subtotal;
 // 1. Buscamos el producto en la lista maestra por ID o Nombre
-               // CÓDIGO NUEVO PARA LA FACTURA:
-let productoOficial = listaProductos.find(p => p.id === item.id);
-// Primero revisa si el ítem guardó una foto específica (del color elegido), si no, busca la oficial
-let imagen = item.imagen || (productoOficial ? productoOficial.imagen : 'images/default.jpg');
+                let productoOficial = listaProductos.find(p => p.id === item.id);
                 
                 if (!productoOficial && item.nombre) {
                     productoOficial = listaProductos.find(p => p.nombre.trim().toLowerCase() === item.nombre.trim().toLowerCase());
                 }
                 
-                // 2. Determinamos la imagen correcta (Priorizamos la foto específica del color si el usuario la eligió)
+             // 2. Determinamos la imagen correcta (Priorizamos la foto específica del color si el usuario la eligió)
                 let imagenRuta = 'images/default.jpg';
 
-                // Si el item guardado en el carrito trae una foto propia (por ejemplo, la del color seleccionado)
-                if (item.foto) {
-                    imagenRuta = item.foto;
+                // Si el item guardado en el carrito trae una imagen propia (por ejemplo, la del color seleccionado)
+                if (item.imagen) {
+                    imagenRuta = item.imagen;
                 } 
                 // Si no, buscamos en el producto oficial la imagen principal
                 else if (productoOficial && productoOficial.imagen) {
