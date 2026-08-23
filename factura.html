@@ -241,10 +241,18 @@
                     imagenRuta = productoOficial.imagen;
                 }
 
-                // 3. Limpiamos la ruta para que GitHub Pages no sufra con espacios o puntos iniciales
+               // 3. Blindaje total de la ruta para GitHub Pages
                 let imagen = imagenRuta.trim().replace(/ /g, '%20');
                 if (imagen.startsWith('./')) {
                     imagen = imagen.substring(2);
+                }
+                
+                // Si no es un enlace externo (http), le anteponemos la ruta base correcta de GitHub Pages
+                if (!imagen.startsWith('http') && !imagen.startsWith('/')) {
+                    let pathArray = window.location.pathname.split('/');
+                    pathArray.pop(); // Quitamos 'factura.html' del final
+                    let basePath = pathArray.join('/');
+                    imagen = basePath + '/' + imagen;
                 }
 
                 let descripcion = productoOficial && productoOficial.descripcion ? productoOficial.descripcion : '';
