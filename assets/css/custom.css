@@ -243,12 +243,202 @@
 /* Tamaño y estilo para el precio en oferta */
 .precio-producto .precio-oferta {
     font-size: 1.25rem;
-    color: #d9534f; /* Rojo destacado */
+    color: #ffffff; /* Rojo destacado */
 }
 
 /* Mantener más pequeño el precio tachado de las ofertas */
 .precio-producto .precio-tachado {
+   text-decoration: line-through;
     font-size: 0.95rem;
     font-weight: normal;
     color: #888;
 }
+
+/* ========================================== */
+/* ESTILOS PARA EL BOTON DE RESPIRAR FUERTE  */
+/* ========================================== */
+
+
+/* Estilo base y animación de "respiración" para el botón Ver Más ofertas */
+.btn-respirar-fuerte {
+    background: linear-gradient(135deg, #ff4b2b, #ff416c) !important; /* Color degradado (puedes cambiarlo) */
+    color: #ffffff !important; /* Texto blanco obligado */
+    padding: 14px 28px !important;
+    border-radius: 30px !important;
+    font-weight: bold !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4) !important;
+    animation: latido 2s infinite ease-in-out !important;
+    border: none !important;
+}
+/* Efecto al pasar el mouse por encima */
+.btn-respirar:hover {
+    transform: scale(1.05);
+    animation: none; /* Se detiene la respiración al tocarlo para que responda fluido */
+}
+
+/* Animación de respiración forzada para asegurar que funcione */
+@keyframes latido {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.btn-respirar-fuerte {
+    animation: latido 2s infinite ease-in-out !important;
+    display: inline-block !important;
+}
+
+/* --- IGUALAR TAMAÑO DE LOS BOTONES "VER MÁS" --- */
+.btn-respirar-fuerte {
+    display: inline-block !important;
+    width: 280px !important;    /* Todos los botones medirán 280px de ancho */
+    max-width: 90% !important;  /* Por si la pantalla es muy pequeña */
+    text-align: center !important;
+    box-sizing: border-box !important;
+    padding: 12px 20px !important;
+    font-size: 0.9rem !important;
+    white-space: normal !important; /* Permite que el texto salte de línea si es necesario */
+    line-height: 1.2 !important;
+}
+
+/* ==========================================
+ ==========================================
+           AJUSTES PARA EL CARRITO HTML 
+    ==========================================
+   ========================================== */
+
+   /* ==========================================
+   CARRITO DE COMPRAS - ESTILOS UNIFICADOS
+   ========================================== */
+
+/* 1. Tarjeta individual de cada producto en el carrito */
+.carrito-item-card {
+    display: flex !important;
+    align-items: center !important;
+    gap: 15px !important;
+    padding: 15px 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.carrito-item-card img {
+    width: 80px !important;
+    height: 80px !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+    border: 1px solid #444 !important;
+}
+
+.carrito-info-controls {
+    flex-grow: 1 !important;
+}
+
+/* Textos dentro de la tarjeta */
+.carrito-item-card h4 {
+    color: #ffffff !important;
+    font-size: 1.1rem !important;
+    margin: 0 0 5px 0 !important;
+}
+
+.carrito-item-card p {
+    color: #ffffff !important;
+    font-size: 0.9rem !important;
+    margin: 0 0 5px 0 !important;
+}
+
+
+/* 2. Controles de cantidad (+ y -) */
+.carrito-botones-cantidad, 
+.control-cantidad {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin-top: 8px !important;
+}
+
+/* Estilo unificado para los botones de sumar y restar */
+.btn-cantidad, 
+.btn-sumar, 
+.btn-restar {
+    width: 36px !important;       /* Ancho fijo exacto */
+    height: 36px !important;      /* Alto fijo exacto (igual al ancho para que sea cuadrado) */
+    padding: 0 !important;        /* Quitamos padding para que no se estiren */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.2rem !important;
+    font-weight: bold !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    border: 1px solid #555 !important;
+    outline: none !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+    background-color: #000000 !important;
+    transition: background 0.2s !important;
+}
+
+.btn-restar:hover, .carrito-botones-cantidad .btn-cantidad:first-child:hover {
+    background-color: #c9302c !important; /* Rojo al pasar el mouse por restar */
+}
+
+.btn-sumar:hover, .carrito-botones-cantidad .btn-cantidad:last-child:hover {
+    background-color: #449d44 !important; /* Verde al pasar el mouse por sumar */
+}
+
+/* Número de la cantidad en el medio */
+.carrito-botones-cantidad span, 
+.numero-cantidad {
+    font-size: 1.1rem !important;
+    font-weight: bold !important;
+    color: #ffffff !important;
+    min-width: 25px !important;
+    text-align: center !important;
+}
+
+
+/* 3. Botones de Acción (Editar ✏️ y Eliminar 🗑️) */
+.btn-editar {
+    background: rgba(255, 193, 7, 0.15) !important;
+    border: 1px solid #ffc107 !important;
+    color: #ffc107 !important;
+    border-radius: 6px !important;
+    padding: 5px 8px !important;
+    cursor: pointer !important;
+    font-size: 1rem !important;
+    outline: none !important;
+    box-shadow: none !important;
+    transition: transform 0.2s, background 0.2s !important;
+}
+
+.btn-editar:hover {
+    background-color: #ffc107 !important;
+    color: #000000 !important;
+    transform: scale(1.08) !important;
+}
+
+.btn-eliminar {
+    background: rgba(201, 48, 44, 0.15) !important;
+    border: 1px solid #c9302c !important;
+    color: #ff6b6b !important;
+    border-radius: 6px !important;
+    padding: 5px 8px !important;
+    cursor: pointer !important;
+    font-size: 1rem !important;
+    outline: none !important;
+    box-shadow: none !important;
+    transition: transform 0.2s, background 0.2s !important;
+}
+
+.btn-eliminar:hover {
+    background-color: #c9302c !important;
+    color: #ffffff !important;
+    transform: scale(1.08) !important;
+}
+
+/* ==========================================
+ ==========================================
+           FIN DE AJUSTES DE CARRITO  
+    ==========================================
+   ========================================== */

@@ -1014,7 +1014,7 @@ hr {
 }
 
 
-/* --- ESTILOS PERSONALIZADOS PARA LA TIENDA Y BOTONES(agregar al carrito) --- */
+
 
 
 
@@ -1042,63 +1042,7 @@ hr {
     opacity: 0.9;
 }
 
-/* --- CONTROL DE CANTIDAD EN LÍNEA para el html de carrito  --- */
-.control-cantidad {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 10px !important;
-}
 
-.btn-restar, .btn-sumar {
-    width: 35px !important;
-    height: 35px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    font-size: 1.2em !important;
-    font-weight: bold !important;
-    border-radius: 8px !important;
-    cursor: pointer !important;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-    color: white !important;
-}
-
-.btn-restar { background-color: #686868 !important; }
-.btn-restar:hover { background-color: #c9302c !important; }
-
-.btn-sumar { background-color: #080808!important; }
-.btn-sumar:hover { background-color: #449d44 !important; }
-
-.numero-cantidad {
-    font-weight: bold;
-    font-size: 1.1em;
-    color: #ffffff;
-    min-width: 25px;
-    text-align: center;
-}
-
-/* --- BOTÓN ELIMINAR (PAPELERA) --- */
-.btn-eliminar {
-    background-color: #c4c0c0 !important;
-    color: #ffffff !important;
-    border: none !important;
-    padding: 8px 12px !important;
-    border-radius: 8px !important;
-    cursor: pointer !important;
-    font-size: 1em !important;
-    transition: transform 0.1s;
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-.btn-eliminar:hover {
-    background-color: #c4c1c1 !important;
-    transform: scale(1.05);
-}
 
 /* --- ESTILOS DE LA TABLA --- */
 #tabla-carrito-container table.alt th {
@@ -1122,17 +1066,7 @@ hr {
     text-align: center !important;
 }
 
-.precio-tachado {
-    text-decoration: line-through;
-    color: #888;
-    margin-right: 10px;
-    font-size: 0.9em;
-}
 
-.precio-oferta {
-    color: #e74c3c; /* Un color llamativo como rojo o verde */
-    font-weight: bold;
-}
 
 
 
@@ -1162,50 +1096,6 @@ hr {
     background-color: #ffffff; /* Verde más oscuro al pasar el cursor */
 }
 
-
-/* Estilo base y animación de "respiración" para el botón Ver Más ofertas */
-.btn-respirar-fuerte {
-    background: linear-gradient(135deg, #ff4b2b, #ff416c) !important; /* Color degradado (puedes cambiarlo) */
-    color: #ffffff !important; /* Texto blanco obligado */
-    padding: 14px 28px !important;
-    border-radius: 30px !important;
-    font-weight: bold !important;
-    text-decoration: none !important;
-    display: inline-block !important;
-    box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4) !important;
-    animation: latido 2s infinite ease-in-out !important;
-    border: none !important;
-}
-/* Efecto al pasar el mouse por encima */
-.btn-respirar:hover {
-    transform: scale(1.05);
-    animation: none; /* Se detiene la respiración al tocarlo para que responda fluido */
-}
-
-/* Animación de respiración forzada para asegurar que funcione */
-@keyframes latido {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-.btn-respirar-fuerte {
-    animation: latido 2s infinite ease-in-out !important;
-    display: inline-block !important;
-}
-
-/* --- IGUALAR TAMAÑO DE LOS BOTONES "VER MÁS" --- */
-.btn-respirar-fuerte {
-    display: inline-block !important;
-    width: 280px !important;    /* Todos los botones medirán 280px de ancho */
-    max-width: 90% !important;  /* Por si la pantalla es muy pequeña */
-    text-align: center !important;
-    box-sizing: border-box !important;
-    padding: 12px 20px !important;
-    font-size: 0.9rem !important;
-    white-space: normal !important; /* Permite que el texto salte de línea si es necesario */
-    line-height: 1.2 !important;
-}
 /* Forzar que los inputs del modal tengan texto negro y sean visibles */
 #modal-whatsapp input, 
 #modal-whatsapp select {
@@ -2725,53 +2615,7 @@ section header.major {
     margin-bottom: 15px !important;
 }
 
-/* Estilos modernos para los productos del carrito */
-.carrito-item-card {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
-}
 
-.carrito-item-card img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-}
-
-.carrito-info-controls {
-    flex-grow: 1;
-}
-
-.carrito-botones-cantidad {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 8px;
-    box-shadow: none !important;
-}
-
-.btn-cantidad {
-    background: #f4f4f4;
-    border: none;
-    padding: 5px 12px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-weight: bold;
-    box-shadow: none !important;
-}
-
-.btn-eliminar {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #474747;
-    font-size: 1.2em;
-    box-shadow: none !important;
-}
 
 /* ==========================================
    ESTRUCTURA GENERAL DE MODALES (Unificado)
