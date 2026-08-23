@@ -442,6 +442,7 @@ img.img-modal-detalle {
            AJUSTES PARA EL CARRITO HTML 
     ==========================================
    ========================================== */
+
 /* ==========================================
    CARRITO DE COMPRAS - ESTILOS UNIFICADOS
    ========================================== */
@@ -480,8 +481,10 @@ img.img-modal-detalle {
     margin: 0 0 5px 0 !important;
 }
 
+/* ==========================================
+     2. CONTROLES DE CANTIDAD (+ y -) 
+   ========================================== */
 
-/* 2. Controles de cantidad (+ y -) */
 .carrito-botones-cantidad, 
 .control-cantidad {
     display: flex !important;
@@ -530,8 +533,9 @@ img.img-modal-detalle {
     text-align: center !important;
 }
 
-
-/* 3. Contenedor derecho y Botones de Acción (Editar ✏️ y Eliminar 🗑️) */
+/* =====================================================================
+   3.CONTENEDOR DERECHO Y BOTONES DE ACCION (EDITAR ✏️ Y ELIMINAR 🗑️)
+   ===================================================================== */
 
 /* Fuerza a que la columna derecha mantenga orden y no se aplaste en móviles */
 .carrito-item-card div[style*="text-align: right"],
@@ -594,6 +598,32 @@ img.img-modal-detalle {
     color: #ffffff !important;
     transform: scale(1.08) !important;
 }
+
+/* =====================================================================
+    4. BOTONES DE ACCION PRINCIPALES (WHATSAPP / SEGUIR COMPRANDO)
+   ===================================================================== */
+.btn-comprar-wa, .btn-seguir {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 12px 20px !important;       /* Padding equilibrado para botones tipo caja */
+    border-radius: 6px !important;       /* <-- CAMBIADO: De 50px (pastilla) a 6px (cuadrado con esquinas suaves) */
+    font-size: 1em !important;
+    gap: 8px !important;
+    transition: 0.2s ease;
+    border: 1px solid #555 !important;   /* Borde sutil y limpio */
+    cursor: pointer;
+}
+
+/* --- botones de html de carrito para pedir por ws o seguir comprando --- */
+.btn-comprar-wa { background-color: #050404 !important; color: #ffffff !important; box-shadow: none !important; }
+.btn-seguir { background-color: #ffffff !important; color: #000000 !important; box-shadow: none !important;} /* Nota: Cambié el color de texto a blanco para que resalte bien en el fondo gris */
+
+.btn-comprar-wa:hover, .btn-seguir:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
 
 /* ==========================================
  ==========================================

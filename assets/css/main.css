@@ -1014,62 +1014,6 @@ hr {
 }
 
 
-
-
-
-
-
-
-/* --- BOTONES DE ACCIÓN PRINCIPALES (WhatsApp / Seguir comprando) --- */
-.btn-comprar-wa, .btn-seguir {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 0.6em 1.5em !important;
-    border-radius: 50px !important;
-    font-size: 1em !important;
-    gap: 8px !important;
-    transition: 0.2s ease;
-    border: 2px solid #ffffff !important;
-    cursor: pointer;
-}
-/* --- botones de html de carrito para pedir por ws o seguir comprando --- */
-.btn-comprar-wa { background-color: #050404 !important; color: #ffffff !important; box-shadow: none !important; }
-.btn-seguir { background-color: #6c757d !important; color: #050505 !important; }
-
-.btn-comprar-wa:hover, .btn-seguir:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
-}
-
-
-
-/* --- ESTILOS DE LA TABLA --- */
-#tabla-carrito-container table.alt th {
-    color: #ffffff !important;
-    background-color: #3b3b3b !important;
-}
-
-#tabla-carrito-container table.alt td {
-    color: #e0e0e0 !important;
-    vertical-align: middle !important;
-}
-
-#tabla-carrito-container table.alt tfoot td {
-    color: #ffffff !important;
-    background-color: #2a2a2a !important;
-}
-
-/* Asegurar que la columna de acciones esté centrada */
-#tabla-carrito-container table.alt td:nth-child(5),
-#tabla-carrito-container table.alt th:nth-child(5) {
-    text-align: center !important;
-}
-
-
-
-
-
 /* Estilo profesional para el botón de envío de ws cuando va a mandar el mensaje */
 .btn-enviar-wsp {
     width: 100% !important;            /* Ocupa todo el ancho */

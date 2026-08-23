@@ -505,6 +505,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
+            // 📍 GENERAR ID ÚNICO DEL PEDIDO PARA LA FACTURA VISUAL
+            const idPedidoUnico = 'pedido_' + Date.now();
+
+            // Guardamos el pedido completo en el localStorage para que la factura visual lo lea
+            const datosPedidoFactura = {
+                idPedido: idPedidoUnico,
+                fecha: new Date().toLocaleString(),
+                sucursal: sucursalSeleccionada,
+                cliente: nombre,
+                entrega: entrega,
+                zona: zona || 'N/A',
+                pago: pago,
+                productos: carrito
+            };
+
+            localStorage.setItem(idPedidoUnico, JSON.stringify(datosPedidoFactura));
+
             // Construcción del mensaje indicando la sucursal de destino
             let mensaje = `*¡Hola! Nuevo Pedido Web 🛒*\n`;
             mensaje += `📍 *Sucursal Destino:* ${sucursalSeleccionada}\n\n`;
@@ -528,16 +545,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 let subtotal = item.precio * item.cantidad;
                 totalGeneral += subtotal;
 
-                // Agregamos la talla y color si existen
                 let detallesExtra = "";
                 if (item.talla && item.talla !== 'N/A') detallesExtra += ` (Talla: ${item.talla})`;
                 if (item.color && item.color !== 'N/A') detallesExtra += ` (Color: ${item.color})`;
 
-                mensaje += `${index + 1}. *${item.nombre}* x${item.cantidad} - $${subtotal}\n`;
+                mensaje += `${index + 1}. *${item.nombre}* x${item.cantidad} - $${subtotal}${detallesExtra}\n`;
             });
 
-            mensaje += `\n💰 *Total a pagar: $${totalGeneral} USD*\n\n¿Me confirman disponibilidad y métodos de pago?`;
+            mensaje += `\n💰 *Total a pagar: $${totalGeneral} USD*\n`;
 
+            // 🔗 ENLACE DE LA FACTURA VISUAL PARA EL TRABAJADOR
+            // Cambia "tuweb.com" por tu dominio real o déjalo relativo si está en la misma carpeta
+            let urlFacturaVisual = `${window.location.origin}/factura.html?id=${idPedidoUnico}`;
+            mensaje += `\n🔗 *Ver factura visual y fotos:* ${urlFacturaVisual}\n`;
+
+            mensaje += `\n¿Me confirman disponibilidad y métodos de pago?`;
+            
             let mensajeCodificado = encodeURIComponent(mensaje);
             let urlWhatsApp = `https://wa.me/${numeroDestino}?text=${mensajeCodificado}`;
 
