@@ -308,8 +308,7 @@
            AJUSTES PARA EL CARRITO HTML 
     ==========================================
    ========================================== */
-
-   /* ==========================================
+/* ==========================================
    CARRITO DE COMPRAS - ESTILOS UNIFICADOS
    ========================================== */
 
@@ -357,13 +356,13 @@
     margin-top: 8px !important;
 }
 
-/* Estilo unificado para los botones de sumar y restar */
+/* Estilo unificado para los botones de sumar y restar (Cuadrados perfectos) */
 .btn-cantidad, 
 .btn-sumar, 
 .btn-restar {
     width: 36px !important;       /* Ancho fijo exacto */
-    height: 36px !important;      /* Alto fijo exacto (igual al ancho para que sea cuadrado) */
-    padding: 0 !important;        /* Quitamos padding para que no se estiren */
+    height: 36px !important;      /* Alto fijo exacto */
+    padding: 0 !important;        
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -398,18 +397,49 @@
 }
 
 
-/* 3. Botones de Acción (Editar ✏️ y Eliminar 🗑️) */
+/* 3. Contenedor derecho y Botones de Acción (Editar ✏️ y Eliminar 🗑️) */
+
+/* Fuerza a que la columna derecha mantenga orden y no se aplaste en móviles */
+.carrito-item-card div[style*="text-align: right"],
+.carrito-item-card .carrito-acciones-derecha {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    flex-shrink: 0 !important;
+}
+
+/* Fila horizontal para que el lápiz y la papelera queden bien alineados uno al lado del otro */
+.carrito-item-card div[style*="text-align: right"] > div:first-child {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 6px !important;
+}
+
+/* Tamaños simétricos para los botones de editar y eliminar */
+.btn-editar, 
+.btn-eliminar {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 32px !important;
+    height: 32px !important;
+    padding: 0 !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    font-size: 0.95rem !important;
+    outline: none !important;
+    box-shadow: none !important;
+    transition: transform 0.2s, background 0.2s !important;
+}
+
 .btn-editar {
     background: rgba(255, 193, 7, 0.15) !important;
     border: 1px solid #ffc107 !important;
     color: #ffc107 !important;
-    border-radius: 6px !important;
-    padding: 5px 8px !important;
-    cursor: pointer !important;
-    font-size: 1rem !important;
-    outline: none !important;
-    box-shadow: none !important;
-    transition: transform 0.2s, background 0.2s !important;
 }
 
 .btn-editar:hover {
@@ -422,13 +452,6 @@
     background: rgba(201, 48, 44, 0.15) !important;
     border: 1px solid #c9302c !important;
     color: #ff6b6b !important;
-    border-radius: 6px !important;
-    padding: 5px 8px !important;
-    cursor: pointer !important;
-    font-size: 1rem !important;
-    outline: none !important;
-    box-shadow: none !important;
-    transition: transform 0.2s, background 0.2s !important;
 }
 
 .btn-eliminar:hover {
