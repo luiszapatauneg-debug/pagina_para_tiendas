@@ -1,3 +1,137 @@
+
+/* ==========================================
+   ESTRUCTURA GENERAL DE MODALES (Unificado)
+   ========================================== */
+
+/* 1. Fondo oscuro traslúcido */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+/* 2. Caja contenedora principal del modal */
+.modal-contenido {
+    background: #1a1818;
+    padding: 40px 20px 20px 20px; /* Espacio arriba para que la X no pise el contenido */
+    border-radius: 12px;
+    width: 92%;
+    max-width: 700px;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid #333;
+}
+
+/* 3. Botón de cerrar (La "X") en la esquina limpia */
+.modal-contenido .btn-cerrar,
+.modal-overlay .btn-cerrar {
+    position: absolute !important;
+    top: 12px !important;
+    right: 12px !important;
+    background:   #fcf8f8 !important;
+    color: #000000 !important;
+    border: 1px solid #444 !important;      /* Opcional: un borde sutil para que luzca como caja */
+    border-radius: 6px !important;          /* <-- CAMBIADO: De 50% (círculo) a 6px (cuadrado con esquinas redondeadas) */
+    width: 35px !important;
+    height: 35px !important;
+    font-size: 1.1rem !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 10 !important;
+    transition: background 0.2s ease, color 0.2s ease !important;
+     box-shadow: none !important; /* Quita sombras azules de selección */
+}
+
+.modal-contenido .btn-cerrar:hover,
+.modal-overlay .btn-cerrar:hover {
+    background: #ff4d4d !important;
+    color: #ffffff !important;
+}
+
+/* ==========================================
+   ELEMENTOS INTERNOS DE LOS MODALES
+   ========================================== */
+
+/* Inputs y selects dentro del modal */
+.modal-contenido input, 
+.modal-contenido select {
+    background: #2a2a2a;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 12px;
+    border-radius: 6px;
+    width: 100%;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.modal-contenido label {
+    color: #ccc;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Estructura de cuadrícula para modales de productos (ej. vista rápida) */
+.modal-body-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* --- TAMAÑO FIJO Y SEGURO PARA LA IMAGEN DEL MODAL DE PRODUCTO --- */
+img.img-modal-detalle {
+    width: 100% !important;
+    max-width: 250px !important;
+    height: 280px !important;
+    object-fit: contain !important;
+    background-color: #111 !important;
+    border-radius: 6px !important;
+    display: block !important;
+    margin: 0 auto 15px auto !important; /* Centrada y con espacio abajo */
+}
+
+.modal-info {
+    flex: 1;
+}
+
+/* Botón principal de acción dentro del modal (ej. carrito) */
+#modal-btn-comprar.btn-comprar {
+    background-color: #eeeeee !important;
+    color: #111111 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    padding: 15px 30px !important;
+    margin-top: 15px !important;
+    border-radius: 6px !important;
+    box-sizing: border-box !important;
+    font-size: 0.9rem !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+#modal-btn-comprar.btn-comprar:hover {
+    background-color: #4d4d4d !important;
+}
+
+
+
 /* ========================================== */
 /* ESTILOS PARA EL PANEL Y BOTÓN DE FILTROS   */
 /* ========================================== */
@@ -430,7 +564,8 @@
     padding: 0 !important;
     border-radius: 6px !important;
     cursor: pointer !important;
-    font-size: 0.95rem !important;
+   font-size: 1.35rem !important;          /* <-- Aumentado de 1.1rem a 1.35rem para que sea más grande */
+    font-weight: bold !important;          /* <-- Opcional: Le da un toque más marcado */
     outline: none !important;
     box-shadow: none !important;
     transition: transform 0.2s, background 0.2s !important;
