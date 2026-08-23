@@ -1016,13 +1016,7 @@ hr {
 
 /* --- ESTILOS PERSONALIZADOS PARA LA TIENDA Y BOTONES(agregar al carrito) --- */
 
-/* Precio destacado del producto */
-.precio-producto {
-    font-weight: bold;
-    color: rgb(236, 79, 79); /* El color rojo/naranja elegante de la plantilla */
-    font-size: 1.2em; /* Letra un poco más grande */
-    margin-bottom: 0.8em;
-}
+
 
 
 

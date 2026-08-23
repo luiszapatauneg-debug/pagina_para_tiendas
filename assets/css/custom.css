@@ -224,3 +224,31 @@
     margin-bottom: 0 !important;
     margin-right: 0 !important;
 }
+
+/* ========================================== */
+/* CONFIGURACION DE COMO SE VEN LOS PRECIOS
+   Estilo general del contenedor de precios   */
+/* ========================================== */
+
+.precio-producto {
+    font-weight: bold;
+}
+
+/* Tamaño grande para el precio normal cuando NO hay oferta */
+.precio-producto .precio-normal {
+    font-size: 1.25rem; 
+    color: #fff; /* O el color que prefieras para tus precios */
+}
+
+/* Tamaño y estilo para el precio en oferta */
+.precio-producto .precio-oferta {
+    font-size: 1.25rem;
+    color: #d9534f; /* Rojo destacado */
+}
+
+/* Mantener más pequeño el precio tachado de las ofertas */
+.precio-producto .precio-tachado {
+    font-size: 0.95rem;
+    font-weight: normal;
+    color: #888;
+}

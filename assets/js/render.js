@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lista.forEach(prod => {
             let htmlPrecio = prod.precioTachado
                 ? `Precio normal: <span class="precio-tachado">$${prod.precioTachado}</span> <span class="precio-oferta">¡Oferta: $${prod.precio}!</span>`
-                : `Precio: $${prod.precio}`;
+                : `Precio: <span class="precio-normal">$${prod.precio}</span>`;
 
            let article = document.createElement('article');
             article.innerHTML = `
