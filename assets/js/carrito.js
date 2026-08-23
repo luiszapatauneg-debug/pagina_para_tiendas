@@ -554,13 +554,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             mensaje += `\n💰 *Total a pagar: $${totalGeneral} USD*\n`;
 
-            // 🔗 ENLACE DE LA FACTURA VISUAL PARA EL TRABAJADOR
-            // Cambia "tuweb.com" por tu dominio real o déjalo relativo si está en la misma carpeta
-            let urlFacturaVisual = `${window.location.origin}/factura.html?id=${idPedidoUnico}`;
+            // 🔗 ENLACE DE LA FACTURA VISUAL PARA EL TRABAJADOR (Adaptado a GitHub Pages)
+            let urlBase = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+            let urlFacturaVisual = `${urlBase}/factura.html?id=${idPedidoUnico}`;
+            
             mensaje += `\n🔗 *Ver factura visual y fotos:* ${urlFacturaVisual}\n`;
 
             mensaje += `\n¿Me confirman disponibilidad y métodos de pago?`;
-            
+
             let mensajeCodificado = encodeURIComponent(mensaje);
             let urlWhatsApp = `https://wa.me/${numeroDestino}?text=${mensajeCodificado}`;
 
