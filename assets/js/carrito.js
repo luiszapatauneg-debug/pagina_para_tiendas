@@ -151,16 +151,23 @@ window.agregarAlCarritoPorId = function(idProducto, talla = null, color = null) 
         
         let productoExistente = carrito.find(item => item.idUnico === idUnico);
         
+       // Capturamos la foto exacta que se está mostrando en el modal/pantalla en este momento
+        let imgElement = document.getElementById('modal-img') || document.querySelector('.producto-img-principal') || document.querySelector('.img-producto');
+        let fotoSeleccionada = imgElement ? imgElement.src : (productoOficial.imagen || 'images/default.jpg');
+
         if (productoExistente) {
             productoExistente.cantidad += 1;
+            // Actualizamos la foto por si cambió de color en esta nueva adición
+            productoExistente.imagen = fotoSeleccionada; 
         } else {
             carrito.push({
                 idUnico: idUnico,
                 id: idProducto,
                 nombre: nombre,
                 precio: precio,
-                talla: talla || 'N/A',   // <-- Guardamos la talla limpia
-                color: color || 'N/A',   // <-- Guardamos el color limpio
+                imagen: fotoSeleccionada, // <-- ¡Aquí guardamos la foto del color elegido!
+                talla: talla || 'N/A',   
+                color: color || 'N/A',   
                 cantidad: 1
             });
         }
@@ -250,8 +257,9 @@ function renderizarCarritoVisual() {
         let subtotal = item.precio * item.cantidad;
         totalGeneral += subtotal;
 
-        let productoOficial = listaProductos.find(p => p.id === item.id);
-        let imagen = productoOficial ? productoOficial.imagen : 'images/default.jpg';
+      let productoOficial = listaProductos.find(p => p.id === item.id);
+        // Priorizamos la foto específica del color que guardó el usuario, si no existe usa la oficial
+        let imagen = item.imagen || (productoOficial ? productoOficial.imagen : 'images/default.jpg');
         let descripcion = productoOficial && productoOficial.descripcion ? productoOficial.descripcion : '';
 
         // Preparamos el texto de las variantes (talla y color)
@@ -643,6 +651,12 @@ function guardarEdicionCarrito(index) {
     // Capturar el nuevo color seleccionado
     let nuevoColor = window.colorSeleccionado || item.color || 'N/A';
 
+    // Capturar la nueva foto que se muestra tras el cambio de color
+    let imgElement = document.getElementById('modal-img');
+    if (imgElement) {
+        item.imagen = imgElement.src;
+    }
+    
     // Actualizamos las propiedades del item
     item.talla = nuevaTalla;
     item.color = nuevoColor;
