@@ -223,17 +223,28 @@
             pedido.productos.forEach((item, index) => {
                 let subtotal = item.precio * item.cantidad;
                 totalGeneral += subtotal;
-
-                let productoOficial = listaProductos.find(p => p.id === item.id || (p.nombre && p.nombre.toLowerCase() === item.nombre.toLowerCase()));
+// 1. Buscamos el producto en la lista maestra por ID o Nombre
+                let productoOficial = listaProductos.find(p => p.id === item.id);
+                if (!productoOficial && item.nombre) {
+                    productoOficial = listaProductos.find(p => p.nombre.trim().toLowerCase() === item.nombre.trim().toLowerCase());
+                }
                 
-                // Corrección de la ruta de la imagen para GitHub Pages
-                let imagen = 'images/default.jpg';
-                if (productoOficial && productoOficial.imagen) {
-                    imagen = productoOficial.imagen;
-                    // Si la ruta empieza con './', se lo quitamos para evitar conflictos de ruta relativa
-                    if (imagen.startsWith('./')) {
-                        imagen = imagen.substring(2);
-                    }
+                // 2. Determinamos la imagen correcta (Priorizamos la foto específica del color si el usuario la eligió)
+                let imagenRuta = 'images/default.jpg';
+
+                // Si el item guardado en el carrito trae una foto propia (por ejemplo, la del color seleccionado)
+                if (item.foto) {
+                    imagenRuta = item.foto;
+                } 
+                // Si no, buscamos en el producto oficial la imagen principal
+                else if (productoOficial && productoOficial.imagen) {
+                    imagenRuta = productoOficial.imagen;
+                }
+
+                // 3. Limpiamos la ruta para que GitHub Pages no sufra con espacios o puntos iniciales
+                let imagen = imagenRuta.trim().replace(/ /g, '%20');
+                if (imagen.startsWith('./')) {
+                    imagen = imagen.substring(2);
                 }
 
                 let descripcion = productoOficial && productoOficial.descripcion ? productoOficial.descripcion : '';
