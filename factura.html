@@ -234,7 +234,11 @@
                 let subtotal = item.precio * item.cantidad;
                 totalGeneral += subtotal;
 // 1. Buscamos el producto en la lista maestra por ID o Nombre
-                let productoOficial = listaProductos.find(p => p.id === item.id);
+               // CÓDIGO NUEVO PARA LA FACTURA:
+let productoOficial = listaProductos.find(p => p.id === item.id);
+// Primero revisa si el ítem guardó una foto específica (del color elegido), si no, busca la oficial
+let imagen = item.imagen || (productoOficial ? productoOficial.imagen : 'images/default.jpg');
+                
                 if (!productoOficial && item.nombre) {
                     productoOficial = listaProductos.find(p => p.nombre.trim().toLowerCase() === item.nombre.trim().toLowerCase());
                 }
