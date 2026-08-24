@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const billboard = document.getElementById('billboard-principal');
+    const segundoBillboard = document.getElementById('billboard-segundo'); // 👈 Tu segundo billboard
     const tituloSeccion = document.querySelector('section > header.major > h2');
 
     // 1. Leer qué categoría viene en la URL
@@ -14,22 +15,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnVerMasOfertas = document.getElementById('seccion-ver-mas');
 
     // --- MOSTRAR U OCULTAR SEGÚN LA PÁGINA ---
-    if (billboard) {
-        if (!categoriaFiltro || categoriaFiltro === "todos" || categoriaFiltro === "todo") {
-            billboard.style.display = 'block';
-            document.body.classList.add('pagina-inicio');
-            
-            // Mostrar todas las secciones del Home
-            seccionesHome.forEach(sec => sec.style.display = 'block');
-            if (btnVerMasOfertas) btnVerMasOfertas.style.display = 'block';
-        } else {
-            billboard.style.display = 'none';
-            document.body.classList.remove('pagina-inicio');
+    if (!categoriaFiltro || categoriaFiltro === "todos" || categoriaFiltro === "todo") {
+        if (billboard) billboard.style.display = 'block';
+        if (segundoBillboard) segundoBillboard.style.display = 'block'; // 👈 Lo muestra en el home
+        document.body.classList.add('pagina-inicio');
+        
+        // Mostrar todas las secciones del Home
+        seccionesHome.forEach(sec => sec.style.display = 'block');
+        if (btnVerMasOfertas) btnVerMasOfertas.style.display = 'block';
+    } else {
+        if (billboard) billboard.style.display = 'none';
+        if (segundoBillboard) segundoBillboard.style.display = 'none'; // 👈 Lo oculta en las categorías
+        document.body.classList.remove('pagina-inicio');
 
-            // Ocultar los carruseles múltiples del Home para que no estorben en categorías
-            seccionesHome.forEach(sec => sec.style.display = 'none');
-            if (btnVerMasOfertas) btnVerMasOfertas.style.display = 'none';
-        }
+        // Ocultar los carruseles múltiples del Home para que no estorben en categorías
+        seccionesHome.forEach(sec => sec.style.display = 'none');
+        if (btnVerMasOfertas) btnVerMasOfertas.style.display = 'none';
     }
 
     // Diccionario de títulos para la tienda
