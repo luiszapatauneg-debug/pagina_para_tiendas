@@ -513,12 +513,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // 📍 GENERAR ID ÚNICO DEL PEDIDO PARA LA FACTURA VISUAL
-            const idPedidoUnico = 'pedido_' + Date.now();
-
-            // Guardamos el pedido completo en el localStorage para que la factura visual lo lea
+            // 📍 EMPAQUETAR TODOS LOS DATOS PARA LA ORDEN DE PEDIDO VISUAL
             const datosPedidoFactura = {
-                idPedido: idPedidoUnico,
                 fecha: new Date().toLocaleString(),
                 sucursal: sucursalSeleccionada,
                 cliente: nombre,
@@ -528,7 +524,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 productos: carrito
             };
 
-            localStorage.setItem(idPedidoUnico, JSON.stringify(datosPedidoFactura));
+            // Convertimos a JSON y lo codificamos para que viaje seguro por la URL
+            const jsonString = JSON.stringify(datosPedidoFactura);
+            const datosCodificados = encodeURIComponent(jsonString);
 
             // Construcción del mensaje indicando la sucursal de destino
             let mensaje = `*¡Hola! Nuevo Pedido Web 🛒*\n`;
@@ -562,9 +560,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             mensaje += `\n💰 *Total a pagar: $${totalGeneral} USD*\n`;
 
-            // 🔗 ENLACE DE LA FACTURA VISUAL PARA EL TRABAJADOR (Adaptado a GitHub Pages)
+            // 🔗 ENLACE DE LA ORDEN VISUAL CON DATOS INTEGRADOS
             let urlBase = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
-            let urlFacturaVisual = `${urlBase}/factura.html?id=${idPedidoUnico}`;
+            let urlFacturaVisual = `${urlBase}/factura.html?data=${datosCodificados}`;
             
             mensaje += `\n🔗 *Ver factura visual y fotos:* ${urlFacturaVisual}\n`;
 

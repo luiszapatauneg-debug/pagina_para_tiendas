@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Factura Visual del Pedido - Tienda</title>
+    <title>Orden de Pedido - Tienda</title>
     <style>
         body {
             background-color: #121212;
@@ -75,7 +75,7 @@
             border-radius: 8px;
             border: 1px solid #444;
             background-color: #111;
-            cursor: pointer; /* Indica que se puede hacer clic para ampliar */
+            cursor: pointer;
             transition: transform 0.2s;
         }
 
@@ -176,143 +176,141 @@
     </div>
 
     <!-- Scripts -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/js/browser.min.js"></script>
-        <script src="assets/js/breakpoints.min.js"></script>
-        <script src="assets/js/util.js"></script>
-        <script src="assets/js/main.js"></script>
-        <script src="assets/js/productos.js"></script>
-        <script src="assets/js/carrusel_pc.js"></script>
-        <script src="assets/js/render.js"></script>
-        <script src="assets/js/filtros.js"></script>
-        <script src="assets/js/buscador.js"></script>
-        <script src="assets/js/carrito.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/productos.js"></script>
+    <script src="assets/js/carrusel_pc.js"></script>
+    <script src="assets/js/render.js"></script>
+    <script src="assets/js/filtros.js"></script>
+    <script src="assets/js/buscador.js"></script>
+    <script src="assets/js/carrito.js"></script>
+    
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const params = new URLSearchParams(window.location.search);
-            const idPedido = params.get('id');
+            const dataParam = params.get('data'); // <--- Leemos el parámetro 'data' del enlace
 
             const contenedor = document.getElementById('factura-contenedor');
 
-            if (!idPedido) {
-                contenedor.innerHTML = `<div class="error-mensaje">❌ No se encontró ningún identificador de pedido en el enlace.</div>`;
+            if (!dataParam) {
+                contenedor.innerHTML = `<div class="error-mensaje">❌ No se encontró información del pedido en el enlace.</div>`;
                 return;
             }
 
-            const datosPedidoString = localStorage.getItem(idPedido);
-
-            if (!datosPedidoString) {
-                contenedor.innerHTML = `<div class="error-mensaje">⚠️ Este pedido no fue encontrado o ya expiró en la memoria de este dispositivo.</div>`;
-                return;
-            }
-
-            const pedido = JSON.parse(datosPedidoString);
-            const listaProductos = typeof productosData !== 'undefined' ? productosData : (typeof productos !== 'undefined' ? productos : []);
-
-            let html = `
-                <div class="factura-header">
-                    <h2>📋 Factura de Despacho</h2>
-                    <p>ID: ${pedido.idPedido}</p>
-                    <p>Fecha: ${pedido.fecha}</p>
-                </div>
-
-                <div class="cliente-info">
-                    <p>📍 <strong>Sucursal:</strong> ${pedido.sucursal}</p>
-                    <p>👤 <strong>Cliente:</strong> ${pedido.cliente}</p>
-                    <p>🚚 <strong>Método de Entrega:</strong> ${pedido.entrega}</p>
-                    ${pedido.entrega !== 'Retirar en Tienda' ? `<p>🏠 <strong>Zona / Sector:</strong> ${pedido.zona}</p>` : ''}
-                    <p>💳 <strong>Método de Pago:</strong> ${pedido.pago}</p>
-                </div>
-
-                <h3>Productos solicitados:</h3>
-                <div class="factura-items-list">
-            `;
-
-            let totalGeneral = 0;
-
-            pedido.productos.forEach((item, index) => {
-                let subtotal = item.precio * item.cantidad;
-                totalGeneral += subtotal;
-// 1. Buscamos el producto en la lista maestra por ID o Nombre
-                let productoOficial = listaProductos.find(p => p.id === item.id);
+            try {
+                // Decodificamos el JSON que viene viajando por la URL
+                const jsonString = decodeURIComponent(dataParam);
+                const pedido = JSON.parse(jsonString);
                 
-                if (!productoOficial && item.nombre) {
-                    productoOficial = listaProductos.find(p => p.nombre.trim().toLowerCase() === item.nombre.trim().toLowerCase());
-                }
-                
-             // 2. Determinamos la imagen correcta (Priorizamos la foto específica del color si el usuario la eligió)
-                let imagenRuta = 'images/default.jpg';
+                const listaProductos = typeof productosData !== 'undefined' ? productosData : (typeof productos !== 'undefined' ? productos : []);
 
-                // Si el item guardado en el carrito trae una imagen propia (por ejemplo, la del color seleccionado)
-                if (item.imagen) {
-                    imagenRuta = item.imagen;
-                } 
-                // Si no, buscamos en el producto oficial la imagen principal
-                else if (productoOficial && productoOficial.imagen) {
-                    imagenRuta = productoOficial.imagen;
-                }
+                let html = `
+                    <div class="factura-header">
+                        <h2>📋 Orden de Pedido</h2>
+                        <p>Fecha: ${pedido.fecha || 'N/A'}</p>
+                    </div>
 
-               // 3. Blindaje total de la ruta para GitHub Pages
-                let imagen = imagenRuta.trim().replace(/ /g, '%20');
-                if (imagen.startsWith('./')) {
-                    imagen = imagen.substring(2);
-                }
-                
-                // Si no es un enlace externo (http), le anteponemos la ruta base correcta de GitHub Pages
-                if (!imagen.startsWith('http') && !imagen.startsWith('/')) {
-                    let pathArray = window.location.pathname.split('/');
-                    pathArray.pop(); // Quitamos 'factura.html' del final
-                    let basePath = pathArray.join('/');
-                    imagen = basePath + '/' + imagen;
-                }
+                    <div class="cliente-info">
+                        <p>📍 <strong>Sucursal:</strong> ${pedido.sucursal}</p>
+                        <p>👤 <strong>Cliente:</strong> ${pedido.cliente}</p>
+                        <p>🚚 <strong>Método de Entrega:</strong> ${pedido.entrega}</p>
+                        ${pedido.entrega !== 'Retirar en Tienda' ? `<p>🏠 <strong>Zona / Sector:</strong> ${pedido.zona}</p>` : ''}
+                        <p>💳 <strong>Método de Pago:</strong> ${pedido.pago}</p>
+                    </div>
 
-                let descripcion = productoOficial && productoOficial.descripcion ? productoOficial.descripcion : '';
+                    <h3>Productos solicitados:</h3>
+                    <div class="factura-items-list">
+                `;
 
-                let variacionesHtml = '';
-                if (item.talla && item.talla !== 'N/A') {
-                    variacionesHtml += `Talla: <strong>${item.talla}</strong> | `;
-                }
-                if (item.color && item.color !== 'N/A') {
-                    let colorLower = item.color.toLowerCase().trim();
-                    let mapaColores = {
-                        'blanco': '#ffffff', 'negro': '#000000', 'rojo': '#ff0000',
-                        'azul': '#0000ff', 'verde': '#008000', 'amarillo': '#ffff00',
-                        'gris': '#808080', 'morado': '#800080', 'naranja': '#ffa500',
-                        'rosado': '#ffc0cb', 'celeste': '#87ceeb'
-                    };
-                    let colorCss = mapaColores[colorLower] || item.color;
-                    let esBlanco = colorLower === 'blanco' || colorCss === '#ffffff' || colorCss === '#fff';
-                    let estiloBorde = esBlanco ? 'border: 1px solid #777;' : 'border: 1px solid transparent;';
+                let totalGeneral = 0;
 
-                    variacionesHtml += `Color: <span style="display:inline-block; width:12px; height:12px; background:${colorCss}; border-radius:50%; vertical-align:middle; ${estiloBorde} margin-right: 3px;"></span> ${item.color}`;
-                }
+                pedido.productos.forEach((item, index) => {
+                    let subtotal = item.precio * item.cantidad;
+                    totalGeneral += subtotal;
+
+                    // 1. Buscamos el producto en la lista maestra por ID o Nombre
+                    let productoOficial = listaProductos.find(p => p.id === item.id);
+                    
+                    if (!productoOficial && item.nombre) {
+                        productoOficial = listaProductos.find(p => p.nombre.trim().toLowerCase() === item.nombre.trim().toLowerCase());
+                    }
+                    
+                    // 2. Determinamos la imagen correcta
+                    let imagenRuta = 'images/default.jpg';
+                    if (item.imagen) {
+                        imagenRuta = item.imagen;
+                    } else if (productoOficial && productoOficial.imagen) {
+                        imagenRuta = productoOficial.imagen;
+                    }
+
+                    // 3. Blindaje total de la ruta para GitHub Pages
+                    let imagen = imagenRuta.trim().replace(/ /g, '%20');
+                    if (imagen.startsWith('./')) {
+                        imagen = imagen.substring(2);
+                    }
+                    
+                    if (!imagen.startsWith('http') && !imagen.startsWith('/')) {
+                        let pathArray = window.location.pathname.split('/');
+                        pathArray.pop(); 
+                        let basePath = pathArray.join('/');
+                        imagen = basePath + '/' + imagen;
+                    }
+
+                    let descripcion = productoOficial && productoOficial.descripcion ? productoOficial.descripcion : '';
+
+                    let variacionesHtml = '';
+                    if (item.talla && item.talla !== 'N/A') {
+                        variacionesHtml += `Talla: <strong>${item.talla}</strong> | `;
+                    }
+                    if (item.color && item.color !== 'N/A') {
+                        let colorLower = item.color.toLowerCase().trim();
+                        let mapaColores = {
+                            'blanco': '#ffffff', 'negro': '#000000', 'rojo': '#ff0000',
+                            'azul': '#0000ff', 'verde': '#008000', 'amarillo': '#ffff00',
+                            'gris': '#808080', 'morado': '#800080', 'naranja': '#ffa500',
+                            'rosado': '#ffc0cb', 'celeste': '#87ceeb'
+                        };
+                        let colorCss = mapaColores[colorLower] || item.color;
+                        let esBlanco = colorLower === 'blanco' || colorCss === '#ffffff' || colorCss === '#fff';
+                        let estiloBorde = esBlanco ? 'border: 1px solid #777;' : 'border: 1px solid transparent;';
+
+                        variacionesHtml += `Color: <span style="display:inline-block; width:12px; height:12px; background:${colorCss}; border-radius:50%; vertical-align:middle; ${estiloBorde} margin-right: 3px;"></span> ${item.color}`;
+                    }
+
+                    html += `
+                        <div class="factura-item-card">
+                            <img src="${imagen}" alt="${item.nombre}" onclick="ampliarImagen('${imagen}')" title="Haz clic para ver en grande">
+                            
+                            <div class="factura-item-info">
+                                <h4>${index + 1}. ${item.nombre}</h4>
+                                ${descripcion ? `<p>${descripcion}</p>` : ''}
+                                ${variacionesHtml ? `<p>${variacionesHtml}</p>` : ''}
+                                <p>Cantidad: <strong>x${item.cantidad}</strong> | Precio unitario: $${item.precio}</p>
+                            </div>
+
+                            <div class="factura-item-subtotal">
+                                <p>$${subtotal.toFixed(2)}</p>
+                            </div>
+                        </div>
+                    `;
+                });
 
                 html += `
-                    <div class="factura-item-card">
-                        <img src="${imagen}" alt="${item.nombre}" onclick="ampliarImagen('${imagen}')" title="Haz clic para ver en grande">
-                        
-                        <div class="factura-item-info">
-                            <h4>${index + 1}. ${item.nombre}</h4>
-                            ${descripcion ? `<p>${descripcion}</p>` : ''}
-                            ${variacionesHtml ? `<p>${variacionesHtml}</p>` : ''}
-                            <p>Cantidad: <strong>x${item.cantidad}</strong> | Precio unitario: $${item.precio}</p>
-                        </div>
-
-                        <div class="factura-item-subtotal">
-                            <p>$${subtotal.toFixed(2)}</p>
-                        </div>
+                    </div>
+                    <div class="factura-total">
+                        Total General: $${totalGeneral.toFixed(2)} USD
                     </div>
                 `;
-            });
 
-            html += `
-                </div>
-                <div class="factura-total">
-                    Total General: $${totalGeneral.toFixed(2)} USD
-                </div>
-            `;
+                contenedor.innerHTML = html;
 
-            contenedor.innerHTML = html;
+            } catch (error) {
+                console.error(error);
+                contenedor.innerHTML = `<div class="error-mensaje">⚠️ Hubo un error al leer los datos de la orden. El enlace podría estar dañado.</div>`;
+            }
         });
 
         // Funciones para abrir y cerrar el zoom de la imagen
