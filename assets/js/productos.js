@@ -70,10 +70,15 @@ const productosData = [
         ]
     },
 
+
+/* ========================================== */
+             /* CABALLERO   */
+/* ========================================== */
+
 {
     id: "camisa-urbana-01",
-    nombre: "Camisa ",
-    precio: 5.00,
+    nombre: "Camisa t ",
+    precio: 15.00,
     categoria: "caballero-camisas",
     marca: "zara", // <--- 1. Agrega la marca en minúsculas para que el filtro la detecte
     imagen: "images/ropa_uno.jpg",
@@ -104,7 +109,59 @@ const productosData = [
     ],
     descripcion: "Algodón de alta densidad, corte boxy fit.",
     detalles: ["Material: 100% Algodón", "Peso: 250gsm"]
+},
+
+{
+    id: "zapato-urbano-01",
+    nombre: "Zapatillas Urbanas Sport",
+    precio: 35.00,
+    categoria: "caballero-zapatos",
+    marca: "nike",
+    imagen: "images/ZAPATOS_UNO.jpg",
+    fotosExtras: ["images/ZAPATOSUNO_BLANCO.jpg", "images/ZAPATOS_UNO.jpg"],
+    tallas: ["40", "41", "42", "43"],
+    colores: [
+        { nombre: "negro", hex: "#000000", foto: "images/ZAPATOS_UNO.jpg" },
+        { nombre: "blanco", hex: "#FFFFFF", foto: "images/ZAPATOSUNO_BLANCO.jpg" }
+    ],
+    descripcion: "Diseño ergonómico para máximo confort diario.",
+    detalles: ["Suela de goma antideslizante", "Material sintético respirable"]
+},
+{
+    id: "sueter-hoodie-01",
+    nombre: "Suéter Hoodie Minimalista",
+    precio: 32.00,
+    categoria: "caballero-sueteres",
+    marca: "zara",
+    imagen: "images/SUETER_UNO_GRIS.jpg",
+    fotosExtras: ["images/SUETER_UNO_NEGRO.jpg", "images/SUETER_UNO_GRIS.jpg"],
+    tallas: ["M", "L", "XL"],
+    colores: [
+        { nombre: "gris", hex: "#808080", foto: "images/SUETER_UNO_GRIS.jpg" },
+        { nombre: "negro", hex: "#000000", foto: "images/SUETER_UNO_NEGRO.jpg" }
+    ],
+    descripcion: "Suéter con capucha y franela perchada por dentro.",
+    detalles: ["Algodón y poliéster", "Bolsillo tipo canguro"]
+},
+{
+    id: "accesorio-gorra-01",
+    nombre: "Gorra Trucker Casual",
+    precio: 15.00,
+    categoria: "caballero-accesorios",
+    marca: "nike",
+    imagen: "images/gorra_uno_negra.jpg",
+    fotosExtras: ["images/gorra_uno_azul.jpg"],
+    tallas: ["Única"],
+    colores: [
+        { nombre: "negro", hex: "#000000", foto:"images/gorra_uno_negra.jpg" },
+        { nombre: "azul", hex: "#132783", foto:"images/gorra_uno_azul.jpg" }
+    ],
+    descripcion: "Gorra ajustable con malla trasera para mayor frescura.",
+    detalles: ["Cierre ajustable de broche", "Panel frontal reforzado"]
 }
+
+
+
 
 
 ];
