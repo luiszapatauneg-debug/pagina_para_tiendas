@@ -145,13 +145,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // 2. Carrusel exclusivo para Caballero
         if (contCaballero) {
             let prodsCaballero = productosData.filter(p => p.categoria && p.categoria.toLowerCase().includes("caballero"));
-            window.renderizarProductosEnContenedor('contenedor-caballero-camisas', prodsCaballero);
+            window.renderizarProductosEnContenedor('contenedor-caballero-camisas', prodsCaballero.slice(0, 4));
         }
 
         // 3. Carrusel exclusivo para Dama
         if (contDama) {
             let prodsDama = productosData.filter(p => p.categoria && p.categoria.toLowerCase().includes("dama"));
-            window.renderizarProductosEnContenedor('contenedor-dama-camisas', prodsDama);
+            window.renderizarProductosEnContenedor('contenedor-dama-camisas', prodsDama.slice(0, 4));
         }
 
         if (btnVerMasOfertas) btnVerMasOfertas.style.display = 'block';

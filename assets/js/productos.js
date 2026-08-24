@@ -158,8 +158,80 @@ const productosData = [
     ],
     descripcion: "Gorra ajustable con malla trasera para mayor frescura.",
     detalles: ["Cierre ajustable de broche", "Panel frontal reforzado"]
-}
+},
 
+
+/* ========================================== */
+             /* DAMA   */
+/* ========================================== */
+
+{
+    id: "blusa-elegante-01",
+    nombre: "Blusa Casual Satinada",
+    precio: 22.00,
+    categoria: "dama-camisas",
+    marca: "zara",
+    imagen: "images/blusa_uno_blanca.jpg",
+    fotosExtras: ["images/blusa_uno_negra.jpg", "images/blusa_uno_blanca.jpg"],
+    tallas: ["S", "M", "L"],
+    colores: [
+        { nombre: "blanco", hex: "#FFFFFF", foto:"images/blusa_uno_blanca.jpg" },
+        { nombre: "negro", hex: "#000000", foto: "images/blusa_uno_negra.jpg" }
+    ],
+    descripcion: "Tela suave al tacto con caída elegante.",
+    detalles: ["100% Satén", "Corte clásico formal-casual"]
+},
+
+{
+    id: "zapato-tacon-01",
+    nombre: "Zapatos Casuales Bajos",
+    precio: 38.00,
+    categoria: "dama-zapatos",
+    marca: "nike",
+    imagen: "images/tacondama_uno_blanco.jpg",
+    fotosExtras: ["images/tacondama_uno_negro.jpg"],
+    tallas: ["36", "37", "38", "39"],
+    colores: [
+        { nombre: "beige", hex: "#F5F5DC", foto: "images/tacondama_uno_blanco.jpg" },
+        { nombre: "negro", hex: "#000000", foto: "images/tacondama_uno_negro.jpg" }
+    ],
+    descripcion: "Calzado cómodo y versátil para el día a día.",
+    detalles: ["Plantilla acolchada", "Suela flexible"]
+},
+
+{
+    id: "sueter-dama-01",
+    nombre: "Cardigan Tejido Ligero",
+    precio: 29.00,
+    categoria: "dama-sueteres",
+    marca: "zara",
+    imagen: "images/cardigan_uno_gris.jpg",
+    fotosExtras: ["images/cardigan_uno_negro.jpg"],
+    tallas: ["S", "M", "L", "XL"],
+    colores: [
+        { nombre: "gris", hex: "#808080", foto:"images/cardigan_uno_gris.jpg" },
+        { nombre: "negro", hex: "#080808", foto: "images/cardigan_uno_negro.jpg" }
+    ],
+    descripcion: "Suéter abierto tejido fino ideal para cualquier clima.",
+    detalles: ["Tejido acanalado", "Corte holgado"]
+},
+
+{
+    id: "accesorio-cartera-01",
+    nombre: "Bolso de Mano Minimalista",
+    precio: 30.00,
+    categoria: "dama-accesorios",
+    marca: "zara",
+    imagen: "images/cartera_uno_negra.jpg",
+    fotosExtras: ["images/cartera_uno_blanca.jpg"],
+    tallas: ["Única"],
+    colores: [
+        { nombre: "negro", hex: "#000000", foto: "images/cartera_uno_negra.jpg" },
+        { nombre: "beige", hex: "#F5F5DC", foto: "images/cartera_uno_blanca.jpg"}
+    ],
+    descripcion: "Cartera elegante con correa ajustable incluida.",
+    detalles: ["Cierre metálico seguro", "Compartimiento interno con cremallera"]
+}
 
 
 
