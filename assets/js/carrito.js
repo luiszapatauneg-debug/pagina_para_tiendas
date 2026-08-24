@@ -540,10 +540,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             mensaje += `💳 *Método de Pago:* ${pago}\n`;
 
-            if (tieneLicores) {
-                mensaje += `🔞 *Verificación de edad:* Confirmado (18+)\n`;
-            }
-
             mensaje += `\n*Detalle del pedido:*\n`;
 
             let totalGeneral = 0;
