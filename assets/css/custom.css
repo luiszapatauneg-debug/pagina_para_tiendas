@@ -37,7 +37,7 @@
     position: absolute !important;
     top: 12px !important;
     right: 12px !important;
-    background:   rgb(255, 255, 255) !important;
+    background:   rgb(238, 3, 3) !important;
     color: #000000 !important;
     border: 1px solid #444 !important;      /* Opcional: un borde sutil para que luzca como caja */
     border-radius: 6px !important;          /* <-- CAMBIADO: De 50% (círculo) a 6px (cuadrado con esquinas redondeadas) */
@@ -692,9 +692,9 @@ section {
     min-width: 100% !important;
     max-width: 100% !important;
     position: relative !important;
-    aspect-ratio: 19/15 !important; /* estaba en 16/7 Más largo y menos alto en móviles */
+    aspect-ratio: 17/10 !important; /* estaba en 16/7 Más largo y menos alto en móviles */
     height: auto !important;         
-    max-height: 350px !important; /*estaba a 200 para subirlo*/
+    max-height: 310px !important; /*estaba a 200 para subirlo*/
     scroll-snap-align: start !important;
 }
 
