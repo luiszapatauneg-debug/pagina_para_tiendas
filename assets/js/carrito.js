@@ -491,13 +491,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const entrega = document.getElementById('wsp-entrega').value;
             const zona = document.getElementById('wsp-zona').value;
             const pago = document.getElementById('wsp-pago').value;
-            const esMayor = document.getElementById('wsp-edad') ? document.getElementById('wsp-edad').checked : false;
-
+           
             // 📍 DICCIONARIO DE GERENTES: Reemplaza estos números con los reales de cada tienda (con código de país)
             const numerosGerentes = {
                 "Puerto Ordaz - villa colombia": "5804249081574",     // Cambia por el número real del gerente de Centro
-                "Puerto Ordaz - Alta Vista": "5804249273967",  // Cambia por el número real del gerente de Alta Vista
-                "Valencia - Carabobo": "584121111113"         // Cambia por el número real del gerente de Valencia
+                "Puerto Ordaz - Alta Vista": "5804249081574",  // Cambia por el número real del gerente de Alta Vista
+                "puerto ordaz- unare": "5804249081574"         // Cambia por el número real del gerente de Valencia
             };
 
             // Busca el número de la sucursal, si no encuentra usa el número global por defecto
@@ -508,11 +507,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return prodOriginal && (prodOriginal.categoria === "rones" || prodOriginal.categoria === "licores");
             });
 
-            if (tieneLicores && !esMayor) {
-                alert("Debes confirmar que eres mayor de edad para procesar el pedido de bebidas.");
-                return;
-            }
-
+          
             // 📍 EMPAQUETAR TODOS LOS DATOS PARA LA ORDEN DE PEDIDO VISUAL
             const datosPedidoFactura = {
                 fecha: new Date().toLocaleString(),
@@ -583,26 +578,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 }); 
 
-function verificarEdadOk() {
-    const modalEdad = document.getElementById('modal-edad-inicio');
-    if (modalEdad) {
-        // Usamos setProperty con !important para vencer al CSS
-        modalEdad.style.setProperty('display', 'none', 'important'); 
-      // Opcional: guardamos en la memoria del navegador para que no le vuelva a preguntar cada vez que cambia de página
-        localStorage.setItem('edadVerificada', 'true');
-    }
-}
 
-// Al cargar la página, verificamos si ya había confirmado antes
-document.addEventListener("DOMContentLoaded", () => {
-    const verificado = localStorage.getItem('edadVerificada');
-    const modalEdad = document.getElementById('modal-edad-inicio');
-    
-    if (verificado === 'true' && modalEdad) {
-        // Forzamos el ocultamiento con !important para vencer al CSS
-        modalEdad.style.setProperty('display', 'none', 'important');
-    }
-});
 
 // 10. Abrir el modal en modo edición desde el carrito
 function abrirModalEdicion(index) {
