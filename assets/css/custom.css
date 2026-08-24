@@ -692,9 +692,9 @@ section {
     min-width: 100% !important;
     max-width: 100% !important;
     position: relative !important;
-    aspect-ratio: 16 / 7 !important; /* estaba en 16/7 Más largo y menos alto en móviles */
+    aspect-ratio: 16 / 10 !important; /* estaba en 16/7 Más largo y menos alto en móviles */
     height: auto !important;         
-    max-height: 200px !important; /*estaba a 200/*   
+    max-height: 300px !important; /*estaba a 200 */
     scroll-snap-align: start !important;
 }
 
