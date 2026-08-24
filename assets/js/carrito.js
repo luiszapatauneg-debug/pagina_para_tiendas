@@ -375,29 +375,6 @@ function finalizarCompraWhatsApp(numeroWhatsApp) {
     });
 
 
-
-    const seccionEdad = document.getElementById('seccion-mayor-edad');
-
-    const checkEdad = document.getElementById('wsp-edad');
-
-
-
-    if (tieneLicores) {
-
-        if (seccionEdad) seccionEdad.style.setProperty('display', 'block', 'important');
-
-        if (checkEdad) checkEdad.required = true;
-
-    } else {
-
-        if (seccionEdad) seccionEdad.style.display = 'none';
-
-        if (checkEdad) checkEdad.required = false;
-
-    }
-
-
-
     // Mostrar modal de datos
 
     const modalWsp = document.getElementById('modal-whatsapp');
