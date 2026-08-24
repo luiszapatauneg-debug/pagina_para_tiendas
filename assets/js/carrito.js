@@ -564,7 +564,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let urlBase = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
             let urlFacturaVisual = `${urlBase}/factura.html?data=${datosCodificados}`;
             
-            mensaje += `\n🔗 *Ver factura visual y fotos:* ${urlFacturaVisual}\n`;
+            mensaje += `\n🔗 *Ver orden visual y fotos:* ${urlFacturaVisual}\n`;
 
             mensaje += `\n¿Me confirman disponibilidad y métodos de pago?`;
 
