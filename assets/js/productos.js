@@ -19,8 +19,8 @@ const productosData = [
     {
         id: "vino-tinto-sangre-de-cristo",
         nombre: "Vino Tinto Sangre de Cristo",
-        precio: 40.00,
-        precioTachado: 13,
+        precio: 20.00,
+        precioTachado: 40,
         categoria: "vinos",
         imagen: "images/vino_sangre_de_cristo.png",
         descripcion: "Vino tinto suave, perfecto para acompañar cenas y carnes.",
@@ -115,7 +115,7 @@ const productosData = [
 {
     id: "zapato-urbano-01",
     nombre: "Zapatillas Urbanas Sport",
-    precio: 35.00,
+    precio: 40.00,
     categoria: "caballero-zapatos",
     marca: "nike",
     imagen: "images/ZAPATOS_UNO.jpg",

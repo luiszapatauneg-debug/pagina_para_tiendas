@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 3. Función global para pintar productos en un contenedor específico
+   // 3. Función global para pintar productos en un contenedor específico
     window.renderizarProductosEnContenedor = function(idContenedor, lista) {
         const contenedor = document.getElementById(idContenedor);
         if (!contenedor) return;
@@ -83,13 +83,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         lista.forEach(prod => {
+            // 🏷️ NUEVO: Calculamos y creamos la etiqueta de descuento flotante
+            let etiquetaDescuento = "";
+            if (prod.precioTachado && prod.precioTachado > prod.precio) {
+                let descuento = Math.round(100 - (prod.precio * 100) / prod.precioTachado);
+                etiquetaDescuento = `<span class="badge-descuento">-${descuento}%</span>`;
+            }
+
             let htmlPrecio = prod.precioTachado
                 ? `Precio normal: <span class="precio-tachado">$${prod.precioTachado}</span> <span class="precio-oferta">¡Oferta: $${prod.precio}!</span>`
                 : `Precio: <span class="precio-normal">$${prod.precio}</span>`;
 
            let article = document.createElement('article');
             article.innerHTML = `
-                <a href="javascript:void(0)" class="image" onclick="abrirModal('${prod.id}')"><img src="${prod.imagen}" alt="${prod.nombre}" /></a>
+                <a href="javascript:void(0)" class="image" onclick="abrirModal('${prod.id}')">
+                    ${etiquetaDescuento} <!-- 👈 Aquí se pinta la etiqueta en la esquina -->
+                    <img src="${prod.imagen}" alt="${prod.nombre}" />
+                </a>
                 <h3><a href="javascript:void(0)" onclick="abrirModal('${prod.id}')" style="text-decoration:none; color:inherit;">${prod.nombre}</a></h3>
                 <p class="precio-producto">${htmlPrecio}</p>
             `;
@@ -163,31 +173,11 @@ if (catLimpia === "ofertas") {
             window.renderizarProductosEnContenedor('contenedor-caballero-camisas', prodsCaballero.slice(0, 4));
         }
 
- // 3. Carrusel exclusivo PARA LO MAS NUEVO PARA CABALLERO 
-
-const contNuevosCaballero = document.getElementById('contenedor-nuevos-caballero');
-if (contNuevosCaballero) {
-    let prodsNuevosCaballero = productosData.filter(p => 
-        p.nuevo === true && p.categoria && p.categoria.toLowerCase().includes("caballero")
-    );
-    window.renderizarProductosEnContenedor('contenedor-nuevos-caballero', prodsNuevosCaballero.slice(0, 4));
-}
-
         // 3. Carrusel exclusivo para Dama
         if (contDama) {
             let prodsDama = productosData.filter(p => p.categoria && p.categoria.toLowerCase().includes("dama"));
             window.renderizarProductosEnContenedor('contenedor-dama-camisas', prodsDama.slice(0, 4));
         }
-
-         // 3. Carrusel exclusivo PARA LO MAS NUEVO PARA DAMA 
-
-        const contNuevosDama = document.getElementById('contenedor-nuevos-dama');
-if (contNuevosDama) {
-    let prodsNuevosDama = productosData.filter(p => 
-        p.nuevo === true && p.categoria && p.categoria.toLowerCase().includes("dama")
-    );
-    window.renderizarProductosEnContenedor('contenedor-nuevos-dama', prodsNuevosDama.slice(0, 4));
-}
 
         if (btnVerMasOfertas) btnVerMasOfertas.style.display = 'block';
     }
