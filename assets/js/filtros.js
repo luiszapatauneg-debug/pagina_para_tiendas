@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Verificamos que exista la base de datos de productos global
             if (typeof productosData === "undefined") return;
 
-            // Partimos de la categoría actual de forma inteligente (compatible con subcategorías y filtros especiales)
+            // Partimos de la categoría actual de forma inteligente (compatible con ofertas por categoría)
             let lista = productosData;
             if (categoriaActiva && categoriaActiva !== "todo" && categoriaActiva !== "todos") {
                 const catLimpia = categoriaActiva.toLowerCase().trim();
@@ -39,6 +39,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     lista = productosData.filter(p => {
                         if (!p.categoria) return false;
                         const catProd = p.categoria.toLowerCase();
+
+                        if (catLimpia.endsWith("-ofertas")) {
+                            const categoriaBase = catLimpia.replace("-ofertas", "");
+                            return (catProd === categoriaBase || catProd.startsWith(categoriaBase + "-")) && (p.precioTachado || p.categoria === "ofertas");
+                        }
+
                         return catProd === catLimpia || catProd.startsWith(catLimpia + "-");
                     });
                 }
@@ -48,6 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const filtradosFinales = lista.filter(prod => {
                 // Filtro de Precio
                 let cumplePrecio = true;
+                if (precioVal === "ofertas") {
+    cumplePrecio = prod.precioTachado || prod.categoria === "ofertas";}
                 if (precioVal === "bajo") cumplePrecio = prod.precio < 20;
                 if (precioVal === "medio") cumplePrecio = prod.precio >= 20 && prod.precio <= 50;
                 if (precioVal === "alto") cumplePrecio = prod.precio > 50;

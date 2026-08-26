@@ -79,6 +79,7 @@ const productosData = [
     id: "camisa-urbana-01",
     nombre: "sueter china adidas ",
     precio: 15.00,
+    precioTachado: 25,
     categoria: "caballero-sueteres",
     marca: "adidas", // <--- 1. Agrega la marca en minúsculas para que el filtro la detecte
     imagen: "images/sueter_china_azul.jpg",
@@ -186,6 +187,7 @@ const productosData = [
     id: "zapato-tacon-01",
     nombre: "Zapatos Casuales Bajos",
     precio: 38.00,
+    precioTachado: 50,
     categoria: "dama-zapatos",
     marca: "nike",
     imagen: "images/tacondama_uno_blanco.jpg",
