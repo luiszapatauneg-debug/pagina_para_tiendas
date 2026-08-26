@@ -15,6 +15,51 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectMarca = document.getElementById("filtro-marca");
     const selectColor = document.getElementById("filtro-color");
 
+    // Función unificada y blindada para calcular productos según la categoría de la URL
+    const obtenerListaPorCategoria = () => {
+        if (typeof productosData === "undefined") return [];
+        let lista = productosData;
+
+        if (!categoriaActiva || categoriaActiva === "todo" || categoriaActiva === "todos") {
+            return lista;
+        }
+
+        const catLimpia = categoriaActiva.toLowerCase().trim();
+
+        if (catLimpia === "ofertas") {
+            return productosData.filter(p => p.precioTachado || p.categoria === "ofertas");
+        } 
+        
+        // 🍾 Licores Generales (Rones, Whiskeys, Cervezas, Vinos)
+        if (catLimpia === "licores") {
+            const licoresValidos = ["rones", "whiskeys", "cervezas", "vinos"];
+            return productosData.filter(p => p.categoria && licoresValidos.includes(p.categoria.toLowerCase()));
+        } 
+        
+        // 🔥 Licores en Oferta (Ej: licores-ofertas)
+        if (catLimpia === "licores-ofertas") {
+            const licoresValidos = ["rones", "whiskeys", "cervezas", "vinos"];
+            return productosData.filter(p => p.categoria && licoresValidos.includes(p.categoria.toLowerCase()) && (p.precioTachado || p.categoria === "ofertas"));
+        }
+
+        // Subcategorías de ofertas (Ej: caballero-ofertas, dama-ofertas, etc.)
+        if (catLimpia.endsWith("-ofertas")) {
+            const categoriaBase = catLimpia.replace("-ofertas", "");
+            return productosData.filter(p => {
+                if (!p.categoria) return false;
+                const catProd = p.categoria.toLowerCase();
+                return (catProd === categoriaBase || catProd.startsWith(categoriaBase + "-")) && (p.precioTachado || p.categoria === "ofertas");
+            });
+        }
+
+        // Categorías estándar generales
+        return productosData.filter(p => {
+            if (!p.categoria) return false;
+            const catProd = p.categoria.toLowerCase();
+            return catProd === catLimpia || catProd.startsWith(catLimpia + "-");
+        });
+    };
+
     if (selectPrecio && selectMarca && selectColor) {
         const ejecutarFiltros = () => {
             const precioVal = selectPrecio.value;
@@ -23,30 +68,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (typeof productosData === "undefined") return;
 
-            let lista = productosData;
-            if (categoriaActiva && categoriaActiva !== "todo" && categoriaActiva !== "todos") {
-                const catLimpia = categoriaActiva.toLowerCase().trim();
-                if (catLimpia === "ofertas") {
-                    lista = productosData.filter(p => p.precioTachado || p.categoria === "ofertas");
-                } else if (catLimpia === "licores") {
-                    const licoresValidos = ["rones", "whiskeys", "cervezas", "vinos"];
-                    lista = productosData.filter(p => p.categoria && licoresValidos.includes(p.categoria.toLowerCase()));
-                } else {
-                    lista = productosData.filter(p => {
-                        if (!p.categoria) return false;
-                        const catProd = p.categoria.toLowerCase();
+            let lista = obtenerListaPorCategoria();
 
-                        if (catLimpia.endsWith("-ofertas")) {
-                            const categoriaBase = catLimpia.replace("-ofertas", "");
-                            return (catProd === categoriaBase || catProd.startsWith(categoriaBase + "-")) && (p.precioTachado || p.categoria === "ofertas");
-                        }
-
-                        return catProd === catLimpia || catProd.startsWith(catLimpia + "-");
-                    });
-                }
-            }
-
-            // 🌟 1. Actualizamos los selectes basándonos en los productos de esta categoría
+            // Actualizamos los selects de marcas y colores dinámicamente
             actualizarOpcionesFiltros(lista);
 
             const filtradosFinales = lista.filter(prod => {
@@ -78,22 +102,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         };
 
-        // 🌟 2. Llamada inicial al cargar la página para poblar los selectes correspondientes
-        // Primero calculamos la lista inicial de la página:
-        let listaInicial = productosData;
-        if (categoriaActiva && categoriaActiva !== "todo" && categoriaActiva !== "todos") {
-            const catLimpia = categoriaActiva.toLowerCase().trim();
-            if (catLimpia === "ofertas") {
-                listaInicial = productosData.filter(p => p.precioTachado || p.categoria === "ofertas");
-            } else {
-                listaInicial = productosData.filter(p => {
-                    if (!p.categoria) return false;
-                    const catProd = p.categoria.toLowerCase();
-                    return catProd === catLimpia || catProd.startsWith(catLimpia + "-");
-                });
-            }
-        }
+        // Carga inicial al abrir la página de categoría
+        let listaInicial = obtenerListaPorCategoria();
         actualizarOpcionesFiltros(listaInicial);
+        
+        if (typeof mostrarProductos === 'function') {
+            mostrarProductos(listaInicial);
+        }
 
         selectPrecio.addEventListener("change", ejecutarFiltros);
         selectMarca.addEventListener("change", ejecutarFiltros);
@@ -101,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// --- FUNCIÓN DE ACTUALIZACIÓN DINÁMICA (Pégala aquí abajo) ---
+// --- FUNCIÓN DE ACTUALIZACIÓN DINÁMICA DE SELECTS ---
 function actualizarOpcionesFiltros(listaActual) {
     const selectMarca = document.getElementById("filtro-marca");
     const selectColor = document.getElementById("filtro-color");
