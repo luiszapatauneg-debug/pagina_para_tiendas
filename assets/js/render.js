@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.renderizarProductosEnContenedor('contenedor-ofertas', lista);
     };
 
-    if (categoriaFiltro) {
+   if (categoriaFiltro) {
         // --- VISTA DE CATEGORÍA ESPECÍFICA ---
         const catLimpia = categoriaFiltro.toLowerCase().trim();
         let productosAMostrar = productosData;
@@ -109,15 +109,16 @@ document.addEventListener('DOMContentLoaded', () => {
             productosAMostrar = productosData.filter(p => p.precioTachado || p.categoria === "ofertas");
         } else if (catLimpia === "todo" || catLimpia === "todos") {
             productosAMostrar = productosData;
-        } else if (catLimpia === "caballero") {
-            productosAMostrar = productosData.filter(p => p.categoria && p.categoria.toLowerCase().startsWith("caballero"));
-        } else if (catLimpia === "dama") {
-            productosAMostrar = productosData.filter(p => p.categoria && p.categoria.toLowerCase().startsWith("dama"));
         } else if (catLimpia === "licores") {
             const licoresValidos = ["rones", "whiskeys", "cervezas", "vinos"];
             productosAMostrar = productosData.filter(p => p.categoria && licoresValidos.includes(p.categoria.toLowerCase()));
         } else {
-            productosAMostrar = productosData.filter(p => p.categoria && p.categoria.toLowerCase() === catLimpia);
+            // Lógica inteligente para capturar categorías generales y sus subcategorías (ej: caballero -> caballero-camisas)
+            productosAMostrar = productosData.filter(p => {
+                if (!p.categoria) return false;
+                const catProd = p.categoria.toLowerCase();
+                return catProd === catLimpia || catProd.startsWith(catLimpia + "-");
+            });
         }
 
         // Forzamos que la sección de ofertas aparezca SOLO para mostrar los resultados de la categoría
@@ -129,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (contenedorOfertas) {
             window.renderizarProductosEnContenedor('contenedor-ofertas', productosAMostrar);
         }
-
     } else {
         // --- VISTA DE LA PÁGINA PRINCIPAL (HOME CON MÚLTIPLES CARRUSELES) ---
         

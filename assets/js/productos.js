@@ -19,7 +19,7 @@ const productosData = [
     {
         id: "vino-tinto-sangre-de-cristo",
         nombre: "Vino Tinto Sangre de Cristo",
-        precio: 10.00,
+        precio: 40.00,
         precioTachado: 13,
         categoria: "vinos",
         imagen: "images/vino_sangre_de_cristo.png",

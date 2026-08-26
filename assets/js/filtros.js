@@ -26,10 +26,23 @@ document.addEventListener("DOMContentLoaded", () => {
             // Verificamos que exista la base de datos de productos global
             if (typeof productosData === "undefined") return;
 
-            // Partimos de la categoría actual
-            let lista = categoriaActiva && categoriaActiva !== "todo" 
-                ? productosData.filter(p => p.categoria === categoriaActiva) 
-                : productosData;
+            // Partimos de la categoría actual de forma inteligente (compatible con subcategorías y filtros especiales)
+            let lista = productosData;
+            if (categoriaActiva && categoriaActiva !== "todo" && categoriaActiva !== "todos") {
+                const catLimpia = categoriaActiva.toLowerCase().trim();
+                if (catLimpia === "ofertas") {
+                    lista = productosData.filter(p => p.precioTachado || p.categoria === "ofertas");
+                } else if (catLimpia === "licores") {
+                    const licoresValidos = ["rones", "whiskeys", "cervezas", "vinos"];
+                    lista = productosData.filter(p => p.categoria && licoresValidos.includes(p.categoria.toLowerCase()));
+                } else {
+                    lista = productosData.filter(p => {
+                        if (!p.categoria) return false;
+                        const catProd = p.categoria.toLowerCase();
+                        return catProd === catLimpia || catProd.startsWith(catLimpia + "-");
+                    });
+                }
+            }
 
             // Aplicamos los filtros seleccionados de manera segura
             const filtradosFinales = lista.filter(prod => {
