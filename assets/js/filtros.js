@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const categoriaActiva = urlParams.get("cat");
     const panelFiltros = document.getElementById("panel-filtros-categoria");
 
-    // 1. Mostrar u ocultar el panel según la categoría de la URL
     if (panelFiltros) {
         if (categoriaActiva && categoriaActiva !== "ofertas") {
             panelFiltros.style.display = "block";
@@ -12,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // 2. Lógica de filtrado avanzado (Precio, Marca, Color)
     const selectPrecio = document.getElementById("filtro-precio");
     const selectMarca = document.getElementById("filtro-marca");
     const selectColor = document.getElementById("filtro-color");
@@ -23,10 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const marcaVal = selectMarca.value.toLowerCase();
             const colorVal = selectColor.value.toLowerCase();
 
-            // Verificamos que exista la base de datos de productos global
             if (typeof productosData === "undefined") return;
 
-            // Partimos de la categoría actual de forma inteligente (compatible con ofertas por categoría)
             let lista = productosData;
             if (categoriaActiva && categoriaActiva !== "todo" && categoriaActiva !== "todos") {
                 const catLimpia = categoriaActiva.toLowerCase().trim();
@@ -50,23 +46,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
-            // Aplicamos los filtros seleccionados de manera segura
+            // 🌟 1. Actualizamos los selectes basándonos en los productos de esta categoría
+            actualizarOpcionesFiltros(lista);
+
             const filtradosFinales = lista.filter(prod => {
-                // Filtro de Precio
                 let cumplePrecio = true;
                 if (precioVal === "ofertas") {
-    cumplePrecio = prod.precioTachado || prod.categoria === "ofertas";}
+                    cumplePrecio = prod.precioTachado || prod.categoria === "ofertas";
+                }
                 if (precioVal === "bajo") cumplePrecio = prod.precio < 20;
                 if (precioVal === "medio") cumplePrecio = prod.precio >= 20 && prod.precio <= 50;
                 if (precioVal === "alto") cumplePrecio = prod.precio > 50;
 
-                // Filtro de Marca (Valida que el producto tenga marca y coincida)
                 let cumpleMarca = true;
                 if (marcaVal !== "todas") {
                     cumpleMarca = prod.marca && prod.marca.toLowerCase() === marcaVal;
                 }
 
-                // Filtro de Color (Revisa tanto la propiedad color o el arreglo de colores)
                 let cumpleColor = true;
                 if (colorVal !== "todos") {
                     let coincideColorSimple = prod.color && prod.color.toLowerCase() === colorVal;
@@ -77,17 +73,80 @@ document.addEventListener("DOMContentLoaded", () => {
                 return cumplePrecio && cumpleMarca && cumpleColor;
             });
 
-            // Llamamos a la función de renderizado que ya usa tu página
             if (typeof mostrarProductos === 'function') {
                 mostrarProductos(filtradosFinales);
             }
         };
+
+        // 🌟 2. Llamada inicial al cargar la página para poblar los selectes correspondientes
+        // Primero calculamos la lista inicial de la página:
+        let listaInicial = productosData;
+        if (categoriaActiva && categoriaActiva !== "todo" && categoriaActiva !== "todos") {
+            const catLimpia = categoriaActiva.toLowerCase().trim();
+            if (catLimpia === "ofertas") {
+                listaInicial = productosData.filter(p => p.precioTachado || p.categoria === "ofertas");
+            } else {
+                listaInicial = productosData.filter(p => {
+                    if (!p.categoria) return false;
+                    const catProd = p.categoria.toLowerCase();
+                    return catProd === catLimpia || catProd.startsWith(catLimpia + "-");
+                });
+            }
+        }
+        actualizarOpcionesFiltros(listaInicial);
 
         selectPrecio.addEventListener("change", ejecutarFiltros);
         selectMarca.addEventListener("change", ejecutarFiltros);
         selectColor.addEventListener("change", ejecutarFiltros);
     }
 });
+
+// --- FUNCIÓN DE ACTUALIZACIÓN DINÁMICA (Pégala aquí abajo) ---
+function actualizarOpcionesFiltros(listaActual) {
+    const selectMarca = document.getElementById("filtro-marca");
+    const selectColor = document.getElementById("filtro-color");
+
+    if (!selectMarca || !selectColor) return;
+
+    const marcaActualSeleccionada = selectMarca.value;
+    const colorActualSeleccionado = selectColor.value;
+
+    const marcasUnicas = [...new Set(
+        listaActual
+            .filter(p => p.marca)
+            .map(p => p.marca.trim())
+    )].sort();
+
+    const coloresSet = new Set();
+    listaActual.forEach(p => {
+        if (p.color) coloresSet.add(p.color.trim().toLowerCase());
+        if (p.colores && Array.isArray(p.colores)) {
+            p.colores.forEach(c => {
+                if (c.nombre) coloresSet.add(c.nombre.trim().toLowerCase());
+            });
+        }
+    });
+    const coloresUnicos = [...coloresSet].sort();
+
+    selectMarca.innerHTML = `<option value="todas">Todas las marcas</option>`;
+    marcasUnicas.forEach(marca => {
+        const marcaFormateada = marca.charAt(0).toUpperCase() + marca.slice(1);
+        selectMarca.innerHTML += `<option value="${marca}">${marcaFormateada}</option>`;
+    });
+
+    selectColor.innerHTML = `<option value="todos">Todos los colores</option>`;
+    coloresUnicos.forEach(color => {
+        const colorFormateado = color.charAt(0).toUpperCase() + color.slice(1);
+        selectColor.innerHTML += `<option value="${color}">${colorFormateado}</option>`;
+    });
+
+    if ([...selectMarca.options].some(opt => opt.value === marcaActualSeleccionada)) {
+        selectMarca.value = marcaActualSeleccionada;
+    }
+    if ([...selectColor.options].some(opt => opt.value === colorActualSeleccionado)) {
+        selectColor.value = colorActualSeleccionado;
+    }
+}
 
 // --- LÓGICA DEL PANEL DESPLEGABLE DE FILTROS ---
 document.addEventListener("DOMContentLoaded", function() {
