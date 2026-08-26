@@ -77,17 +77,17 @@ const productosData = [
 
 {
     id: "camisa-urbana-01",
-    nombre: "Camisa t ",
+    nombre: "sueter china adidas ",
     precio: 15.00,
-    categoria: "caballero-camisas",
-    marca: "zara", // <--- 1. Agrega la marca en minúsculas para que el filtro la detecte
-    imagen: "images/ropa_uno.jpg",
-    fotosExtras: ["images/ropa_dos.jpg", "images/ropa_tres.jpg", "images/ropa_uno.jpg"],
+    categoria: "caballero-sueteres",
+    marca: "adidas", // <--- 1. Agrega la marca en minúsculas para que el filtro la detecte
+    imagen: "images/sueter_china_azul.jpg",
+    fotosExtras: ["images/sueter_china_blanco.jpg", "images/sueter_china_negro.jpg", "images/sueter_china_azul.jpg"],
     tallas: ["S", "M", "L", "XL"],
     colores: [
-        { nombre: "negro", hex: "#000000", foto: "images/ropa_uno.jpg" },  // <--- 2. Pon los nombres de los colores en minúsculas (ej: "negro", "blanco")
-        { nombre: "blanco", hex: "#FFFFFF", foto: "images/ropa_dos.jpg" },
-        { nombre: "azul", hex: "#132783", foto: "images/ropa_tres.jpg" }
+        { nombre: "negro", hex: "#000000", foto: "images/sueter_china_negro.jpg" },  // <--- 2. Pon los nombres de los colores en minúsculas (ej: "negro", "blanco")
+        { nombre: "blanco", hex: "#FFFFFF", foto: "images/sueter_china_blanco.jpg" },
+        { nombre: "azul", hex: "#132783", foto: "images/sueter_china_azul.jpg" }
     ],
     descripcion: "Algodón de alta densidad, corte boxy fit.",
     detalles: ["Material: 100% Algodón", "Peso: 250gsm"]
@@ -95,20 +95,20 @@ const productosData = [
 
  {
     id: "camisa-prada-01",
-    nombre: "camisa Oversize prada",
+    nombre: "camisa nike",
     precio: 28.00,
     categoria: "caballero-camisas",
     marca: "nike", // <--- 1. Agrega la marca en minúsculas para que el filtro la detecte
-    imagen: "images/ropa_uno.jpg",
-    fotosExtras: ["images/ropa_dos.jpg", "images/ropa_tres.jpg", "images/ropa_uno.jpg"],
+    imagen: "images/camisa_nike_blanca.jpg",
+    fotosExtras: ["images/camisa_nike_negra.jpg", "images/camisa_nike_gris.jpg", "images/camisa_nike_blanca.jpg"],
     tallas: ["S", "M", "L", "XL"],
     colores: [
-        { nombre: "negro", hex: "#000000", foto: "images/ropa_uno.jpg" },  // <--- 2. Pon los nombres de los colores en minúsculas (ej: "negro", "blanco")
-        { nombre: "blanco", hex: "#FFFFFF", foto: "images/ropa_dos.jpg" },
-        { nombre: "gris", hex: "#808080", foto: "images/ropa_tres.jpg" }
+        { nombre: "negro", hex: "#000000", foto: "images/camisa_nike_negra.jpg" },  // <--- 2. Pon los nombres de los colores en minúsculas (ej: "negro", "blanco")
+        { nombre: "blanco", hex: "#FFFFFF", foto: "images/camisa_nike_blanca.jpg" },
+        { nombre: "gris", hex: "#808080", foto: "images/camisa_nike_gris.jpg" }
     ],
     descripcion: "Algodón de alta densidad, corte boxy fit.",
-    detalles: ["Material: 100% Algodón", "Peso: 250gsm"]
+    detalles: ["Material: 100% Algodón", "Peso: 250gsm", "marca: nike "]
 },
 
 {
@@ -150,7 +150,7 @@ const productosData = [
     categoria: "caballero-accesorios",
     marca: "nike",
     imagen: "images/gorra_uno_negra.jpg",
-    fotosExtras: ["images/gorra_uno_azul.jpg"],
+    fotosExtras: ["images/gorra_uno_azul.jpg","images/gorra_uno_negra.jpg"],
     tallas: ["Única"],
     colores: [
         { nombre: "negro", hex: "#000000", foto:"images/gorra_uno_negra.jpg" },
@@ -189,7 +189,7 @@ const productosData = [
     categoria: "dama-zapatos",
     marca: "nike",
     imagen: "images/tacondama_uno_blanco.jpg",
-    fotosExtras: ["images/tacondama_uno_negro.jpg"],
+    fotosExtras: ["images/tacondama_uno_negro.jpg","images/tacondama_uno_negro.jpg"],
     tallas: ["36", "37", "38", "39"],
     colores: [
         { nombre: "beige", hex: "#F5F5DC", foto: "images/tacondama_uno_blanco.jpg" },
@@ -206,7 +206,7 @@ const productosData = [
     categoria: "dama-sueteres",
     marca: "zara",
     imagen: "images/cardigan_uno_gris.jpg",
-    fotosExtras: ["images/cardigan_uno_negro.jpg"],
+    fotosExtras: ["images/cardigan_uno_negro.jpg","images/cardigan_uno_blanco.jpg"],
     tallas: ["S", "M", "L", "XL"],
     colores: [
         { nombre: "gris", hex: "#808080", foto:"images/cardigan_uno_gris.jpg" },
@@ -223,7 +223,7 @@ const productosData = [
     categoria: "dama-accesorios",
     marca: "zara",
     imagen: "images/cartera_uno_negra.jpg",
-    fotosExtras: ["images/cartera_uno_blanca.jpg"],
+    fotosExtras: ["images/cartera_uno_blanca.jpg","images/cartera_uno_negro.jpg"],
     tallas: ["Única"],
     colores: [
         { nombre: "negro", hex: "#000000", foto: "images/cartera_uno_negra.jpg" },
