@@ -122,7 +122,7 @@ function agregarAlCarrito(nombre, precio) {
    
 
     localStorage.setItem('carrito', JSON.stringify(carrito));
-
+    actualizarContadorCarrito();
     alert(`¡"${nombreOficial}" fue agregado al carrito! 🛒`);
 
 }
@@ -173,6 +173,7 @@ window.agregarAlCarritoPorId = function(idProducto, talla = null, color = null) 
         }
         
         localStorage.setItem('carrito', JSON.stringify(carrito));
+        actualizarContadorCarrito();
         alert(`¡"${nombre}" fue agregado al carrito! 🛒`);
     } else {
         alert("Producto no encontrado en la base de datos.");
@@ -197,7 +198,7 @@ function disminuirCantidad(index) {
     }
 
     localStorage.setItem('carrito', JSON.stringify(carrito));
-
+    actualizarContadorCarrito();
     renderizarCarritoVisual();
 
 }
@@ -213,7 +214,7 @@ function aumentarCantidad(index) {
     carrito[index].cantidad += 1;
 
     localStorage.setItem('carrito', JSON.stringify(carrito));
-
+    actualizarContadorCarrito();
     renderizarCarritoVisual();
 
 }
@@ -229,7 +230,7 @@ function eliminarDelCarrito(index) {
     carrito.splice(index, 1);
 
     localStorage.setItem('carrito', JSON.stringify(carrito));
-
+   actualizarContadorCarrito();
     renderizarCarritoVisual();
 
 }
