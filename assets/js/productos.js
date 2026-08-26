@@ -191,7 +191,7 @@ const productosData = [
     categoria: "dama-zapatos",
     marca: "nike",
     imagen: "images/tacondama_uno_blanco.jpg",
-    fotosExtras: ["images/tacondama_uno_negro.jpg","images/tacondama_uno_negro.jpg"],
+    fotosExtras: ["images/tacondama_uno_negro.jpg","images/tacondama_uno_blanco.jpg"],
     tallas: ["36", "37", "38", "39"],
     colores: [
         { nombre: "beige", hex: "#F5F5DC", foto: "images/tacondama_uno_blanco.jpg" },
@@ -208,7 +208,7 @@ const productosData = [
     categoria: "dama-sueteres",
     marca: "zara",
     imagen: "images/cardigan_uno_gris.jpg",
-    fotosExtras: ["images/cardigan_uno_negro.jpg","images/cardigan_uno_blanco.jpg"],
+    fotosExtras: ["images/cardigan_uno_negro.jpg","images/cardigan_uno_gris.jpg"],
     tallas: ["S", "M", "L", "XL"],
     colores: [
         { nombre: "gris", hex: "#808080", foto:"images/cardigan_uno_gris.jpg" },
@@ -225,7 +225,7 @@ const productosData = [
     categoria: "dama-accesorios",
     marca: "zara",
     imagen: "images/cartera_uno_negra.jpg",
-    fotosExtras: ["images/cartera_uno_blanca.jpg","images/cartera_uno_negro.jpg"],
+    fotosExtras: ["images/cartera_uno_blanca.jpg","images/cartera_uno_negra.jpg"],
     tallas: ["Única"],
     colores: [
         { nombre: "negro", hex: "#000000", foto: "images/cartera_uno_negra.jpg" },
